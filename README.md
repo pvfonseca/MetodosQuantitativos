@@ -65,7 +65,6 @@ SYDSÆTER, K.; HAMMOND, P.J.; STRØM, A.; CARVAJAL, A. Essential mathematics for
 
 :warning: Bibliografias adicionais poderão ser indicadas durante o semestre.
 
-md"""
+
 ! warning
     Teste
-"""
