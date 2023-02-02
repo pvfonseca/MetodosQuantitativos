@@ -64,7 +64,3 @@ STEWART, J. Cálculo – Volume 2. 8.ed. Cengage Learning Brasil, 2017. Disponí
 SYDSÆTER, K.; HAMMOND, P.J.; STRØM, A.; CARVAJAL, A. Essential mathematics for economic analysis. 5th.ed. Harlow, UK: Pearson Education Limited, 2016.
 
 :warning: Bibliografias adicionais poderão ser indicadas durante o semestre.
-
-
-! warning
-    Teste
