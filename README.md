@@ -1,6 +1,7 @@
 # Métodos Quantitativos em Economia I
 
-* Disciplina: 33MQEI
+* Disciplina: 33MQEI - Métodos Quantitativos em Economia I
+* Semestre: 2023.1
 * Horários:
   * Quartas-feiras das 10h15 às 11h55
   * Sextas-feiras das 10h15 às 11h55
@@ -49,6 +50,7 @@ DIXIT, A. Optimization in Economic Theory. 2.ed., Oxford University Press, 1990.
 HOY, M.; LIVERNOIS, J.; McKENNA, C.; REES, R.; STENGOS, T. Mathematics for Economics. 2.ed., Massachussetts: MIT Press, 2001.
 
 FUENTE, A. Mathematical methods and models for economists. Cambridge, UK. New York, NY: Cambridge University Press, 2000.
+
 NICHOLSON, W.; SNYDER C. Teoria microeconômica: Princípios básicos e aplicações. Cengage Learning Brasil, 2019. Disponível em: [app.minhabiblioteca.com.br/#/books/9788522127030](https://app.minhabiblioteca.com.br/#/books/9788522127030/)
 
 SILBERBERG, E.; SUEN, W. The structure of economics: a mathematical analysis. 3rd.ed. Singapore: McGraw-Hill Higher Education, 2001.
