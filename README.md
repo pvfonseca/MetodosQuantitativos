@@ -10,13 +10,13 @@
 * Website: [sites.google.com/view/paulovfonseca](https://sites.google.com/view/paulovfonseca)
 
 ## Ementa
----
+
 <p align="justify">
 Condições de 1ª e 2ª ordens para máximos e mínimos irrestritos. Aplicações econômicas de otimização irrestrita. Condições de 1ª ordem para otimização condicionada com restrições de igualdade e desigualdade. Método dos multiplicadores de Lagrange e de Kuhn Tucker. Condições de 2ª ordem para otimização condicionada com restrições de igualdade e desigualdade. Interpretação dos multiplicadores em problemas de otimização. Teorema do envelope. Funções homogêneas, homotéticas, côncavas e quase côncavas. Aplicações econômicas dos problemas de otimização relacionados à maximização de utilidade e demanda maximização de lucros, custos, ótimo de Pareto e teoremas fundamentais de bem-estar. Programação linear.
 </p>
 
 ## Objetivo
----
+
 <p align="justify">
 O objetivo da disciplina é apresentar aos alunos as principais técnicas de otimização estática, bem como suas principais aplicações em Economia. 
 
@@ -24,7 +24,7 @@ Ao final do curso espera-se que o aluno seja capaz de utilizar o ferramental des
 </p>
 
 ## Programa
----
+
 * Introdução e revisão de conceitos básicos
 * Otimização estática irrestrita
 * Otimização estática com restrições de igualdade e desigualdade
@@ -33,7 +33,7 @@ Ao final do curso espera-se que o aluno seja capaz de utilizar o ferramental des
 * Programação linear
 
 ## Avaliação
----
+
 
 > * Atividade Avaliativa I (PI): 30%
 > * Atividade Avaliativa II (PII): 30%
@@ -41,7 +41,7 @@ Ao final do curso espera-se que o aluno seja capaz de utilizar o ferramental des
 > * Trabalhos Adicionais: 20%
 
 ## Bibliografia
----
+
 CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas. Rio de Janeiro: Elsevier, 2006.
 
 DIXIT, A. Optimization in Economic Theory. 2.ed., Oxford University Press, 1990.
@@ -65,7 +65,7 @@ SYDSÆTER, K.; HAMMOND, P.J.; STRØM, A.; CARVAJAL, A. Essential mathematics for
 
 :warning: Bibliografias adicionais poderão ser indicadas durante o semestre.
 
-"""
+md"""
 ! warning
     Teste
 """
