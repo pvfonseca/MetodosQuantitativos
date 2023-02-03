@@ -24,6 +24,10 @@ O objetivo da disciplina é apresentar aos alunos as principais técnicas de oti
 Ao final do curso espera-se que o aluno seja capaz de utilizar o ferramental desenvolvido na disciplina em aplicações à Teoria Econômica (microeconomia, macroeconomia e disciplinas correlatas).
 </p>
 
+## Pré-Requisitos
+* 11MTM1 - Matemática I
+* 23MTM2 - Matemática II
+
 ## Programa
 
 * Introdução e revisão de conceitos básicos
