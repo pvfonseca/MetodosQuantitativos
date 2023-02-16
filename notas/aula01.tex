@@ -12,6 +12,7 @@
 }
 \usepackage[portuguese]{babel}
 \usepackage{subfig}
+\usepackage{emoji}
 
 \newtheorem{obj}{Objetivo}
 \newtheorem{ementa}{Ementa}
@@ -36,11 +37,10 @@
          & \begin{tabular}{l}
                \parbox{0.6\linewidth}{%  change the parbox width as appropiate
                    \begin{itemize}
-                    \item \textbf{Nome:} Paulo Victor da Fonseca
-                    \item \textbf{Formação:} Doutorado em Economia - UFSC
-                    \item \textbf{Áreas de pesquisa:} Macroeconomia. Políticas monetária e fiscal. Modelos DSGE. Modelos novo-Keynesianos com agentes heterogêneos. Modelos baseados em agentes.
-                    \item \textbf{Website:} \href{https://sites.google.com/view/paulovfonseca}{sites.google.com/view/paulovfonseca}
-
+                    \item \textbf{Nome:} Paulo Victor da Fonseca\medskip
+                    \item \textbf{Formação:} Doutorado em Economia - UFSC\medskip
+                    \item \textbf{Áreas de pesquisa:} Macroeconomia. Políticas monetária e fiscal. Modelos DSGE. Modelos novo-Keynesianos com agentes heterogêneos. Modelos baseados em agentes.\medskip
+                    \item \textbf{Website:} \href{https://pvfonseca.github.io}{pvfonseca.github.io}\medskip
                     \item \textbf{Contato:} \href{mailto:paulo.fonseca@udesc.br}{paulo.fonseca@udesc.br}
                 \end{itemize}
                }
@@ -50,78 +50,13 @@
 
 \section{Motivação}
 \begin{frame}{Métodos Quantitativos em Economia I}
-    \begin{itemize}
-        \item A ciência econômica tem sido definida como o ``estudo da alocação de recursos escassos''.\bigskip
-
-        \item Em um mundo com recursos escassos e demandas quase ilimitadas, é necessário estabelecer critérios para decidir quais e quantos bens e serviços serão produzidos, e como serão alocados entre os agentes econômicos.\bigskip
-
-        \item É esse mecanismo de \hlight{alocar os recursos escassos aos agentes econ\^{o}micos} que compõe o cerne da ciência econômica.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Métodos Quantitativos em Economia I}
-    \begin{itemize}
-        \item Sistema econômico: ambiente extremamente complexo -> impossível descrever todas as características que o compõem.\bigskip
-
-        \item Economistas utilizam \tikz[tstyle]{\node[nstyle](node0){modelos econômicos}} para descrever as atividades econômicas.\bigskip
-        \begin{tikzpicture}[tpstyle]
-            \node[pencil, draw, minimum height=0.7cm, minimum width = 3.5cm] (box0) at (node0) {};
-        \end{tikzpicture}
-
-        \item Estes modelos devem abstrair grande parte das complexidades do ``mundo real'' e focar nos elementos \hlight{essenciais} para o objeto de estudo em questão.\bigskip
-
-        \item Apesar de serem abstrações da realidade, modelos fornecem um auxílio fundamental para o entendimento do comportamento econômico.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Métodos Quantitativos em Economia I}
-    \begin{itemize}
-        \item Modelos econômicos tem por objetivo explicar relações simples e, em sua grande maioria, possuem uma estrutura matemática, evidenciando as relações entre fatores (variáveis) que afetam as decisões dos agentes econômicos e os resultados destas escolhas.\bigskip
-
-        \item O \tikz[tstyle]{\node[nstyle](node0){formalismo}} - uso extensivo da matemática no desenvolvimento de teorias econômicas - tem sido uma característica constante da ciência econômica desde a Revolução Marginalista dos anos 1870s, um processo que tem se intensificado ao longo dos últimos anos.\bigskip
-        \begin{tikzpicture}[tpstyle]
-            \draw[pencil, very thick] ([yshift=-1pt]node0.south west) to ([yshift=-1pt]node0.south east);
-        \end{tikzpicture}
-
-        \item Atualmente, os economistas veem a matemática como uma ferramenta indispensável para qualquer área de estudo, desde as expressões estatísticas de tendências das séries econômicas observáveis ao desenvolvimento de sistemas (modelos) econômicos inteiramente abstratos.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Métodos Quantitativos em Economia I}
-    \begin{itemize}
-        \item A maioria dos modelos econômicos começa sua estruturação com a hipótese de que agentes econômicos buscam seus objetivos de maneira \hlight{racional}.\medskip
-
-              \begin{itemize}
-                  \item Consumidores: \tikz[tstyle]{\node[nstyle](node0){maximizar}} suas utilidades.
-
-                  \item Firmas: \tikz[tstyle]{\node[nstyle](node1){maximizar}} seus lucros (ou \tikz[tstyle]{\node[nstyle](node2){minimizar}} custos).
-
-                  \item Regulamentadores governamentais: \tikz[tstyle]{\node[nstyle](node3){maximizar}} o bem-estar da sociedade.\bigskip
-              \end{itemize}
-
-        \begin{tikzpicture}[tpstyle]
-            \draw[pencil, very thick, brick] ([yshift=-1pt]node0.south west) to ([yshift=-1pt]node0.south east);
-            \draw[pencil, very thick, brick] ([yshift=-1pt]node1.south west) to ([yshift=-1pt]node1.south east);
-            \draw[pencil, very thick] ([yshift=-1pt]node2.south west) to ([yshift=-1pt]node2.south east);
-            \draw[pencil, very thick, brick] ([yshift=-1pt]node3.south west) to ([yshift=-1pt]node3.south east);
-        \end{tikzpicture}
-
-        \item Racionalidade não significa a exclusão de comportamentos prejudiciais ao próprio indivíduo (e.g., fumar ou usar drogas).\bigskip
-
-        \item Os agentes econômicos são racionais no sentido de que suas ações são coerentes com a busca de sua felicidade ou de seus objetivos, mesmo que isso resulte em um comportamento prejudicial à pessoa ou à sociedade.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Métodos Quantitativos em Economia I}
-    \begin{itemize}
-        \item De outra forma, em economia adotamos a hipótese unificadora de que os agentes econômicos fazem o melhor uso possível dos recursos escassos disponíveis, i.e., \textbf{maximizam} suas funções objetivo sujeito às restrições impostas a eles.\medskip
-
-        \item O critério a ser maximizado e as restrições impostas aos agentes econômicos variam de acordo com os contextos: consumidores - decisões de consumo e oferta de trabalho, firmas - decisões acerca do quanto produzir, governo - políticas econômicas.\medskip
-
-        \item No entanto, todos estes problemas de \hlight{otimiza\c{c}\~{a}o com restri\c{c}\~{a}o} aos quais os agentes econômicos estão condicionados possuem uma estrutura matemática comum o que, por sua vez, resulta em uma intuição econômica comum a todos eles.\medskip
-
-        \item O desenvolvimento e análise desta estrutura formal comum e suas intuições econômicas compõem o escopo do curso de Métodos Quantitativos em Economia I.
-    \end{itemize}
+    \begin{center}
+        \begin{minipage}{0.8\textwidth}
+            \begin{figure}
+                \href{https://pvfonseca.github.io/html/mqe_aula01.html}{\includegraphics[width=\textwidth]{./figures/apresentacao.png}}
+            \end{figure}
+        \end{minipage}
+    \end{center}
 \end{frame}
 
 \section{Ementa}
@@ -148,17 +83,17 @@
         \end{minipage}
     \end{center}
 
-    O curso será dividido em seis blocos:
+    O curso será dividido em seis blocos:\medskip
     \begin{enumerate}
-        \item Introdução e revisão de conceitos básicos
+        \item Introdução e revisão de conceitos básicos\medskip
 
-        \item Otimização estática sem restrições
+        \item Otimização estática sem restrições\medskip
 
-        \item Otimização estática com restrições
+        \item Otimização estática com restrições\medskip
 
-        \item Funções homogêneas e funções homotéticas
+        \item Funções homogêneas e funções homotéticas\medskip
 
-        \item Concavidade e quase-concavidade
+        \item Concavidade e quase-concavidade\medskip
 
         \item Programação linear
     \end{enumerate}
@@ -193,7 +128,7 @@
 
         \item Os tópicos do programa serão apresentados em aulas expositivas, destinadas à apresentação de conceitos, modelos e suas aplicações.\bigskip
 
-        \item \hlight{Embora importantes, as aulas n\~{a}o podem jamais ser vistas como substitutas da leitura regular e cuidadosa dos textos indicados e da resolu\c{c}\~{a}o dos exerc\'{i}cios propostos.}
+        \item[\emoji{warning}] \hlight{Embora importantes, as aulas n\~{a}o podem jamais ser vistas como substitutas da leitura regular e cuidadosa dos textos indicados e da resolu\c{c}\~{a}o dos exerc\'{i}cios propostos.}
     \end{itemize}
 
 \end{frame}
