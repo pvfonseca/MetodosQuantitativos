@@ -1,20 +1,32 @@
 # Métodos Quantitativos em Economia I
 
-* Disciplina: 33MQEI - Métodos Quantitativos em Economia I
-* Semestre: 2023.1
-* Horários:
-  * Quartas-feiras das 10h15 às 11h55
-  * Sextas-feiras das 10h15 às 11h55
-* Local: Sala 147 - UDESC/ESAG
-* Docente: Paulo Victor da Fonseca
-* E-mail: [paulo.fonseca@udesc.br](mailto:paulo.fonseca@udesc.br)
-* Website: [sites.google.com/view/paulovfonseca](https://sites.google.com/view/paulovfonseca)
+<p align="center"><a href="https://pvfonseca.github.io/teaching/metodosquant/"><b> Website do curso</b> :computer:</a></p>
+
+> ## Informações
+> Docente: <a href="https://pvfonseca.github.io"> Paulo Victor da Fonseca </a>
+>
+> Contato: <a href="mailto:paulo.fonseca@udesc.br"> paulo.fonseca@udesc.br</a>
+>
+> Local: Sala 147, ESAG/UDESC
+>
+> Horários:
+>
+> * Quartas-feiras das 10:15 às 11:55
+> * Sextas-feiras das 10:15 às 11:55
+> 
+
+## Descrição do curso
+Curso de Métodos Quantitativos em Economia I para o terceiro termo da Graduação em Ciências Econômicas da UDESC.
 
 ## Ementa
 
 <p align="justify">
 Condições de 1ª e 2ª ordens para máximos e mínimos irrestritos. Aplicações econômicas de otimização irrestrita. Condições de 1ª ordem para otimização condicionada com restrições de igualdade e desigualdade. Método dos multiplicadores de Lagrange e de Kuhn Tucker. Condições de 2ª ordem para otimização condicionada com restrições de igualdade e desigualdade. Interpretação dos multiplicadores em problemas de otimização. Teorema do envelope. Funções homogêneas, homotéticas, côncavas e quase côncavas. Aplicações econômicas dos problemas de otimização relacionados à maximização de utilidade e demanda maximização de lucros, custos, ótimo de Pareto e teoremas fundamentais de bem-estar. Programação linear.
 </p>
+
+## Pré-Requisitos
+* 11MTM1 - Matemática I
+* 23MTM2 - Matemática II
 
 ## Objetivo
 
@@ -23,10 +35,6 @@ O objetivo da disciplina é apresentar aos alunos as principais técnicas de oti
 
 Ao final do curso espera-se que o aluno seja capaz de utilizar o ferramental desenvolvido na disciplina em aplicações à Teoria Econômica (microeconomia, macroeconomia e disciplinas correlatas).
 </p>
-
-## Pré-Requisitos
-* 11MTM1 - Matemática I
-* 23MTM2 - Matemática II
 
 ## Programa
 
@@ -39,13 +47,12 @@ Ao final do curso espera-se que o aluno seja capaz de utilizar o ferramental des
 
 ## Avaliação
 
-
 > * Atividade Avaliativa I (PI): 30%
 > * Atividade Avaliativa II (PII): 30%
 > * Atividade Avaliativa III (PIII): 20%
 > * Trabalhos Adicionais: 20%
 
-## Bibliografia
+## Bibliografia :books:
 
 CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas. Rio de Janeiro: Elsevier, 2006.
 
@@ -63,9 +70,7 @@ SIMON, C.P.; BLUME, L. Matemática para economistas. Porto Alegre: Bookman, 2004
 
 STEWART, J. Cálculo – Volume 1. 8.ed. Cengage Learning Brasil, 2017. Disponível em: [app.minhabiblioteca.com.br/#/books/9788522126859](https://app.minhabiblioteca.com.br/#/books/9788522126859/)
 
-
 STEWART, J. Cálculo – Volume 2. 8.ed. Cengage Learning Brasil, 2017. Disponível em: [app.minhabiblioteca.com.br/#/books/9788522126866](https://app.minhabiblioteca.com.br/#/books/9788522126866/)
-
 
 SYDSÆTER, K.; HAMMOND, P.J.; STRØM, A.; CARVAJAL, A. Essential mathematics for economic analysis. 5th.ed. Harlow, UK: Pearson Education Limited, 2016.
 
