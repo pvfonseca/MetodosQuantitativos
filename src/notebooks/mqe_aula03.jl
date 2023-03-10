@@ -4,6 +4,16 @@
 using Markdown
 using InteractiveUtils
 
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
+    end
+end
+
 # ╔═╡ d0b3ef72-bc42-11ed-0872-07547ee82c64
 begin
 	using PlutoUI
@@ -120,6 +130,7 @@ md"""
 
 # ╔═╡ cf51f0e4-f1b9-4608-8799-6f47bae2fa26
 md"""
+---
 ### Existência de soluções: teorema de Weierstrass
 """
 
@@ -398,6 +409,7 @@ md"""
 
 # ╔═╡ 6065e600-d611-44e7-af18-d6b345cfb363
 md"""
+---
 ### Ótimos irrestritos
 """
 
@@ -583,6 +595,7 @@ md"""
 
 # ╔═╡ 2a0cee9a-99b1-4392-a8a4-62406d72219c
 md"""
+---
 ### Teorema do Valor Médio
 """
 
@@ -867,12 +880,13 @@ md"""
 
 # ╔═╡ 030424c4-8ce6-42e0-a59e-539a0245e17c
 md"""
+---
 ### Teste da primeira derivada
 """
 
 # ╔═╡ a3af2ad6-cf6c-4897-82cc-1e79ef92b607
 md"
-* Toda a discussão que acabamos de fazer nos fornece um esquema geral para decidir se um ponto crítico em um ponto de máximo local, um ponto de mínimo local, ou nenhum desses casos
+* Toda a discussão que acabamos de fazer nos fornece um esquema geral para decidir se um ponto crítico é um ponto de máximo local, um ponto de mínimo local, ou nenhum desses casos
 "
 
 # ╔═╡ 39b5797b-d408-45d5-9eb6-6df20f6ead73
@@ -948,6 +962,452 @@ begin
 	hline!([0], lc=:black, lw=1, label=:none, ls=:solid)
 	vline!([0], lc=:black, lw=1, label=:none, ls=:solid)			
 end
+
+# ╔═╡ c8fe97f4-e52b-4ab5-b6cc-0ad7639ed91c
+md"
+---
+### Segunda derivada, concavidade e convexidade
+"
+
+# ╔═╡ 0c1a3b59-dd47-4b6a-86dc-9106258aa0c9
+md"
+* O gráfico de uma função poder ser esboçado de maneira relativamente precisa a partir de informações fornecidas pelas suas derivadas.
+* No entanto, alguns aspectos sutis podem ser revelados apenas quando analisamos a derivada segunda.
+* Mas não apenas isso, as noções de concavidade e convexidade são muito mais importantes do que apenas ferramentas auxiliares no esboço de gráficos.
+* Veremos mais adiante que, apesar de a localização de mínimos e máximos locais poder ser revelada por um esboço detalhado do gráfico da função, usualmente é desnecessário termos todo este trabalho.
+* Existe um teste popular para máximos e mínimo que depende do comportamento da função apenas em seus pontos críticos.
+"
+
+# ╔═╡ 3f5fc585-63a4-48d4-b6bd-1d79a3b92318
+md"""
+!!! info "Definição 3.5 (Função estritamente convexa e função estritamente côncava)"
+	Uma função $f$ é **estritamente convexa** em um intervalo se, para qualquer valor de $a$ e $b$ no intervalo, o segmento de reta que une $(a, f(a))$ e $(b, f(b))$ estiver acima do gráfico de $f$.
+
+	Uma função $f$ é **estritamente côncava** em um intervalo se, para qualquer valor de $a$ e $b$ no intervalo, o segmento de reta que une $(a, f(a))$ e $(b, f(b))$ estiver abaixo do gráfico de $f$.
+"""
+
+# ╔═╡ 2b36d298-541e-427a-88c5-ecd2d7c58a43
+md"
+##### Exemplo de função estritamente convexa: $f(x) = x^2 + 1$
+"
+
+# ╔═╡ 082c0302-8be8-4604-bbb1-f9f029f3716b
+begin
+	pontoa = @bind pa Slider(-3:0.5:3, default=-1)
+	pontob = @bind pb Slider(-3:0.5:3, default=2)	
+
+	md"""
+	Ponto a: $(pontoa)
+	
+	Ponto b: $(pontob)	
+	
+	"""
+end
+
+# ╔═╡ 7b20951f-6cab-476f-84d3-d9beb1cc2d81
+begin	
+	plot(range(-3, 3, 100), x->x^2 + 1, lc=:indianred, label="f convexa")
+	plot!(Shape([(pa, pa^2 + 1), (pb, pb^2 + 1)]), label=:none, lc=:deepskyblue4)
+	xlims!(-3, 3)	
+	hline!([0], lc=:black, lw=1, label=:none, ls=:solid)
+	vline!([0], lc=:black, lw=1, label=:none, ls=:solid)
+	scatter!([(pa, pa^2 + 1), (pb, pb^2+1)], label=:none, m = (6, :indianred, stroke(1, :indianred)))	
+end
+
+# ╔═╡ 04b46e41-3f18-4d2e-8a97-15f17f863a09
+md"
+##### Exemplo de função estritamente côncava: $f(x) = -x^2 + 1$
+"
+
+# ╔═╡ 150fb1fe-a113-464e-b66f-a9d7bca9901c
+begin
+	pontoaa = @bind paa Slider(-3:0.5:3, default=-1)
+	pontobb = @bind pbb Slider(-3:0.5:3, default=2)	
+
+	md"""
+	Ponto a: $(pontoaa)
+	
+	Ponto b: $(pontobb)	
+	
+	"""
+end
+
+# ╔═╡ 285eba04-fe12-4d05-959a-fee626a7c913
+begin	
+	plot(range(-3, 3, 100), x->-x^2 + 1, lc=:indianred, label="f côncava")
+	plot!(Shape([(paa, -paa^2 + 1), (pbb, -pbb^2 + 1)]), label=:none, lc=:deepskyblue4)
+	xlims!(-3, 3)	
+	hline!([0], lc=:black, lw=1, label=:none, ls=:solid)
+	vline!([0], lc=:black, lw=1, label=:none, ls=:solid)
+	scatter!([(paa, -paa^2 + 1), (pbb, -pbb^2+1)], label=:none, m = (6, :indianred, stroke(1, :indianred)))	
+end
+
+# ╔═╡ fe11e2c0-1007-46a1-9dbb-b483e6e27b7b
+md"
+##### E se $f(x) = x^3$?
+"
+
+# ╔═╡ 9717127b-a5f8-4b5b-b0f6-eece34faafce
+begin
+	pontoa3 = @bind pa3 Slider(-3:0.5:3, default=-1)
+	pontob3 = @bind pb3 Slider(-3:0.5:3, default=2)	
+
+	md"""
+	Ponto a: $(pontoa3)
+	
+	Ponto b: $(pontob3)	
+	
+	"""
+end
+
+# ╔═╡ 1958aed5-ad08-4885-b13d-d0cbd827f470
+begin	
+	plot(range(-3, 3, 100), x->x^3, lc=:indianred, label=L"f(x) = x^3")
+	plot!(Shape([(pa3, pa3^3), (pb3, pb3^3)]), label=:none, lc=:deepskyblue4)
+	xlims!(-3, 3)	
+	hline!([0], lc=:black, lw=1, label=:none, ls=:solid)
+	vline!([0], lc=:black, lw=1, label=:none, ls=:solid)
+	scatter!([(pa3, pa3^3), (pb3, pb3^3)], label=:none, m = (6, :indianred, stroke(1, :indianred)))	
+end
+
+# ╔═╡ fe778b14-62c7-494b-9fa3-0f3be2310792
+md"""
+!!! warning "Segmento de reta: expressão analítica"
+	A condição geométrica que aparece na Definição 3.5 pode ser expressa de maneira analítica.
+
+	O segmento de reta entre os pontos $(a, f(a))$ e $(b, f(b))$ é o gráfico da função $g$ definida por:
+
+	$$g(x) = \frac{f(b) - f(a)}{b-a}(x-a) + f(a)$$
+"""
+
+# ╔═╡ 5bd0a512-f410-4968-afdc-409796f72cad
+md"
+* Portanto, temos a seguinte definição equivalente de convexidade e concavidade estritas (demonstração na lousa)
+"
+
+# ╔═╡ 589e1a22-1cf5-4b6b-b526-ef37430fe6dd
+md"""
+!!! info "Definição 3.6 (Função estritamente convexa e função estritamente côncava)"
+	Uma função $f$ é **estritamente convexa** em um intervalo se, para $a, x$ e $b$ neste intervalo, com $a < x < b$, temos:
+
+	$$\frac{f(x) - f(a)}{x - a} < \frac{f(b) - f(a)}{b - a}$$
+
+	Uma função $f$ é **estritamente côncava** em um intervalo se, para $a, x$ e $b$ neste intervalo, com $a < x < b$, temos:
+
+	$$\frac{f(x) - f(a)}{x - a} > \frac{f(b) - f(a)}{b - a}$$
+"""
+
+# ╔═╡ 05627a7f-d002-404f-9ed2-f8e9c86b4857
+md"
+> Não é difícil ver que funções côncavas são precisamente da forma $-f$, onde $f$ é convexa.
+"
+
+# ╔═╡ 7bb1cc0f-e2f6-4e33-85e3-ae0c2b8e8722
+begin
+	pontoa4 = @bind pa4 Slider(-3:0.5:3, default=-1)	
+
+	md"""
+	Ponto a: $(pontoa4)	
+	"""
+end
+
+# ╔═╡ f1e8c9a7-7a43-4288-9234-6d6b657c789c
+begin	
+	plot(range(-3, 3, 100), x->x^2 + 1, lc=:indianred, label="f convexa")
+	plot!(range(pa4-0.5, pa4+0.5, 100), x -> 2*pa4*(x-pa4) + (pa4^2+1), label=:none, lc=:deepskyblue4)
+	xlims!(-4, 4)	
+	ylims!(0, 12)
+	hline!([0], lc=:black, lw=1, label=:none, ls=:solid)
+	vline!([0], lc=:black, lw=1, label=:none, ls=:solid)
+	scatter!([(pa4, pa4^2 + 1)], label=:none, m = (6, :indianred, stroke(1, :indianred)))	
+end
+
+# ╔═╡ e9f2ad54-b5e5-4e3a-9d6c-b5e8d320cea5
+md"
+Ao observarmos a figura da função estritamente convexa acima, observamos dois pontos:
+1. O gráfico de $f$ está acima da linha tangente ao ponto $(a, f(a))$ exceto no próprio ponto $(a, f(a))$ (**ponto de contato** da reta tangente).
+2. Se $a< b$, então, a inclinação da reta tangente a $(a, f(a))$ é menor que a inclinação da reta tangente em $(b, f(b))$, i.e., $f'$ é crescente
+"
+
+# ╔═╡ 9217b0ba-1a68-4fda-afc7-25b4478cb5d3
+md"""
+!!! correct "Teorema 3.5"
+	Seja $f$ uma função estritamente convexa. Se $f$ é diferenciável em $a$, então, o gráfico de $f$ está acima da reta tangente $(a, f(a))$, exceto no próprio ponto $(a, f(a))$. Se $a < b$ e $f$ é diferenciável em $a$ e $b$, então, $f'(a) < f'(b)$.
+
+	---
+	▶️ Demonstração
+
+	Ver Spivak - Calculus (1994) - pp. 205 🔳
+"""
+
+# ╔═╡ bfb79391-0fb4-4700-bea6-a857a6922c7f
+md"""
+!!! correct "Teorema 3.6"
+	Se $f$ é diferenciável e $f'$ é crescente, então, $f$ é estritamente convexa.
+
+	---
+	▶️ Demonstração
+
+	Ver Spivak - Calculus (1994) - pp. 205 🔳
+"""
+
+# ╔═╡ 1510f5f1-4a04-4eb6-8667-9758f21fb302
+md"""
+!!! warning "Observação"
+	Os teoremas acima foram enunciados para funções estritamente convexas, é simples obter os resultados análogos quando estamos interessados em funções estritamente côncavas.
+"""
+
+# ╔═╡ e7b1b06d-3c1c-4d76-8032-b267a77837d1
+md"
+* Se a função $f$ possui uma derivada de segunda ordem razoável, as informações dos teoremas acima podem ser usadas para descobrirmos as regiões nas quais a função $f$ é convexa ou côncava.
+* Considere, por exemplo, a função:
+$$f(x) = \frac{1}{1 + x^2}$$
+* Para essa função:
+$$f'(x) = -\frac{2x}{(1 + x^2)^2}$$
+* Portanto, $f'(x)$ é igual a 0 apenas quando $x = 0$ e, nesse caso, $f(0) = 1$.
+* Concluímos que:
+$$f'(x) > 0, \quad x < 0$$
+$$f'(x) < 0, \quad x > 0$$
+* Além disso:
+$$f(x) > 0, \quad \forall x,$$
+$$f(x) \to 0, \quad \text{quando } x \to \infty \text{ ou } x \to -\infty$$
+$$f \text{ é par}$$
+* Com isso, temos informações para traçar um esboço do gráfico desta função.
+"
+
+# ╔═╡ 4f85efad-6eae-49d9-b970-78438a1b4e05
+begin
+	plot(range(-7, 7, 200), x-> 1/(1 + x^2), lc=:indianred, label=L"f(x) = \frac{1}{1 + x^2}")
+	vline!([0], lc=:black, lw=1, label=:none)
+	hline!([0], lc=:black, lw=1, label=:none)
+end
+
+# ╔═╡ c7941622-c159-4be8-8526-3d7df6fa8ae1
+md"
+* A derivada de segunda ordem é dada por:
+$$f''(x) = \frac{2(3x^2-1)}{(1+x^2)^3}$$
+* Portanto, não é difícil determinar o sinal de $f''(x)$.
+* Note que $f''(x) = 0$ apenas quando $x = \sqrt{1/3}$ ou $x = -\sqrt{1/3}$
+* Dado que $f''$ é claramente contínua, a função deve preservar o mesmo sinal em cada um dos seguintes conjuntos
+$$(-\infty, -\sqrt{1/3})$$
+$$(-\sqrt{1/3}, \sqrt{1/3})$$
+$$(\sqrt{1/3}, \infty)$$
+* Portanto, concluímos que:
+
+    $f'' > 0$ nos intervalos $(-\infty, -\sqrt{1/3})$ e $(\sqrt{1/3}, \infty)$
+
+    $f'' < 0$ no intervalo $(-\sqrt{1/3}, \sqrt{1/3})$
+"
+
+# ╔═╡ d036c8ee-13fc-4e3f-b759-ccff981302dd
+md"
+> Dado que $f''>0$ significa que $f'$ é crescente, segue do Teorema 3.6 que $f$ é estritamente convexa em $(-\infty, -\sqrt{1/3})$ e $(\sqrt{1/3}, \infty)$
+>
+> Ao passo que no intervalo $(-\sqrt{1/3}, \sqrt{1/3})$, $f$ é estritamente côncava
+"
+
+# ╔═╡ e76a4846-b1d2-429e-a3c7-fbfd4041da53
+PlutoUI.Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula3_fig7.PNG", :width=>800)
+
+# ╔═╡ 8a432026-633f-4d52-9d99-bf4d052975ba
+md"
+* Note que no ponto $(\sqrt{1/3}, 3/4)$, a linha tangente está abaixo do gráfico à direita ($f$ estritamente convexa) mas acima do gráfico à esquerda ($f$ côncava)
+* Portanto, a reta tangente cruza o gráfico da função
+* Em geral, dizemos que um número $a$ é um **ponto de inflexão** de $f$ se a reta tangente ao gráfico de $f$ em $(a, f(a))$ cruza o gráfico
+* Vemos, portanto, que para esta função $\sqrt{1/3}$ e $-\sqrt{1/3}$ são pontos de inflexão de $f(x) = 1/(1+x^2)$
+"
+
+# ╔═╡ 37e0252a-d307-4449-b011-aef8a00fdd0e
+md"""
+!!! warning "Pontos de inflexão"
+	Note que a condição $f''(a) = 0$ não assegura que $a$ seja um ponto de inflexão.
+
+	Contra-exemplo: $f(x) = x^4$
+"""
+
+# ╔═╡ 2767cd29-34ff-42e9-8e3c-146f9efd3178
+md"
+* Portanto, a segunda derivada de uma função está relacionada à **curvatura** de seu gráfico
+* Se $f''(x)<0, \forall x \in D$, então, a função primitiva deve ser estritamente côncava
+* De maneira similar, se $f''(x)>0, \forall x \in D$, $f$ deve ser estritamente convexa
+* Cabe ressaltar que não é válido inverter essa inferência e dizer que, se $f(x)$ for estritamente côncava (convexa), então, $f''(x)$ deve ser negativa (positiva) para todo $x$
+* Isso porque a segunda derivada pode ser igual à zero em um ponto estacionário
+* Exemplo: $f(x) = x^4$ é estritamente convexa mas, em $x=0$, temos $f'(0) = 0$
+* Concavidade e convexidade serão estudadas com maior profundidade mais tarde na disciplina
+"
+
+# ╔═╡ 6e691417-b4a8-43d4-bcbd-2f6939774435
+md"
+---
+### Concavidade e convexidade: aplicação econômica
+"
+
+# ╔═╡ fa96d08f-cd44-426a-a219-269772721a2a
+md"""
+$(Resource("https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https:%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fbcdd4e04-3a2e-40cd-bdb1-4ce3087c355f_1052x685.png", :width=>600))
+
+[Oskar Morgenstern](https://en.wikipedia.org/wiki/Oskar_Morgenstern) e [John von Neumann](https://pt.wikipedia.org/wiki/John_von_Neumann)
+"""
+
+# ╔═╡ 974f6ff1-befd-436f-b31a-29ad51ba21ad
+md"
+* Vamos ver como os conceitos de concavidade e convexidade são aplicados em um problema de retorno de jogo de azar para distinguir entre as diferentes atitudes de indivíduos em relação ao risco
+* Considere um jogo no qual, mediante uma quantia fixa paga adiantadamente (custo do jogo), você pode lançar um dado não-viesado e ganhar \$10 se o resultado for um número ímpar ou \$20 caso seja par
+* O **valor esperado do retorno** deste jogo é, portanto:
+$$EV = 0,5 \times \$10 + 0,5 \times \$20 = \$15$$
+* O jogo é considerado um **jogo justo**, ou aposta justa, se o custo de participar for exatamente \$15
+   ⚠️ Mesmo que a distribuição de probabilidades dos resultados possíveis seja conhecida, o resultado propriamente dito de uma jogada individual não o é
+* Portanto, pessoas com **aversão ao risco** se negariam a jogá-lo
+* No entanto, amantes do risco poderiam estar dispostos a participar de jogos justos ou até mesmo de jogos cujas probabilidades lhes são adversas (custo do jogo maior que valor do retorno esperado)
+* As preferências dos indivíduos com relação ao risco são captadas pela especificação de diferentes funções utilidades
+"
+
+# ╔═╡ 934ab5f1-58e4-47f0-aab0-307c2b211134
+PlutoUI.Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula3_fig8.PNG", :width=>800)
+
+# ╔═╡ 240124a3-61ed-4fe2-8bb6-6df265d8096e
+md"
+* Seja $U = U(x)$, onde $x$ denota o retorno, a função utilidade de um agente, a utilidade esperada de jogar este jogo é dada por:
+$$EU = 0,5 \times U(\$10) + 0,5 \times U(\$15)$$
+* Uma função utilidade estritamente côncava, $U(0) = 0$, $U'(x) > 0$ e $U''(x) < 0$ é associada a um comportamento de aversão ao risco
+* Neste caso, a utilidade de não participar do jogo é maior que a utilidade esperada de participar
+* Uma função estritamente convexa, por sua vez, é associada a um comportamento favorável ao risco (ver Figura acima)
+"
+
+# ╔═╡ 86aded17-dafa-4438-a4e5-4c06940c0ea0
+md"""
+!!! info "Exercício"
+	Considere um indivíduo com uma dotação de riqueza igual a \$100.000 que se depara com uma chance de 25% de perder seu automóvel avaliado em \$20.000 por um roubo ao longo do próximo ano
+
+	Suponha que a função utilidade deste indivíduo é logarítmica - $U(W) = \ln W$
+
+	1. Mostre que esta função é estritamente côncava e, portanto, este indivíduo apresenta um comportamento de aversão ao risco
+
+	2. Qual seria a utilidade esperada se este indivíduo decidir passar o próximo ano sem se assegurar?
+
+	3. Nesta situação, um prêmio justo do seguro seria \$5.000. Qual seria a utilidade esperada de um seguro justo?
+
+	4. Qual prêmio máximo este indivíduo estaria disposto a pagar para se precaver da possibilidade de furto?
+"""
+
+# ╔═╡ 2e74d1c0-6d8b-4a4e-9790-82ff322aef69
+log(95000)
+
+# ╔═╡ 513183ef-f34e-47ee-a241-018c67a34a21
+md"""
+!!! hint "Resposta"
+	1.  $U'(W) = \frac{1}{W} > 0$ e $U''(W) = -\frac{1}{W^2} < 0$.
+
+	2. Se este indivíduo passa o próximo ano sem se assegurar, sua utilidade esperada será
+
+	$$E_{no}[U(W)] = 0,75 U(100.000) + 0,25 U(80.000) \approx 11,45714$$
+
+	3. Se este indivíduo assegura completamente seu automóvel, sua riqueza será de \$95.000 independente de ter sido roubado ou não. Portanto, a utilidade esperada de um seguro justo é de:
+
+	$$E_{justo}[U(W)] = U(95.000) = \ln (95.000) \approx 11,46163$$
+
+	4. Vimos que a utilidade deste indivíduo é maior se adquirir um seguro justo.  Na verdade, estaria disposto a pagar mais do que o prêmio justo por um seguro. Podemos determinar o prêmio máximo de seguro que estaria disposto a pagar da seguinte forma:
+
+	$$E_{wtp}[U(W)] = U(100.000 - x) = \ln(100.000 - x) = 11,45714$$
+
+	Resolvendo esta equação para $x$, temos: $x = 5.426$
+
+	Este indivíduo estaria disposto a pagar até \$426 em custos administrativos para uma seguradora (além do prêmio de \$5.000 para cobrir o valor esperado da perda)
+"""
+
+# ╔═╡ 2b06a05d-827b-4907-96e1-39342e6f81c1
+md"
+---
+### Teste da segunda derivada
+"
+
+# ╔═╡ 12c29c4b-c091-44df-aad6-bf329bbb9431
+md"
+* Com a relação estabelecida entre a segunda derivada de uma função $f$ e a curvatura de seu gráfico, podemos estabelecer as seguintes condições para extremos locais
+"
+
+# ╔═╡ 8860db70-ef0d-4b78-b5e8-b2a02bd9ca47
+md"""
+!!! correct "Teorema 3.7 - Teste da segunda derivada"
+	Suponha que $f''$ seja contínua na vizinhança do ponto $a$.
+
+	* Se $f''(a) > 0$, então, $f$ tem um mínimo local em $a$.
+	* Se $f''(a) < 0$, então, $f$ tem um máximo local em $a$.
+	
+	---
+	▶️ Demonstração
+
+	Ver Spivak - Calculus (1994) - pp. 186-187 🔳
+"""
+
+# ╔═╡ f3dccee7-38e7-44f9-b451-7efd38f30985
+md"
+* O Teorema 3.7 pode ser aplicado à função $f(x) = x^3-x$, que já analisamos
+* Note que:
+
+$$f'(x) = 3x^2 - 1$$
+
+$$f''(x) = 6x$$
+
+* Nos pontos críticos, $-\sqrt{1/3}$ e $\sqrt{1/3}$, temos:
+
+$$f''(-\sqrt{1/3}) = -6\sqrt{1/3} < 0$$
+
+$$f''(\sqrt{1/3}) = 6\sqrt{1/3} > 0$$
+
+* Consequentemente, $-\sqrt{1/3}$ é um ponto de máximo local e $\sqrt{1/3}$ é um ponto de mínimo local
+"
+
+# ╔═╡ 1dbf1020-a4ba-42a5-bbc5-c6953cd569c1
+md"""
+!!! warning "Casos em que a segunda derivada é nula"
+	Note que se $a$ é um ponto crítico de $f$, é possível que $f''(a) = 0$. Neste caso, o Teorema 3.7 não fornece informações: é possível que $a$ seja um ponto de máximo local, um ponto de mínimo local, ou nenhum dos casos anteriores.
+
+	Exemplos: $f(x) = -x^4$, $f(x) = x^4$, $f(x) = x^5$
+"""
+
+# ╔═╡ 92e39b84-1e3a-4390-8fd3-5c1aac7dc00b
+begin
+	la = @layout [a b; c]
+	plota = plot(range(-2, 2, 200), x -> -x^4, lc=:indianred, label=L"f(x) = -x^4")	
+	vline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)
+	hline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)
+	plotb = plot(range(-2, 2, 100), x -> x^4, lc=:indianred, label=L"f(x) = x^4")	
+	vline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)
+	hline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)
+	plotc = plot(range(-2, 2, 100), x -> x^5, lc=:indianred, label=L"f(x) = x^5")
+	vline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)
+	hline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)	
+	plot(plota, plotb, plotc, layout = la)
+end
+
+# ╔═╡ f0a33ae9-bfa5-4cf9-b103-f3ed781e5964
+md"""
+!!! correct "Teorema 3.8"
+	Suponha que $f''(a)$ exista.
+
+	* Se $f$ tem um mínimo local em $a$, então, $f''(a) \geq 0$.
+	* Se $f$ tem um máximo local em $a$, então, $f''(a) \leq 0$.
+	
+	---
+	▶️ Demonstração
+
+	Ver Spivak - Calculus (1994) - pp. 187 🔳
+"""
+
+# ╔═╡ 63293e11-8e93-4baa-ba12-30e70e307b0b
+md"""
+!!! danger "Resumo"
+	Portanto, podemos resumir os resultados obtidos até agora na seguinte tabela:
+
+	Condições para um extremo relativo: $y = f(x)$
+
+	| Condição | Máximo | Mínimo |
+	| :--- | ---: | ---: |
+	| Necessária de primeira ordem | $f'(x) = 0$ | $f'(x) = 0 |
+	| Necessária de segunda ordem | $f''(x) \leq 0$ | $f''(x) \geq 0$|
+	| Suficiente de segunda ordem | $f''(x) < 0$ | $f''(x) > 0$|
+"""
 
 # ╔═╡ 16d64d5f-d2b4-4439-a37c-0ca97c72b587
 md"
@@ -2054,6 +2514,52 @@ version = "1.4.1+0"
 # ╟─ab6d40d1-dad2-4b26-a6ad-57ee297657e9
 # ╟─78991214-33ec-46ed-a042-e6c34d3f6aa6
 # ╟─8977e59b-1c10-45a1-91d5-06ca92bcdfcd
+# ╟─c8fe97f4-e52b-4ab5-b6cc-0ad7639ed91c
+# ╟─0c1a3b59-dd47-4b6a-86dc-9106258aa0c9
+# ╟─3f5fc585-63a4-48d4-b6bd-1d79a3b92318
+# ╟─2b36d298-541e-427a-88c5-ecd2d7c58a43
+# ╟─082c0302-8be8-4604-bbb1-f9f029f3716b
+# ╟─7b20951f-6cab-476f-84d3-d9beb1cc2d81
+# ╟─04b46e41-3f18-4d2e-8a97-15f17f863a09
+# ╟─150fb1fe-a113-464e-b66f-a9d7bca9901c
+# ╟─285eba04-fe12-4d05-959a-fee626a7c913
+# ╟─fe11e2c0-1007-46a1-9dbb-b483e6e27b7b
+# ╟─9717127b-a5f8-4b5b-b0f6-eece34faafce
+# ╟─1958aed5-ad08-4885-b13d-d0cbd827f470
+# ╟─fe778b14-62c7-494b-9fa3-0f3be2310792
+# ╟─5bd0a512-f410-4968-afdc-409796f72cad
+# ╟─589e1a22-1cf5-4b6b-b526-ef37430fe6dd
+# ╟─05627a7f-d002-404f-9ed2-f8e9c86b4857
+# ╟─7bb1cc0f-e2f6-4e33-85e3-ae0c2b8e8722
+# ╟─f1e8c9a7-7a43-4288-9234-6d6b657c789c
+# ╟─e9f2ad54-b5e5-4e3a-9d6c-b5e8d320cea5
+# ╟─9217b0ba-1a68-4fda-afc7-25b4478cb5d3
+# ╟─bfb79391-0fb4-4700-bea6-a857a6922c7f
+# ╟─1510f5f1-4a04-4eb6-8667-9758f21fb302
+# ╟─e7b1b06d-3c1c-4d76-8032-b267a77837d1
+# ╟─4f85efad-6eae-49d9-b970-78438a1b4e05
+# ╟─c7941622-c159-4be8-8526-3d7df6fa8ae1
+# ╟─d036c8ee-13fc-4e3f-b759-ccff981302dd
+# ╟─e76a4846-b1d2-429e-a3c7-fbfd4041da53
+# ╟─8a432026-633f-4d52-9d99-bf4d052975ba
+# ╟─37e0252a-d307-4449-b011-aef8a00fdd0e
+# ╟─2767cd29-34ff-42e9-8e3c-146f9efd3178
+# ╟─6e691417-b4a8-43d4-bcbd-2f6939774435
+# ╟─fa96d08f-cd44-426a-a219-269772721a2a
+# ╟─974f6ff1-befd-436f-b31a-29ad51ba21ad
+# ╟─934ab5f1-58e4-47f0-aab0-307c2b211134
+# ╟─240124a3-61ed-4fe2-8bb6-6df265d8096e
+# ╟─86aded17-dafa-4438-a4e5-4c06940c0ea0
+# ╠═2e74d1c0-6d8b-4a4e-9790-82ff322aef69
+# ╟─513183ef-f34e-47ee-a241-018c67a34a21
+# ╟─2b06a05d-827b-4907-96e1-39342e6f81c1
+# ╟─12c29c4b-c091-44df-aad6-bf329bbb9431
+# ╟─8860db70-ef0d-4b78-b5e8-b2a02bd9ca47
+# ╟─f3dccee7-38e7-44f9-b451-7efd38f30985
+# ╟─1dbf1020-a4ba-42a5-bbc5-c6953cd569c1
+# ╟─92e39b84-1e3a-4390-8fd3-5c1aac7dc00b
+# ╟─f0a33ae9-bfa5-4cf9-b103-f3ed781e5964
+# ╟─63293e11-8e93-4baa-ba12-30e70e307b0b
 # ╟─16d64d5f-d2b4-4439-a37c-0ca97c72b587
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
