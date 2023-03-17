@@ -1189,21 +1189,21 @@ $$f''(x) = \frac{2(3x^2-1)}{(1+x^2)^3}$$
 * Portanto, não é difícil determinar o sinal de $f''(x)$.
 * Note que $f''(x) = 0$ apenas quando $x = \sqrt{1/3}$ ou $x = -\sqrt{1/3}$
 * Dado que $f''$ é claramente contínua, a função deve preservar o mesmo sinal em cada um dos seguintes conjuntos
-$$(-\infty, -\sqrt{1/3})$$
-$$(-\sqrt{1/3}, \sqrt{1/3})$$
-$$(\sqrt{1/3}, \infty)$$
+$$\left(-\infty, -\sqrt{1/3}\right)$$
+$$\left(-\sqrt{1/3}, \sqrt{1/3}\right)$$
+$$\left(\sqrt{1/3}, \infty\right)$$
 * Portanto, concluímos que:
 
-    $f'' > 0$ nos intervalos $(-\infty, -\sqrt{1/3})$ e $(\sqrt{1/3}, \infty)$
+    $f'' > 0$ nos intervalos $\left(-\infty, -\sqrt{1/3}\right)$ e $\left(\sqrt{1/3}, \infty\right)$
 
-    $f'' < 0$ no intervalo $(-\sqrt{1/3}, \sqrt{1/3})$
+    $f'' < 0$ no intervalo $\left(-\sqrt{1/3}, \sqrt{1/3}\right)$
 "
 
 # ╔═╡ d036c8ee-13fc-4e3f-b759-ccff981302dd
 md"
-> Dado que $f''>0$ significa que $f'$ é crescente, segue do Teorema 3.6 que $f$ é estritamente convexa em $(-\infty, -\sqrt{1/3})$ e $(\sqrt{1/3}, \infty)$
+> Dado que $f''>0$ significa que $f'$ é crescente, segue do Teorema 3.6 que $f$ é estritamente convexa em $\left(-\infty, -\sqrt{1/3}\right)$ e $\left(\sqrt{1/3}, \infty\right)$
 >
-> Ao passo que no intervalo $(-\sqrt{1/3}, \sqrt{1/3})$, $f$ é estritamente côncava
+> Ao passo que no intervalo $\left(-\sqrt{1/3}, \sqrt{1/3}\right)$, $f$ é estritamente côncava
 "
 
 # ╔═╡ e76a4846-b1d2-429e-a3c7-fbfd4041da53
@@ -1211,7 +1211,7 @@ PlutoUI.Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativ
 
 # ╔═╡ 8a432026-633f-4d52-9d99-bf4d052975ba
 md"
-* Note que no ponto $(\sqrt{1/3}, 3/4)$, a linha tangente está abaixo do gráfico à direita ($f$ estritamente convexa) mas acima do gráfico à esquerda ($f$ côncava)
+* Note que no ponto $\left(\sqrt{1/3}, 3/4\right)$, a linha tangente está abaixo do gráfico à direita ($f$ estritamente convexa) mas acima do gráfico à esquerda ($f$ côncava)
 * Portanto, a reta tangente cruza o gráfico da função
 * Em geral, dizemos que um número $a$ é um **ponto de inflexão** de $f$ se a reta tangente ao gráfico de $f$ em $(a, f(a))$ cruza o gráfico
 * Vemos, portanto, que para esta função $\sqrt{1/3}$ e $-\sqrt{1/3}$ são pontos de inflexão de $f(x) = 1/(1+x^2)$
@@ -1290,9 +1290,6 @@ md"""
 	4. Qual prêmio máximo este indivíduo estaria disposto a pagar para se precaver da possibilidade de furto?
 """
 
-# ╔═╡ 2e74d1c0-6d8b-4a4e-9790-82ff322aef69
-log(95000)
-
 # ╔═╡ 513183ef-f34e-47ee-a241-018c67a34a21
 md"""
 !!! hint "Resposta"
@@ -1331,8 +1328,8 @@ md"""
 !!! correct "Teorema 3.7 - Teste da segunda derivada"
 	Suponha que $f''$ seja contínua na vizinhança do ponto $a$.
 
-	* Se $f''(a) > 0$, então, $f$ tem um mínimo local em $a$.
-	* Se $f''(a) < 0$, então, $f$ tem um máximo local em $a$.
+	* Se $f'(a) = 0$ e $f''(a) > 0$, então, $f$ tem um mínimo local em $a$.
+	* Se $f'(a) = 0$ e $f''(a) < 0$, então, $f$ tem um máximo local em $a$.
 	
 	---
 	▶️ Demonstração
@@ -1351,9 +1348,9 @@ $$f''(x) = 6x$$
 
 * Nos pontos críticos, $-\sqrt{1/3}$ e $\sqrt{1/3}$, temos:
 
-$$f''(-\sqrt{1/3}) = -6\sqrt{1/3} < 0$$
+$$f''\left(-\sqrt{1/3}\right) = -6\sqrt{1/3} < 0$$
 
-$$f''(\sqrt{1/3}) = 6\sqrt{1/3} > 0$$
+$$f''\left(\sqrt{1/3}\right) = 6\sqrt{1/3} > 0$$
 
 * Consequentemente, $-\sqrt{1/3}$ é um ponto de máximo local e $\sqrt{1/3}$ é um ponto de mínimo local
 "
@@ -1386,8 +1383,8 @@ md"""
 !!! correct "Teorema 3.8"
 	Suponha que $f''(a)$ exista.
 
-	* Se $f$ tem um mínimo local em $a$, então, $f''(a) \geq 0$.
-	* Se $f$ tem um máximo local em $a$, então, $f''(a) \leq 0$.
+	* Se $f$ tem um mínimo local em $a$, então, $f'(a) = 0$ e $f''(a) \geq 0$.
+	* Se $f$ tem um máximo local em $a$, então, $f'(a) = 0$ e $f''(a) \leq 0$.
 	
 	---
 	▶️ Demonstração
@@ -1407,6 +1404,188 @@ md"""
 	| Necessária de primeira ordem | $f'(x) = 0$ | $f'(x) = 0 |
 	| Necessária de segunda ordem | $f''(x) \leq 0$ | $f''(x) \geq 0$|
 	| Suficiente de segunda ordem | $f''(x) < 0$ | $f''(x) > 0$|
+"""
+
+# ╔═╡ bc25519b-1072-40e9-a130-4346ec5e7f05
+md"""
+> **Exercícios**.
+>
+> 1. Encontre o extremo relativo da seguinte função e determine se é um ponto de mínimo ou máximo local:
+>
+> $f(x) = 4x^2 - x$
+>
+> 2. Encontre os extremos relativos da seguinte função e classifique-os:
+>
+> $g(x) = x^3 - 3x^2 + 2$
+>
+> 3. CLassifique os pontos críticos da função:
+>
+> $h(x) = x^2 e^x$
+"""
+
+# ╔═╡ 06b2f3e4-81cf-45d4-82c8-2c5c18928cd1
+begin
+	l_exerc = @layout [a b; c]
+	plot_exerc1 = plot(range(-2, 2, 200), x -> 4x^2 - x, lc=:indianred, label=L"f(x) = 4x^2 - x")	
+	vline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)
+	hline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)
+	plot_exerc2 = plot(range(-2, 4, 100), x -> x^3 - 3x^2 + 2, lc=:indianred, label=L"g(x) = x^3 - 3x^2 + 2")	
+	vline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)
+	hline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)
+	plot_exerc3 = plot(range(-9, 1, 100), x -> x^2*exp(x), lc=:indianred, label=L"h(x) = x^2 e^x")
+	vline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)
+	hline!([0], ls=:solid, lc=:black, lw=0.5, label=:none)	
+	plot(plot_exerc1, plot_exerc2, plot_exerc3, layout = l_exerc)
+end
+
+# ╔═╡ dabe7cca-43b4-4bf0-808b-4ac1d12decb8
+md"
+---
+### Maximização de lucros
+"
+
+# ╔═╡ 62891aaa-e6f2-46ca-adb1-7aa178131745
+md"
+* O problema de maximização de lucros por parte de uma firma pode ser especificado como um problema de otimização estática irrestrito:
+$$\max_{Q} \pi(Q) \equiv R(Q) - C(Q)$$
+
+* **Condição necessária de primeira ordem**: quantidade ótima produzida ($Q^*$) deve satisfazer à condição de que receita marginal é igual a custo marginal
+$$\frac{d\pi}{dQ} = 0 \Leftrightarrow R'(Q) = C'(Q)$$
+
+* **Condição necessária de segunda ordem**:
+$$\frac{d^2\pi}{dQ^2} \leq 0 \Leftrightarrow R''(Q) \leq C''(Q)$$
+Note que, como vimos anteriormente, no caso em que $R''(Q) = C''(Q)$, não chegamos a uma conclusão definitiva sobre $Q*$ ser um máximo relativo
+
+* **Condição suficiente de segunda ordem**:
+$$\frac{d^2\pi}{dQ^2} < 0 \Leftrightarrow R''(Q) < C''(Q)$$
+Portanto, avaliadas no ponto $Q^*$, a taxa de variação da receita marginal deve ser menor que a taxa de variação do custo marginal
+"
+
+# ╔═╡ 8fbe7475-06b3-436a-a4e7-77ff042c696b
+md"""
+!!! info "Exemplo (Maximização de lucros)"
+	Considere, respectivamente, as seguintes funções receita total e custo total:
+
+	$$\begin{eqnarray*} R(Q) &=& 1200Q - 2Q^2, \\ C(Q) &=& Q^3 - 61,25Q^2 + 1528,5Q + 2000\end{eqnarray*}$$
+
+	Calcule os pontos críticos da função lucro e a quantidade $Q^*$ que maximiza o lucro desta firma.
+"""
+
+# ╔═╡ c463aa4a-cb04-4bca-8d4d-3ff3cc9a7f4c
+md"
+---
+### Teste da $n$-ésima derivada
+"
+
+# ╔═╡ 2bc46688-e134-4360-8336-1d6a6aff4033
+md"
+* Como vimos no [`teste da primeira derivada`](#030424c4-8ce6-42e0-a59e-539a0245e17c) para máximos e mínimos relativos, podemos usar informações a respeito do sinal algébrico da primeira derivada da função na vizinhança de um ponto crítico para classificá-lo
+* Nesta seção, veremos como este resultado pode ser combinado à aproximação de funções $n$ vezes diferenciável em um ponto para desenvolvermos um teste geral de um extremo relativo
+"
+
+# ╔═╡ 6a96b780-731d-4fd9-bd85-f1c921d38d14
+md"""
+!!! correct "Teorema 3.9"
+	Seja $n \geq 1$ um número inteiro e uma função $f: \mathbb{R} \to \mathbb{R}$ $n$-vezes diferenciável no ponto $a \in \mathbb{R}$.
+
+	Defina uma função polinomial da forma:
+	
+	$$P_{n,a}(x) = f(a) + \frac{f'(a)}{1!}(x - a) + \frac{f''(a)}{2!}(x-a)^2 + \dots + \frac{f^{(n)}(a)}{n!}(x-a)^n$$
+
+	Então, temos que:
+
+	$$\lim_{x\to a}\frac{f(x) - P_{n,a}(x)}{(x - a)^n} = 0$$
+
+	---
+	▶️ Demonstração
+
+	Ver Spivak - Calculus (1994) - pp. 384 🔳
+"""
+
+# ╔═╡ 82d65f83-39e8-4233-add8-1a03e7f7d223
+md"
+* Usaremos o Teorema 3.9 para aperfeiçoar o teste de primeira derivada que desenvolvemos anteriormente
+* Se $a$ é um ponto crítico de $f$, então, $f$ tem um mínimo local em $a$ se $f''(a) > 0$, e um máximo local em $a$ se $f''(a) < 0$
+* Caso $f''(a) = 0$ nenhuma conclusão era possível, mas podemos imaginar que o sinal algébrico de $f'''(a)$ possa nos dar alguma nova informação
+* E caso $f'''(a) = 0$, então, o sinal de $f^{(4)}$ pode ser importante
+* De maneira mais geral, podemos perguntar o que acontece quando:
+$$\begin{eqnarray} f'(a) = f''(a) = \dots = f^{(n-1)}(a) &=& 0 \\ f^{(n)}(a) &\neq& 0\end{eqnarray}$$
+* Podemos criar alguma intuição a respeito do que acontecerá ao examinarmos as seguintes funções potência (que satisfazem as condições acima):
+$$\begin{eqnarray} f(x) &=& (x - a)^n \\ g(x) &=& -(x-a)^n\end{eqnarray}$$
+"
+
+# ╔═╡ 729d122a-506e-4f43-9941-66c4852e746e
+begin	
+	plot(range(-1, 1, 200), x -> x, lc=:indianred, label=L"n = 1")
+	plot!(range(-1, 1, 200), x -> x^2, lc=:black, label=L"n = 2")
+	plot!(range(-1, 1, 200), x -> x^3, lc=:darkorange, label=L"n = 3")
+	plot!(range(-1, 1, 200), x -> x^4, lc=:navyblue, label=L"n = 4")
+	plot!(range(-1, 1, 200), x -> x^5, lc=:darkgreen, label=L"n = 5")
+	plot!(range(-1, 1, 200), x -> x^6, label=L"n = 6")
+	hline!([0], ls=:dash, lw=0.5, lc=:black, label=:none)
+	vline!([0], ls=:dash, lw=0.5, lc=:black, label=:none)
+end
+
+# ╔═╡ 1799bdb7-850f-4124-bbbe-7c2c95a5083f
+begin	
+	plot(range(-1, 1, 200), x -> -x, lc=:indianred, label=L"n = 1")
+	plot!(range(-1, 1, 200), x -> -x^2, lc=:black, label=L"n = 2")
+	plot!(range(-1, 1, 200), x -> -x^3, lc=:darkorange, label=L"n = 3")
+	plot!(range(-1, 1, 200), x -> -x^4, lc=:navyblue, label=L"n = 4")
+	plot!(range(-1, 1, 200), x -> -x^5, lc=:darkgreen, label=L"n = 5")
+	plot!(range(-1, 1, 200), x -> -x^6, label=L"n = 6")
+	hline!([0], ls=:dash, lw=0.5, lc=:black, label=:none)
+	vline!([0], ls=:dash, lw=0.5, lc=:black, label=:none)
+end
+
+# ╔═╡ 997f8836-eed0-429a-a874-f9019462d32e
+md"
+* Note pela figura acima que se $n$ é ímpar, então, $a$ (que, sem perda de generalidade, foi fixado em 0) não é nem mínimo nem máximo local para $f$ ou $g$
+* Por outro lado, se $n$ é par, então, $f$ (com uma $n$-ésima derivada positiva) tem um mínimo local em $a$, enquanto $g$ (com uma $n$-ésima derivada negativa) tem um máximo local em $a$
+* O Teorema 3.10 a seguir mostra que este resultado é geral para funções que satisfazem o mesmo conjunto de condições que $f$ e $g$
+"
+
+# ╔═╡ 59ea5f94-b82f-4acb-9a86-4e73d4749044
+md"""
+!!! correct "Teorema 3.10"
+	Suponha que as seguintes condições sejam satisfeitas:
+
+	$$\begin{eqnarray}f'(a) = f''(a) = \dots = f^{(n-1)}(a) &=& 0 \\ f^{(n)}(a) &\neq& 0\end{eqnarray}$$
+
+	Temos as seguintes situações:
+
+	(1) se $n$ é par e $f^{(n)}(a) > 0$, então, $f$ tem um mínimo local em $a$
+
+	(2) se $n$ é par e $f^{(n)}(a) < 0$, então, $f$ tem um máximo local em $a$
+
+	(3) se $n$ é ímpar, então, $f$ não possui nem um mínimo local nem um máximo local em $a$
+"""
+
+# ╔═╡ 89d1587e-be19-476f-8878-18d0d26bd393
+md"""
+!!! danger "Demonstração"
+	Suponha, sem perda de generalidade, que $f(a) = 0$ (note que nem as hipóteses nem a conclusão são afetadas se $f$ for substituída por $f - f(a)$). Então, como as $n-1$ primeiras derivadas de $f$ em $a$ são nulas, o polinômio de Taylor $P_{n,a}$ de $f$ é:
+
+	$$\begin{eqnarray}P_{n,a}(x) &=& f(a) + \frac{f'(a)}{1!}(x-a) + \dots + \frac{f^{(n)}(a)}{n!}(x-a)^n \\ &=& \frac{f^{(n)}(a)}{n!}(x-a)^n\end{eqnarray}$$
+
+	Pelo Teorema 3.9, temos:
+
+	$$0 = \lim_{x\to a}\frac{f(x)-P_{n,a}(x)}{(x-a)^n} = \lim_{x\to a}\left[\frac{f(x)}{(x-a)^n} - \frac{f^{(n)}(a)}{n!}\right]$$
+
+	* **Caso 1**: $n$ é par.
+
+	    * Neste caso $(x-a)^n > 0, \forall x \neq a$
+        * Como $\text{sgn}\left(f(x)/(x-a)^n\right) = \text{sgn}\left(f{(n)} (a)/n!\right)$ para $x$ suficientemente próximo de $a$ (por continuidade), segue que $\text{sgn}\left(f(x)\right) = \text{sgn}\left(f^{(n)}(a)/n!\right)$ para $x$ suficientemente próximo de $a$
+        * Se $f^{(n)}(a) > 0$, isso significa que $f(x) > 0 = f(a)$ para $x$ próximo a $a$
+        * Consequentemente, $f$ tem um mínimo local em $a$
+        * Uma demonstração similar funciona para o caso em que $f^{(n)}(a) < 0$
+
+	* **Caso 2**: $n$ é ímpar.
+	    * Usando o mesmo argumento anterior, temos que $\frac{f(x)}{(x-a)^n}$ sempre tem o mesmo sinal
+	    * Mas $(x-a)^n > 0$ se $x > a$ e $(x-a)^n < 0$ se $x < a$
+	    * Portanto, $f(x)$ tem sinais diferentes para $x > a$ e $x < a$
+	    * Isso prova que $f$ não tem nem um mínimo local nem um máximo local em $a$ 🔳
+
 """
 
 # ╔═╡ 16d64d5f-d2b4-4439-a37c-0ca97c72b587
@@ -2550,7 +2729,6 @@ version = "1.4.1+0"
 # ╟─934ab5f1-58e4-47f0-aab0-307c2b211134
 # ╟─240124a3-61ed-4fe2-8bb6-6df265d8096e
 # ╟─86aded17-dafa-4438-a4e5-4c06940c0ea0
-# ╠═2e74d1c0-6d8b-4a4e-9790-82ff322aef69
 # ╟─513183ef-f34e-47ee-a241-018c67a34a21
 # ╟─2b06a05d-827b-4907-96e1-39342e6f81c1
 # ╟─12c29c4b-c091-44df-aad6-bf329bbb9431
@@ -2560,6 +2738,20 @@ version = "1.4.1+0"
 # ╟─92e39b84-1e3a-4390-8fd3-5c1aac7dc00b
 # ╟─f0a33ae9-bfa5-4cf9-b103-f3ed781e5964
 # ╟─63293e11-8e93-4baa-ba12-30e70e307b0b
+# ╟─bc25519b-1072-40e9-a130-4346ec5e7f05
+# ╟─06b2f3e4-81cf-45d4-82c8-2c5c18928cd1
+# ╟─dabe7cca-43b4-4bf0-808b-4ac1d12decb8
+# ╟─62891aaa-e6f2-46ca-adb1-7aa178131745
+# ╟─8fbe7475-06b3-436a-a4e7-77ff042c696b
+# ╟─c463aa4a-cb04-4bca-8d4d-3ff3cc9a7f4c
+# ╟─2bc46688-e134-4360-8336-1d6a6aff4033
+# ╟─6a96b780-731d-4fd9-bd85-f1c921d38d14
+# ╟─82d65f83-39e8-4233-add8-1a03e7f7d223
+# ╟─729d122a-506e-4f43-9941-66c4852e746e
+# ╟─1799bdb7-850f-4124-bbbe-7c2c95a5083f
+# ╟─997f8836-eed0-429a-a874-f9019462d32e
+# ╟─59ea5f94-b82f-4acb-9a86-4e73d4749044
+# ╟─89d1587e-be19-476f-8878-18d0d26bd393
 # ╟─16d64d5f-d2b4-4439-a37c-0ca97c72b587
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
