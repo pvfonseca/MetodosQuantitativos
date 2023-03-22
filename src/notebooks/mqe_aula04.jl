@@ -293,6 +293,146 @@ md"
 > Estruture o problema de maximização de lucros para esta firma monopolista e calcule as quantidades produzidas ótimas
 "
 
+# ╔═╡ 043ed29f-b047-4afd-b005-b840edc9ca01
+md"
+## Condições de primeira e segunda ordem: funções de duas variáveis reais
+"
+
+# ╔═╡ 64757cbf-382e-4287-8ab8-fc3a45269576
+md"""
+!!! warning "Condições de primeira e segunda ordem: caso univariado"
+	* Vimos que para uma função $y = f(x)$ contínua e diferenciável, seu diferencial total de primeira ordem é dado por: $dy = f'(x) dx$
+
+	* A partir desta observação, concluímos que, em termos de diferencial, os pontos críticos podem ser obtidos a partir da condição $dy = 0$
+
+	* Para verificarmos as condições de segunda ordem para mínimos e máximos relativos, podemos tomar o diferencial total do diferencial total da função $f$ para obter o **diferencial total de segunda ordem**:
+
+	$$\begin{eqnarray}d^2 y &=& d[f'(x)dx] = [df'(x)]dx \qquad \text{[já que $dx$ é uma constante]} \\ &=& [f''(x)dx]dx \\ &=& f''(x) dx^2\end{eqnarray}$$
+
+	* Como o termo $dx^2$ é sempre positivo, $d^2y$ e $f''$ devem, necessariamente, possuir o mesmo sinal algébrico
+
+	* Portanto, a condição suficiente para máximo ou mínimo relativo que enunciamos anteriormente pode ser, de modo equivalente, escrito em termos de condições sobre o diferencial total de segunda ordem:
+
+	| Condição | Máximo relativo | Mínimo relativo |
+	| :--- | --- | --- |
+	| Necessária | $d^2 y\leq 0$ | $d^2 y \geq 0$ |
+	| Suficiente | $d^2 y < 0$ | $d^2 y > 0$ |
+"""
+
+# ╔═╡ da918e2f-147d-4453-90d9-517ada257036
+md"
+* Seja $z = f(x,y)$ uma função contínua e diferenciável, seu diferencial total de primeira ordem é dado por:
+$$dz = f_x dx + f_y dy$$
+* O diferencial total de segunda ordem é, portanto, igual a:
+$$d^2 z = f_{xx}dx^2 + f_{xy}dxdy + f_{yx}dy dx + f_{yy}dy^2$$
+* Pela condição de simetria das derivadas parciais cruzadas (Teorema de Clairaut), sabemos que $f_{xy} = f_{yx}$, portanto:
+$$d^2z = f_{xx}dx^2 + 2f_{xy}dxdy + f_{yy}dy^2$$
+"
+
+# ╔═╡ b2f81e4e-3c3b-4f51-8964-34072c969ee2
+md"""
+> **Exercício**. Obtenha o diferencial total de segunda ordem da seguinte função:
+>
+> $$z = x^3 + 5xy - y^2$$
+"""
+
+# ╔═╡ 77d52649-1373-4d7e-ae9f-7a5ea0348b45
+md"""
+!!! hint "Resposta"
+	* Para a função $z = x^3 + 5xy - y^2$, temos que: $f_x = 3x^2 + 5y$, $f_y = 5x - 2y$
+	* Ou seja, o diferencial total de primeira ordem é: $dz = (3x^2 + 5y)dx + (5x - 2y)dy$
+	* Portanto: $f_{xx} = 6x, f_{xy} = f_{yx} = 5, f_{yy} = -2$
+	* O diferencial total de segunda ordem da função $z$ é dado, então, por:
+	$$d^2z = 6xdx^2 + 10dxdy - 2dy^2$$
+"""
+
+# ╔═╡ 0559cf5f-698f-4c9a-b75f-78dcd25320f0
+md"
+* Sabemos que o diferencial total de primeira ordem de uma função $z = f(x,u)$ é nulo, $dy = 0$, em um ponto crítico $(x^*, y^*)$
+* Se num ponto crítico $(x^*, y^*)$ temos $d^2z<0$, segue que $dz$ sofre uma variação negativa em qualquer direção que se vá a partir do ponto $(x^*, y^*)$
+* Como $dz = 0$ no ponto $(x^*, y^*)$ e esta grandeza é decrescente ($d^2z<0$), segue que numa vizinhança suficientemente próxima ao ponto crítico, teremos $dz < 0$
+* Isto é, a função é decrescente em qualquer direção numa vizinhança suficientemente pequena em torno de $(x^*, y^*)$
+* Portanto, neste ponto, há um máximo local que assume valor de $f(x^*, y^*)$
+* O argumento para um mínimo local é similar
+"
+
+# ╔═╡ cedd18e0-cede-46e4-9b9b-78767be3e646
+md"
+💡 Portanto, para determinar se no ponto crítico $(x^*, y^*)$ há um máximo ou mínimo local, temos que verificar o sinal algébrico do diferencial total de segunda ordem $d^2z$ avaliado neste ponto
+* O diferencial total de segunda ordem, como veremos, é uma **forma quadrática** e, portanto, determinar o sinal do primeiro resume-se a encontrar o sinal de uma forma quadrática
+"
+
+# ╔═╡ 0f2b7bdd-8c09-4603-a8e1-04891a760fe2
+md"""
+!!! correct "Forma quadrática"
+	Uma forma quadrática em duas variáveis $u$ e $v$ é um polinômio da forma:
+	
+	$$q(u,v) = \alpha u^2 + 2\gamma uv + \beta v^2 \tag{2}\label{eq4.2}$$
+	
+	onde $\alpha, \gamma$ e $\beta$ são constantes.
+"""
+
+# ╔═╡ 515c6b7e-ac9f-41df-a4f4-413fef5493cc
+md"
+* Considerando a definição de forma quadrática dada em ($\ref{eq4.2}$), podemos observar que o diferencial total de segunda ordem $d^2z = f_{xx}dx^2 + 2f_{xy}dxdy + f_{yy}dy^2$ é uma forma quadrática nas variáveis $dx$ e $dy$
+* Mais explicitamente, temos $q(u,v) = d^2z$, $u = dx$, $v = dy$, $\alpha = f_{xx}, \gamma = f_{xy}$ e $\beta = f_{yy}$
+* Portanto, estudar o sinal algébrico do diferencial $d^2z$ significa estudar o sinal de uma forma quadrática
+"
+
+# ╔═╡ adf61fb1-1e8c-4cc4-9d4d-0d1af288e572
+md"""
+!!! correct "Formas quadráticas: classificação"
+	As formas quadráticas podem ser classificadas com base no sinal algébrico que assumem:
+
+	| Classificação | Condição |
+	| :--- | ---: |	
+	| Positiva definida | $q(u, v) > 0$ |
+	| Positiva semidefinida | $q(u, v) \geq 0$ |
+	| Negativa definida | $q(u, v) < 0$ |
+	| Negativa semidefinida | $q(u, v) \leq 0$ |
+"""
+
+# ╔═╡ ba82f8f3-8c55-4550-ba06-696dcf167607
+md"
+* Para obtermos o sinal da forma quadrática $q(u, v)$ dado pela equação ($\ref{eq4.2}$) adotamos um procedimento denominado **completar o quadrado**:
+
+$$\begin{eqnarray}q(u,v) &=& \alpha u^2 + 2\gamma uv + \beta v^2 \\ &=& \alpha\left(u^2 + \frac{2\gamma uv}{\alpha}\right) + \beta v^2 \\
+&=& \alpha\left[u^2 + \frac{2\gamma uv}{\alpha} + \left(\frac{\gamma v}{\alpha}\right)^2 - \left(\frac{\gamma v}{\alpha}\right)^2\right] + \beta v^2 \\
+&=& \alpha\left[u^2 + \frac{2\gamma uv}{\alpha} + \left(\frac{\gamma v}{\alpha}\right)^2\right] + \left(\beta v^2 - \frac{\gamma^2 v^2}{\alpha}\right) \\
+&=& \alpha \left(u + \frac{\gamma v}{\alpha}\right)^2 + \frac{\alpha \beta - \gamma^2}{\alpha} v^2\end{eqnarray}$$
+* Portanto, podemos concluir que:
+    * Se $\alpha > 0$ e $\alpha\beta - \gamma^2 > 0$, então, $q(u,v) > 0$ e $q$ é **positiva definida**
+    * Se $\alpha < 0$ e $\alpha\beta - \gamma^2 > 0$, então, $q(u,v) < 0$ e $q$ é **negativa definida**
+* Note, ainda, que como $\alpha\beta - \gamma^2 > 0$, então, $\alpha$ e $\beta$ devem possuir o mesmo sinal algébrico
+"
+
+# ╔═╡ d7dec854-b818-415c-b7a8-3686af7b84ca
+md"
+* Podemos, então, estabelecer a condição de segunda ordem para um máximo ou mínimo local de uma função de duas variáveis reais
+* Como vimos, o diferencial total de segunda ordem $d^2z = f_{xx}dx^2 + 2f_{xy}dxdy + f_{yy}dy^2$ é uma forma quadrática nas variáveis $u = dx$ e $v = dy$
+* Sendo $\alpha = f_{xx}, \gamma = f_{xy}$ e $\beta = f_{yy}$
+* Portanto:
+    1.  $f(x^*,y^*)$ é um **mínimo local** se $f_{xx}, f_{yy}>0$ e $f_{xx}f_{yy} > f_{xy}^2$
+    2.  $f(x^*,y^*)$ é um **máximo local** se $f_{xx}, f_{yy}<0$ e $f_{xx}f_{yy} > f_{xy}^2$
+"
+
+# ╔═╡ 38028b85-d15b-4fc5-8f59-05c3b42c77db
+md"""
+!!! correct "Condições para um extremo relativo da função z = f(x,y)"
+	| Condição | Máximo relativo | Mínimo relativo |
+	| :--- | ---: | ---: |
+	| Necessária de primeira ordem | $f_x = f_y = 0$ | $f_x = f_y = 0$ |
+	| Suficiente de segunda ordem | $\begin{eqnarray} f_{xx}, f_{yy} &<& 0 \\ f_{xx}f_{yy} &>& f_{xy}^2\end{eqnarray}$ | $\begin{eqnarray} f_{xx}, f_{yy} &<& 0 \\ f_{xx}f_{yy} &>& f_{xy}^2\end{eqnarray}$ |
+"""
+
+# ╔═╡ 336b83c0-14d1-4c3a-89df-bc2529ef9282
+md"""
+!!! danger "Pontos de sela"
+	Quando temos $f_{xx}f_{yy} - f_{xy}^2 < 0$ (avaliado no ponto crítico), dizemos que $(x^*, y^*)$ é um **ponto de sela**
+
+	Isso pode ocorrer quando, e.g., $f_{xx}(x^*,y^*) < 0$ ou $f_{yy}(x^*,y^*) < 0$, mas $[f_{xy}(x^*,y^*)]^2 \neq 0$
+"""
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
@@ -314,7 +454,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "e9be83a6c7fd21f04cfc4051871fb477d5cc6cf9"
+project_hash = "70f75929b5ad01b42d4cd7f638c3d19b05d428b6"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -1311,5 +1451,19 @@ version = "1.4.1+0"
 # ╟─a1776954-50e4-40d5-a67b-2c380836ade0
 # ╟─66cb6929-4e22-4acd-823d-7fe471e73982
 # ╟─60d973df-0f74-45bd-bb47-a0b5fa24e18b
+# ╟─043ed29f-b047-4afd-b005-b840edc9ca01
+# ╟─64757cbf-382e-4287-8ab8-fc3a45269576
+# ╟─da918e2f-147d-4453-90d9-517ada257036
+# ╟─b2f81e4e-3c3b-4f51-8964-34072c969ee2
+# ╟─77d52649-1373-4d7e-ae9f-7a5ea0348b45
+# ╟─0559cf5f-698f-4c9a-b75f-78dcd25320f0
+# ╟─cedd18e0-cede-46e4-9b9b-78767be3e646
+# ╟─0f2b7bdd-8c09-4603-a8e1-04891a760fe2
+# ╟─515c6b7e-ac9f-41df-a4f4-413fef5493cc
+# ╟─adf61fb1-1e8c-4cc4-9d4d-0d1af288e572
+# ╟─ba82f8f3-8c55-4550-ba06-696dcf167607
+# ╟─d7dec854-b818-415c-b7a8-3686af7b84ca
+# ╟─38028b85-d15b-4fc5-8f59-05c3b42c77db
+# ╟─336b83c0-14d1-4c3a-89df-bc2529ef9282
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
