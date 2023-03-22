@@ -98,11 +98,11 @@ $$f(x,y) = 4x + 2y - 3$$
 # ╔═╡ 01899ce9-b68e-49ce-8c3f-0c8c1936927a
 begin		
 	surface(
-	  range(-4, 4, 200), range(-4, 4, 200), (x, y)-> (2x^2 + y^2), c=:roma, legend=:none, 
+	  range(-4, 4, 50), range(-4, 4, 50), (x, y)-> (2x^2 + y^2), c=:roma, legend=:none, 
 	  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH
 	)
 	surface!(
-	  range(-4, 4, 200), range(-4, 4, 200), (x, y)-> 4x+2y-3, c=:acton, alpha = 0.4, legend=:none, nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH, camera=(40,10)
+	  range(-4, 4, 50), range(-4, 4, 50), (x, y)-> 4x+2y-3, c=:acton, alpha = 0.4, legend=:none, nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH, camera=(40,10)
 	)
 	zlims!(-60,60)
 end
@@ -110,11 +110,11 @@ end
 # ╔═╡ c33f194c-519a-4a2e-9491-c713cd621990
 begin		
 	surface(
-	  range(-2, 2, 200), range(-2, 2, 200), (x, y)-> (2x^2 + y^2), c=:roma, legend=:none, 
+	  range(-2, 2, 50), range(-2, 2, 50), (x, y)-> (2x^2 + y^2), c=:roma, legend=:none, 
 	  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH
 	)
 	surface!(
-	  range(-2, 2, 200), range(-2, 2, 200), (x, y)-> 4x+2y-3, c=:acton, alpha = 0.40, legend=:none, nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH, camera=(40,10)
+	  range(-2, 2, 50), range(-2, 2, 50), (x, y)-> 4x+2y-3, c=:acton, alpha = 0.40, legend=:none, nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH, camera=(40,10)
 	)
 	zlims!(-60,60)
 end
@@ -122,11 +122,11 @@ end
 # ╔═╡ 7cc9ca6e-39cb-4d2a-90c9-d6800a176506
 begin		
 	surface(
-	  range(-1, 1, 200), range(-1, 1, 200), (x, y)-> (2x^2 + y^2), c=:roma, legend=:none, 
+	  range(-1, 1, 50), range(-1, 1, 50), (x, y)-> (2x^2 + y^2), c=:roma, legend=:none, 
 	  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH
 	)
 	surface!(
-	  range(-1, 1, 200), range(-1, 1, 200), (x, y)-> 4x+2y-3, c=:acton, alpha = 0.4, legend=:none, nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH, camera=(40,10)
+	  range(-1, 1, 50), range(-1, 1, 50), (x, y)-> 4x+2y-3, c=:acton, alpha = 0.4, legend=:none, nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH, camera=(40,10)
 	)
 	zlims!(-60,60)
 end
@@ -245,11 +245,11 @@ md"
 # ╔═╡ 360eea16-55dc-451a-8061-fa4c83bbd5e6
 begin		
 	surface(
-	  range(0, 5, 200), range(0, 5, 200), (x, y)-> (x^2 + 3x*y - y^2), c=:roma, legend=:none, 
+	  range(0, 5, 50), range(0, 5, 50), (x, y)-> (x^2 + 3x*y - y^2), c=:roma, legend=:none, 
 	  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH
 	)
 	surface!(
-	  range(0, 5, 200), range(0, 5, 200), (x, y)-> 13x-13, c=:acton, alpha = 0.4, legend=:none, nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH, camera=(40,10)
+	  range(0, 5, 50), range(0, 5, 50), (x, y)-> 13x-13, c=:acton, alpha = 0.4, legend=:none, nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH, camera=(40,10)
 	)
 	#zlims!(-60,60)
 end
@@ -292,6 +292,29 @@ md"
 >
 > Estruture o problema de maximização de lucros para esta firma monopolista e calcule as quantidades produzidas ótimas
 "
+
+# ╔═╡ 81e2f884-4418-4091-8301-41572162eecc
+md"""
+!!! hint "Resposta"
+	* A função lucro desta firma monopolista é dada por:
+	
+	$$\begin{eqnarray}\pi(q_1, q_2) &\equiv & R(q_1, q_2) - C(q_1, q_2) \\ &=& -6q_1^2 - 4q_2^2 + 144q_1 + 148q_2 - 4q_1q_2 - 75\end{eqnarray}$$
+
+	* Portanto, o objetivo da firma maximizadora de lucros é:
+
+	$$\max_{(q_1, q_2)} \pi(q_1, q_2) = -6q_1^2 - 4q_2^2 + 144q_1 + 148q_2 - 4q_1q_2 - 75 \tag{lucro} \label{lucro}$$
+
+	* Condições de primeira ordem:
+
+	$$\begin{eqnarray}\pi_1 &=& -12q_1 + 144 - 4q_2 &=& 0 \\ \pi_2 &=& -8q_2 + 148 - 4q_1 &=& 0\end{eqnarray}$$
+
+	* Os pontos críticos podem, então, ser calculados através da solução do seguinte sistema linear:
+
+	$$\begin{bmatrix}12 & 4\\4 & 8\end{bmatrix} \begin{bmatrix}q_1\\q_2\end{bmatrix} = \begin{bmatrix}144\\148\end{bmatrix}$$
+"""
+
+# ╔═╡ 8ed4470a-ae81-4148-88d0-2f1c36608b77
+println("As quantidades ótimas produzidas pela firma monopolista são dadas por: $([12 4; 4 8]\[144; 148])")
 
 # ╔═╡ 043ed29f-b047-4afd-b005-b840edc9ca01
 md"
@@ -432,6 +455,266 @@ md"""
 
 	Isso pode ocorrer quando, e.g., $f_{xx}(x^*,y^*) < 0$ ou $f_{yy}(x^*,y^*) < 0$, mas $[f_{xy}(x^*,y^*)]^2 \neq 0$
 """
+
+# ╔═╡ 14c2f9d9-1b67-494b-b043-064737887178
+md"""
+Montanha em formato de sela
+$(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula4_fig4.PNG", :width=>800))
+"""
+
+# ╔═╡ 3351047c-9987-4a05-aac5-c75e247693bf
+md"""
+> **Exercício**. Encontre e classifique os pontos críticos da seguinte função:
+>
+> $$f(x,y) = y^2 + x^2$$
+"""
+
+# ╔═╡ da2e819a-d7f2-435b-9915-dfd11da34509
+md"""
+!!! hint "Resposta"
+	1. Condição necessária de primeira ordem
+
+	$$\begin{eqnarray} f_x &=& 2x = 0 \\ f_y &=& 2y = 0\end{eqnarray}$$
+
+	Ponto crítico: $(0, 0)$
+
+	2. Condições de segunda ordem:
+
+	$$f_{xx}(0,0) = 2, f_{yy}(0,0) = 2, f_{xy}(0,0) = 0$$
+
+	Portanto, o ponto $(0,0)$ é um mínimo local
+"""
+
+# ╔═╡ 1dff376c-d9ac-400c-a7e1-3d6e52bad4be
+begin		
+	surface(
+	  range(-3, 3, 50), range(-3, 3, 50), (x, y)-> (y^2 +x^2), c=:roma, legend=:none, camera=(60,15),
+	  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH
+	)
+end
+
+# ╔═╡ 88cd93dc-6ed5-4854-b298-50393a84347a
+begin		
+	contour(
+	  range(-3, 3, 50), range(-3, 3, 50), (x, y)-> y^2+x^2, c=:roma, legend=:none, levels = 20	  
+	)
+	scatter!([(0, 0)], ms=8, mc=:indianred)
+	vline!([0], label=:none, c=:white, lw=0.5)
+	hline!([0], label=:none, c=:white, lw=0.5)
+end
+
+# ╔═╡ 2d353e55-1414-49b0-9975-e3ec83203415
+md"
+* Note, pelo mapa de contorno da função $f$, que as curvas de nível perto de (0,0) têm formato oval e indicam que, quando nos movemos para longe do ponto em qualquer direção, os valores de $f$ crescem
+"
+
+# ╔═╡ 80ad3e9e-04b0-4789-9848-2280279cd894
+md"""
+> **Exercício**. Encontre e classifique os pontos críticos da seguinte função:
+>
+> $$f(x,y) = y^2 - x^2$$
+"""
+
+# ╔═╡ fe2d8593-a34b-46d4-95ed-d1f6f87f02e7
+md"""
+!!! hint "Resposta"
+	1. Condição necessária de primeira ordem
+
+	$$\begin{eqnarray} f_x &=& -2x = 0 \\ f_y &=& 2y = 0\end{eqnarray}$$
+
+	Ponto crítico: $(0, 0)$
+
+	2. Condições de segunda ordem:
+
+	$$f_{xx}(0,0) = -2, f_{yy}(0,0) = 2, f_{xy}(0,0) = 0$$
+
+	Portanto, o ponto $(0,0)$ é um ponto de sela
+"""
+
+# ╔═╡ 26287112-b517-47f7-ba84-b77eb6ee039a
+begin		
+	surface(
+	  range(-3, 3, 50), range(-3, 3, 50), (x, y)-> (y^2 -x^2), c=:roma, legend=:none, camera=(60,15),
+	  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH
+	)
+end
+
+# ╔═╡ 8b4aeb31-750d-4d5f-9396-c28a5b55a117
+begin		
+	contour(
+	  range(-3, 3, 50), range(-3, 3, 50), (x, y)-> y^2-x^2, c=:roma, legend=:none, levels = 20	  
+	)
+	scatter!([(0, 0)], ms=8, mc=:indianred)
+	vline!([0], label=:none, c=:white, lw=0.5)
+	hline!([0], label=:none, c=:white, lw=0.5)
+end
+
+# ╔═╡ 0226907c-9a4c-4054-a1dd-e51675ea2888
+md"
+* Note pelo mapa de contorno da função $f$ que as curvas de nível próximas ao ponto $(0,0)$ parecem hipérboles e, portanto, revelam que quando nos movemos para longe da origem os valores de $f$ decrescem em algumas direções mas crescem em outras
+"
+
+# ╔═╡ e99d6fbb-db98-4206-9576-8a7b652b784c
+md"""
+> **Exercício**. Encontre e classifique os pontos críticos da seguinte função:
+>
+> $$f(x,y) = x^4 + y^4 - 4xy + 1$$
+"""
+
+# ╔═╡ 7a55cd2c-ae87-4f77-9a25-ee11b01c6162
+md"""
+!!! hint "Resposta"
+	1. Condição necessária de primeira ordem
+
+	$$\begin{eqnarray} f_x &=& 4x^3 - 4y = 0 \\ f_y &=& 4y^3 - 4x = 0\end{eqnarray}$$
+
+	Pontos críticos: $(0, 0), (1, 1)$ e $(-1, -1)$
+
+	2. Condições de segunda ordem:
+
+	$$f_{xx} = 12x^2, f_{yy} = 12y^2, f_{xy} = -4$$
+
+	Portanto, o ponto $(0,0)$ é um ponto de sela, os pontos $(-1, -1)$ e $(1, 1)$ são mínimos locais
+"""
+
+# ╔═╡ c8d21a92-4c9a-4822-9a70-fd83552305a2
+begin		
+	surface(
+	  range(-1.5, 1.5, 50), range(-1.5, 1.5, 50), (x, y)-> x^4 + y^4 -4x*y + 1, c=:roma, legend=:none, camera=(40,15),
+	  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH
+	)
+end
+
+# ╔═╡ 5c6f43e0-94a9-45ee-8e2d-3d791cfd0ee1
+begin		
+	contour(
+	  range(-2, 2, 50), range(-2, 2, 50), (x, y)-> x^4 + y^4 -4x*y + 1, c=:bone_1, legend=:none, levels = 100	  
+	)
+	vline!([0], label=:none, c=:white, lw=0.5)
+	hline!([0], label=:none, c=:white, lw=0.5)
+	scatter!([(0,0), (-1,-1), (1,1)], mc=:indianred, ms=5)
+end
+
+# ╔═╡ 8a205e43-f15e-4fe5-876f-c23112413d4c
+md"""
+> **Exercício**. Encontre e classifique os pontos críticos da seguinte função:
+>
+> $$f(x,y) = 8x^3 + 2xy - 3x^2 + y^2 + 1$$
+"""
+
+# ╔═╡ f228f80c-4eee-4a71-b948-62c4b3c0f205
+md"""
+!!! hint "Resposta"
+	1. Condição necessária de primeira ordem
+
+	$$\begin{eqnarray} f_x &=& 24x^2+2y-6x = 0 \\ f_y &=& 2x+2y = 0\end{eqnarray}$$
+
+	Pontos críticos: $(0, 0)$ e $(1/3, -1/3)$
+
+	2. Condições de segunda ordem:
+
+	$$f_{xx} = 48x-6, f_{yy} = 2, f_{xy} = 2$$
+
+	Portanto, o ponto $(0,0)$ é um ponto de sela, e o ponto $(1/3, -1/3)$ é um mínimo local
+"""
+
+# ╔═╡ 363d3854-d6da-411b-8834-f2bcaa073eaf
+begin		
+	surface(
+	  range(-0.5, 0.5, 50), range(-0.5, 0.5, 50), (x, y)-> 8x^3+2x*y-3x^2+y^2+1, c=:roma, legend=:none, camera=(40,15),
+	  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH
+	)
+end
+
+# ╔═╡ 131cbc05-1f36-4440-8653-f073d1c82bfe
+begin		
+	contour(
+	  range(-0.5, 0.5, 50), range(-0.5, 0.5, 50), (x, y)-> 8x^3+2x*y-3x^2+y^2+1, c=:bone_1, legend=:none, levels = 100	  
+	)
+	vline!([0], label=:none, c=:white, lw=0.5)
+	hline!([0], label=:none, c=:white, lw=0.5)
+	scatter!([(0,0), (1/3,-1/3)], mc=:indianred, ms=5)
+end
+
+# ╔═╡ 7cb43262-9e79-4cd7-b586-5f2ba04525ae
+md"""
+> **Exercício**. Encontre e classifique os pontos críticos da seguinte função:
+>
+> $$f(x,y) = x + 2ey - e^x - e^{2y}$$
+"""
+
+# ╔═╡ f4bd0497-7afc-4f35-9e03-adc17981924b
+md"""
+!!! hint "Resposta"
+	1. Condição necessária de primeira ordem
+
+	$$\begin{eqnarray} f_x &=& 1-e^x = 0 \\ f_y &=& 2e - 2e^{2y} = 0\end{eqnarray}$$
+
+	Ponto crítico: $(0, 1/2)$
+
+	2. Condições de segunda ordem:
+
+	$$f_{xx} = -e^x, f_{yy} = -4e^{2y}, f_{xy} = 0$$
+
+	Portanto, o ponto $(0,1/2)$ é um máximo local
+"""
+
+# ╔═╡ 4bc16829-e8a2-45bb-9c6e-1e533b45bb56
+begin		
+	surface(
+	  range(-1, 1, 50), range(0, 1, 50), (x, y)-> x + 2*exp(1)*y - exp(x)-exp(2y), c=:roma, legend=:none, camera=(60,20),
+	  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH
+	)
+end
+
+# ╔═╡ 349f108e-ce4d-463e-aed8-6be2573e994b
+begin		
+	contour(
+	  range(-1, 1, 50), range(0, 1, 50), (x, y)-> x + 2*exp(1)*y - exp(x)-exp(2y), c=:bone_1, legend=:none, levels = 30	  
+	)
+	vline!([0], label=:none, c=:white, lw=0.5)
+	hline!([0], label=:none, c=:white, lw=0.5)
+	scatter!([(0,1/2)], mc=:indianred, ms=5)
+end
+
+# ╔═╡ 75d8b4e6-bf06-47e5-9f74-043f454c196d
+md"""
+> **Exercício**. Considere o problema de maximização da firma monopolista que vimos anteriormente - Função $\ref{lucro}$
+>
+> Determine se o ponto crítico é, de fato, um ponto que maximiza o lucro da firma monopolista
+"""
+
+# ╔═╡ d33f162b-4470-4cf6-a275-73171453b4f6
+md"""
+!!! hint "Resposta"
+	* Vimos que:
+
+	$$\begin{eqnarray}\pi_1 &=& -12q_1 + 144 - 4q_2 = 0\\ \pi_2 &=& -8q_2 + 148 - 4q_1 = 0\end{eqnarray}$$
+
+	* O ponto crítico obtido foi $(7, 15)$
+
+	* Temos: $$\pi_{11} = -12, \pi_{12} = -4, \pi_{22} = -8$$
+
+	* Portanto, $(7, 15)$ é um ponto de máximo local
+"""
+
+# ╔═╡ 9e544e5e-acae-4e62-9ca5-c8c795307eb4
+begin		
+	surface(
+	  range(0, 20, 50), range(0, 20, 50), (x, y)-> -6x^2-4y^2+144x+148y-4x*y-75, c=:roma, legend=:none, camera=(60,20),
+	  nx=50, ny=50, display_option=Plots.GR.OPTION_SHADED_MESH
+	)
+end
+
+# ╔═╡ 6979819b-4ce4-4f58-8b34-83c06bf6cb57
+begin		
+	contour(
+	  range(0, 20, 50), range(0, 20, 50), (x, y)-> -6x^2-4y^2+144x+148y-4x*y-75, c=:bone_1, legend=:none, levels = 30	  
+	)
+	vline!([0], label=:none, c=:white, lw=0.5)
+	hline!([0], label=:none, c=:white, lw=0.5)
+	scatter!([(7,15)], mc=:indianred, ms=5)
+end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1451,6 +1734,8 @@ version = "1.4.1+0"
 # ╟─a1776954-50e4-40d5-a67b-2c380836ade0
 # ╟─66cb6929-4e22-4acd-823d-7fe471e73982
 # ╟─60d973df-0f74-45bd-bb47-a0b5fa24e18b
+# ╟─81e2f884-4418-4091-8301-41572162eecc
+# ╟─8ed4470a-ae81-4148-88d0-2f1c36608b77
 # ╟─043ed29f-b047-4afd-b005-b840edc9ca01
 # ╟─64757cbf-382e-4287-8ab8-fc3a45269576
 # ╟─da918e2f-147d-4453-90d9-517ada257036
@@ -1465,5 +1750,32 @@ version = "1.4.1+0"
 # ╟─d7dec854-b818-415c-b7a8-3686af7b84ca
 # ╟─38028b85-d15b-4fc5-8f59-05c3b42c77db
 # ╟─336b83c0-14d1-4c3a-89df-bc2529ef9282
+# ╟─14c2f9d9-1b67-494b-b043-064737887178
+# ╟─3351047c-9987-4a05-aac5-c75e247693bf
+# ╟─da2e819a-d7f2-435b-9915-dfd11da34509
+# ╟─1dff376c-d9ac-400c-a7e1-3d6e52bad4be
+# ╟─88cd93dc-6ed5-4854-b298-50393a84347a
+# ╟─2d353e55-1414-49b0-9975-e3ec83203415
+# ╟─80ad3e9e-04b0-4789-9848-2280279cd894
+# ╟─fe2d8593-a34b-46d4-95ed-d1f6f87f02e7
+# ╟─26287112-b517-47f7-ba84-b77eb6ee039a
+# ╟─8b4aeb31-750d-4d5f-9396-c28a5b55a117
+# ╟─0226907c-9a4c-4054-a1dd-e51675ea2888
+# ╟─e99d6fbb-db98-4206-9576-8a7b652b784c
+# ╟─7a55cd2c-ae87-4f77-9a25-ee11b01c6162
+# ╟─c8d21a92-4c9a-4822-9a70-fd83552305a2
+# ╟─5c6f43e0-94a9-45ee-8e2d-3d791cfd0ee1
+# ╟─8a205e43-f15e-4fe5-876f-c23112413d4c
+# ╟─f228f80c-4eee-4a71-b948-62c4b3c0f205
+# ╟─363d3854-d6da-411b-8834-f2bcaa073eaf
+# ╟─131cbc05-1f36-4440-8653-f073d1c82bfe
+# ╟─7cb43262-9e79-4cd7-b586-5f2ba04525ae
+# ╟─f4bd0497-7afc-4f35-9e03-adc17981924b
+# ╟─4bc16829-e8a2-45bb-9c6e-1e533b45bb56
+# ╟─349f108e-ce4d-463e-aed8-6be2573e994b
+# ╟─75d8b4e6-bf06-47e5-9f74-043f454c196d
+# ╟─d33f162b-4470-4cf6-a275-73171453b4f6
+# ╟─9e544e5e-acae-4e62-9ca5-c8c795307eb4
+# ╟─6979819b-4ce4-4f58-8b34-83c06bf6cb57
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
