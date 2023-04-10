@@ -609,6 +609,47 @@ md"
 * Em termos gerais, para qualificar-se como um conjunto convexo, um conjunto de pontos não pode conter nenhum buraco, e sua fronteira não pode ter nenhuma reentrância (ou recorte)
 "
 
+# ╔═╡ 47fb9abd-72ea-4193-9b9f-cfc8f50a7942
+md"""
+Conjuntos convexos e não-convexos no $\mathbb{R}^2$
+$(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula7_fig4.PNG", width=>800))
+Fonte: Jehle e Reny (2011)
+"""
+
+# ╔═╡ d2ae8c7e-b070-4cb1-9259-f410f9f873ca
+md"
+* A definição geométrica de convexidade também aplica-se de imediato a conjuntos de pontos em um espaço tridimensional
+* Por exemplo, um cubo sólido é um conjunto convexo, ao passo que um cilindro oco não o é
+* Quando consideramos um espaço de quatro ou mais dimensões a interpretação geométrica fica menos óbvia
+* Recorremos à definição algébrica de conjuntos convexos então
+"
+
+# ╔═╡ f0c2ee74-03bf-4554-8a81-e4fd5c5bc26d
+md"""
+* Conjuntos convexos são os blocos fundamentais em praticamente qualquer área da teoria microeconômica
+* Em trabalhos teóricos, a convexidade é frequentemente assumida para assegurar que a análise seja matematicamente tratável e que os resultados obtidos sejam evidentes e "bem comportados"
+* Como vimos na motivação geométrica, há uma maneira simples e intuitiva de pensarmos a respeito de conjuntos convexos
+* Convexidade tem um papel fundamental em vários dos problemas de otimização em micro
+* Passemos, agora, à definição formal e algébrica de conjuntos convexos
+"""
+
+# ╔═╡ 527e37cf-7cb2-4add-bc44-6fbff89bd872
+md"
+* Inicialmente, introduziremos o conceito de uma **combinação convexa** de vetores (pontos), que é um tipo especial de combinação linear
+* Uma combinação linear de dois vetores $\mathbf{x}^1$ e $\mathbf{x}^2$ pode ser escrita como:
+
+$$k_1\mathbf{x}^1 + k_2\mathbf{x}^2, \qquad k_1, k_2\in\mathbb{R}$$
+
+* Quando ambos escalares, $k_1$ e $k_2$, estão contidos no intervalo fechado $[0,1]$ e sua soma é igual a 1, então, dizemos que a combinação linear é uma **combinação convexa**, que pode ser formalmente expressa por:
+
+$$\lambda \mathbf{x}^1 + (1-\lambda)\mathbf{x}^2, \qquad 0\leq\lambda\leq 1 \label{15}\tag{15}$$
+
+* Por exemplo, a combinação $\frac{1}{3}\begin{bmatrix}2\\4\end{bmatrix} + \frac{2}{3}\begin{bmatrix}-3\\3\end{bmatrix}$ é uma combinação convexa
+* Como esses multiplicadores são frações positivas cuja soma é igual a 1, tal combinação convexa pode ser interpretada como uma média ponderada dos dois vetores
+
+* A característica exclusiva da combinação convexa em ($\ref{15}$) é que, para qualquer valor aceitável de $\lambda$, o vetor soma resultante está sobre o segmento de reta que liga os pontos $\mathbf{x}^1$ e $\mathbf{x}^2$
+"
+
 # ╔═╡ 242a1a4f-8977-4e97-b1f8-49c1d366d42c
 md"
 ## 📚 Bibliografia
@@ -1685,6 +1726,10 @@ version = "1.4.1+0"
 # ╟─d0c06db8-1d82-4c1b-90f8-303e313053f8
 # ╟─961a7493-53f1-4250-acb7-70e04635f6d0
 # ╟─a0d91e62-ff8e-44b1-8fe2-21751437557a
+# ╟─47fb9abd-72ea-4193-9b9f-cfc8f50a7942
+# ╟─d2ae8c7e-b070-4cb1-9259-f410f9f873ca
+# ╟─f0c2ee74-03bf-4554-8a81-e4fd5c5bc26d
+# ╟─527e37cf-7cb2-4add-bc44-6fbff89bd872
 # ╟─242a1a4f-8977-4e97-b1f8-49c1d366d42c
 # ╟─7756b9bd-d772-4b15-86c6-edfcc8605476
 # ╟─00000000-0000-0000-0000-000000000001
