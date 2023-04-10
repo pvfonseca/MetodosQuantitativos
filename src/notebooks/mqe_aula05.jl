@@ -4,636 +4,391 @@
 using Markdown
 using InteractiveUtils
 
-# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
-macro bind(def, element)
-    quote
-        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
-        local el = $(esc(element))
-        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
-        el
-    end
-end
-
-# ╔═╡ 407c2350-d35d-11ed-3732-970fa3d6d6b1
+# ╔═╡ 8a9be680-d57b-11ed-2a9a-51e17ab974ef
 begin
 	using PlutoUI
 	using Plots
 	using LaTeXStrings
+	using LinearAlgebra
 	using Measures	
 	import PlutoUI: combine	
 	theme(:ggplot2)
 	gr(size=(800,600), lw = 2, fontfamily = "Computer Modern", grid=true, tickfontsize = 12, guidefontsize=16, framestyle=:box, margin=3mm, right_margin=7mm, guidefonthalign=:right, guidefontvalign=:top)	
 end
 
-# ╔═╡ 2b89dc01-35e1-432f-84a9-33f4c3bbe052
+# ╔═╡ 07d7783e-ebd0-4e05-ba29-a29e8fe97c69
 PlutoUI.TableOfContents(title="Sumário", indent=true)
 
-# ╔═╡ cf2fbc7b-6f3f-41a1-8f20-1e1b6de5b3b8
+# ╔═╡ 42dc5d74-7ac1-439c-9ed6-29cf21c78da4
 html"<button onclick=present()>Apresentação</button>"
 
-# ╔═╡ 0c60cc99-614b-44ba-969f-4ba20476d943
+# ╔═╡ 32112fbe-37f6-4d27-a451-67d9bbc7ca68
 md"""
-# Concavidade e Convexidade $~~~$ $(Resource("https://www1.udesc.br/imagens/id_submenu/899/cor_horizontal_rgb.jpg", :width => 150))
+# Otimização estática irrestrita $(Resource("https://www1.udesc.br/imagens/id_submenu/899/cor_horizontal_rgb.jpg", :width => 150))
 """
 
-# ╔═╡ 4f508c8b-176f-4b13-b4fa-65e3fe578255
+# ╔═╡ 770e4561-0c5c-443f-a984-bdcf7d441a36
 md"
 * **Disciplina:** 33MQEI - Métodos Quantitativos em Economia I
 * **Docente:** [Paulo Victor da Fonseca](https://pvfonseca.github.io)
 * **Contato:** [paulo.fonseca@udesc.br](mailto:paulo.fonseca@udesc.br)
 "
 
-# ╔═╡ b4357649-ae3e-4d44-8451-4969be877616
+# ╔═╡ 0ddc3ab2-c270-4419-a121-56d189836f05
 md"""
 !!! danger "Aviso"
 	O texto que segue não tem a menor pretensão de originalidade. Ele serve apenas como registro dos principais princípios, conceitos e técnicas analíticas que são trabalhados em sala de aula.
 """
 
-# ╔═╡ bf1ebb30-c9a5-4f82-9193-9b8373275f70
+# ╔═╡ a8a829d7-c717-42ac-85ef-7804ce8f7529
 md"
 ## Introdução
 "
 
-# ╔═╡ 4691f12c-79e4-4d77-917e-d67944bda4e3
+# ╔═╡ b6714ee0-98c8-4df6-8c44-dcee769a97e1
 md"
-* Nos nossos estudos de problemas de otimização estática até agora, nossas definições fizeram a distinção entre ótimos locais e globais
-* No entanto, as condições de primeira e segunda ordem que enunciamos referem-se, simplesmente, aos mínimos e máximos locais
-* As condições de segunda ordem - sejam enunciados em termos dos menores principais líderes do determinante Hessiano ou das raízes características da matriz Hessiana - estão sempre relacionadas à questão de um ponto extremo ser o pico de uma colina (máximo local) ou o fundo de um vale (mínimo local)
-* Em outras palavras, referem-se ao modo como uma curva, superfície ou hipersuperfície se curva ao redor de um ponto estacionário
+* Na aula anterior vimos as condições necessárias de primeira e suficientes de segunda ordem para uma função de duas variáveis reais:
+
+$$z = f(x,y)$$
+* O diferencial total de uma função $z = f(x,y)$ é nulo, $dz = 0$, em um ponto crítico $(x^*, y^*)$
+* Portanto, a condição necessária de primeira ordem para um extremo relativo é: $f_x = f_y = 0$
+* Vimos, também, que o diferencial total de segunda ordem da função $z$, dado por $d^2z = f_{xx}dx^2 + 2f_{xy}dxdy + f_{yy}dy^2$ é uma forma quadrática
+* Portanto:
+
+    1.  $f(x^*, y^*)$ é um **mínimo local** se $f_x = f_y = 0, f_{xx}, f_{yy} > 0$ e $f_{xx}f_{yy}>f_{xy}^2$
+
+    2.  $f(x^*, y^*)$ é um **máximo local** se $f_x = f_y = 0, f_{xx}, f_{yy} < 0$ e $f_{xx}f_{yy}>f_{xy}^2$
 "
 
-# ╔═╡ 803642c9-bb73-47b1-833e-b8a6359f6344
+# ╔═╡ 9eb872ca-56cb-4490-bf6e-687efb7cf3e3
 md"
-> Nosso objetivo, agora, é determinar as condições sob as quais um máximo ou mínimo local será, também, um máximo ou mínimo global
+## Formas quadráticas: representação matricial
 "
 
-# ╔═╡ ceae33b1-a67c-4b70-8e6e-813c94fede82
+# ╔═╡ 12a3c6c6-5144-4ec1-a6d7-77cfcd674917
 md"
-* Se um ponto de ótimo local é também um ótimo global dependerá do formato da função objetivo considerada e, portanto, devemos estudar as classes de funções que tenham a propriedade de que os ótimos locais e globais coincidem
-* Ao final veremos que quando temos uma **função convexa**, então, o ponto de mínimo local será, também, um ponto de mínimo global
-* Por outro lado, quando a função objetivo é uma **função côncava**, então, o máximo local é, também, um máximo global
+* Alternativamente, a forma quadrática do diferencial total de segunda ordem $d^2z = f_{xx}dx^2 + 2f_{xy}dxdy + f_{yy}dy^2$ pode ser representado matricialmente da seguinte forma:
+
+$$d^2z = \begin{bmatrix}dx & dy\end{bmatrix}\begin{bmatrix}f_{xx} & f_{xy} \\ f_{yx} & f_{yy}\end{bmatrix}\begin{bmatrix}dx\\dy\end{bmatrix}$$
+
+* De maneira mais compacta, temos:
+
+$$d^2z = \textbf{x}^T A \textbf{x},$$
+onde $\textbf{x} = \begin{bmatrix}dx & dy\end{bmatrix}^T$ e $A = \begin{bmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy}\end{bmatrix}$
+
+* O determinante da matriz simétrica $A$ - que denominamos o **discriminante $|D|$ da forma quadrática** - nos permite obter o critério de condição suficiente de segunda ordem para um extremo relativo
+
+* A condição necessária e suficiente para que a forma quadrática seja **positiva definida** é que os menores principais líderes de $|D|$ sejam todos positivos, ou seja:
+$$|f_{xx}| > 0, \quad \text{ e } \quad \begin{vmatrix}f_{xx} & f_{xy}\\f_{yx} & f_{yy}\end{vmatrix} > 0$$
+
+* Portanto, para que $(x^*, y^*)$ seja um ponto de mínimo relativo, devemos ter:
+$$f_{xx} > 0 \quad \text{ e } \quad f_{xx}f_{yy} > f_{xy}^2$$
+
+* Note que, então, $f_{yy}$ deve ter o mesmo sinal algébrico de $f_{xx}$: $f_{yy} > 0$
+
+* De maneira análoga, a condição necessária e suficiente para que a forma quadrática seja **negativa definida** é que os menores principais líderes de $|D|$ alternem seus sinais algébricos (os de índice ímpar sejam negativos, os pares sejam positivos), ou seja:
+$$|f_{xx}| < 0, \quad \text{ e } \quad \begin{vmatrix}f_{xx} & f_{xy}\\f_{yx} & f_{yy}\end{vmatrix} > 0$$
+
+* Portanto, para que $(x^*, y^*)$ seja um ponto de máximo relativo, devemos ter:
+$$f_{xx} < 0 \quad \text{ e } \quad f_{xx}f_{yy} > f_{xy}^2$$
+
+* Note que, então, $f_{yy}$ deve ter o mesmo sinal algébrico de $f_{xx}$: $f_{yy} < 0$
 "
 
-# ╔═╡ e427e6d6-6d3f-4fae-8db4-c781dafa8ac7
-md"
-* Uma função que dá origem a uma colina em todo o seu domínio é denominada uma **função côncava**
-* A definição formal será dada mais adiante
-"
-
-# ╔═╡ 14802dbc-dff2-471a-8fdb-8eea86cc7835
-begin	
-	plot(range(-2, 2, 100), x -> -x^2, lc=:indianred, label=L"f(x) = -x^2")
-	hline!([0], lw=1, lc=:black, label=:none)
-	vline!([0], lw=1, lc=:black, label=:none)
-	ylims!(-4, 1)
-end
-
-# ╔═╡ 31494539-6c43-4ab7-b6f4-674dfe01d6a1
-begin	
-	surface(range(-2, 2, 100), range(-2, 2, 100), (x, y) -> -x^2 - y^2, c=:thermal, display_option=Plots.GR.OPTION_SHADED_MESH, title=L"f(x, y) = -x^2 - y^2")	
-end
-
-# ╔═╡ 8942cc1c-28a5-4735-af9e-aeb3ce84af35
-md"
-* Uma função que dá origem a um vale em todo o seu domínio é denominada uma **função convexa**
-* A definição formal será dada mais adiante
-"
-
-# ╔═╡ bcfa64c1-5ba6-452f-b68b-d7642c7ae7e6
-begin	
-	plot(range(-2, 2, 100), x -> x^2, lc=:indianred, label=L"f(x) = x^2")
-	hline!([0], lw=1, lc=:black, label=:none)
-	vline!([0], lw=1, lc=:black, label=:none)
-	ylims!(-1, 4)
-end
-
-# ╔═╡ 0fabe2df-6343-410e-ab10-a784b0798a3d
-begin	
-	surface(range(-2, 2, 100), range(-2, 2, 100), (x, y) -> x^2 + y^2, c=:thermal, display_option=Plots.GR.OPTION_SHADED_MESH, title=L"f(x, y) = x^2 + y^2")	
-end
-
-# ╔═╡ d8c18dbf-cf8c-4c25-8546-44506db3919b
-md"
-* Na presente discussão, admitiremos que o domínio é todo o $\mathbb{R}^n$, onde $n \in \mathbb{N}$ é o número de variáveis de escolha
-* Considerando que a caracterização como colina ou vale refere-se a todo o domínio da função, concavidade e convexidade são, é claro, conceitos **globais**
-* Se as propriedades de concavidade e convexidade são válidas apenas para uma porção da curva, superfície ou hipersuperfície (somente para um subconjunto $S$ do domínio - $S\subset \mathbb{R}^n$), então, o máximo e o mínimo associados são relativos (ou locais) para aquele subconjunto do domínio, uma vez que não podemos ter certeza da situação fora do subconjunto $S$
-"
-
-# ╔═╡ 9c09a35d-333c-426f-91f8-3902e1d4b108
-begin	
-	surface(range(-3, 3, 100), range(-3, 3, 100), (x, y) -> x*exp(-x^2-y^2), camera=(30,15), display_option = Plots.GR.OPTION_SHADED_MESH, c=:thermal, level=true, title=L"f(x, y) = xe^{-x^2-y^2}")	
-end
-
-# ╔═╡ 58036263-5f21-4aaf-8ebe-53b7d0863dfb
-md"
-* Quando discutimos a condição de sinal definido de $d^2z$ (ou da matriz Hessiana $H$), avaliamos os menores principais líderes do determinante Heassiano somente nos pontos críticos
-* Assim, limitamos a verificação de colina ou vale a uma pequena vizinhança do ponto crítico e, portanto, poderíamos discutir apenas máximos e mínimos **relativos**
-* Mas pode acontecer de $d^2z$ ter um sinal algébrico definido em toda a extensão do domínio da função objetivo, independentemente de onde os menores principais líderes são avaliados
-* Nesse caso, a colina ou vale cobriria todo o domínio e o máximo ou mínimo encontrado seria de natureza **global**
-* Mais especificamente, se $d^2 z$ for negativa (positiva) semidefinida **em toda a sua extensão**, a função $z = f(x_1, \dots, x_n)$ deve ser côncava (convexa)
-"
-
-# ╔═╡ 3c8e461a-59cb-40e9-9527-3be51315a67f
-md"
-* Se quisermos uma classificação mais minuciosa, podemos também distinguir entre concavidade e convexidade por um lado, e **concavidade estrita** e **convexidade estrita** por outro
-* No caso de _não-estrita_, a colina ou vale pode apresentar uma ou mais porções planas, tais como segmentos de reta ou segmentos de plano
-* O conceito de concavidade (convexidade) estrita exclui tais segmentos planos
-* As figuras que vimos até agora foram de funções estritamente convexas ou côncavas
-"
-
-# ╔═╡ 37e1792f-a700-48e7-a36d-482dac507cf1
-begin
-	plot(range(-2, 0, 100), x-> -x, lc=:indianred, label=L"f(x) = |x|")
-	plot!(range(0, 2, 100), x-> x, lc=:indianred, label=:none)
-	vline!([0], lw=1, lc=:black, label=:none)
-	hline!([0], lw=1, lc=:black, label=:none)
-end
-
-# ╔═╡ 9a2deedf-5b59-49b8-a086-be794e0c2545
-md"
-* O gráfico da função $f(x) = |x|$ evidencia que a função é convexa, mas não estritamente convexa (contém segmentos de reta)
-* Uma função estritamente côncava (estritamente convexa) deve ser côncava (convexa), mas a recíproca não é verdadeira
-* Um ponto crítico de uma função côncava deve ser um máximo (em oposição a um mínimo)
-* Além do mais, esse máximo deve ser um máximo absoluto, já que a colina abrange o domínio inteiro da função objetivo
-* No entanto, esse máximo absoluto pode não ser único, porque podem ocorrer vários máximos se a colina tiver um topo horizontal plano
-* Esta última possibilidade só pode ser descartada quando especificamos concavidade estrita
-* Pois é apenas neste caso (de concavidade estrita) que um pico consistirá em um único ponto e o máximo absoluto será único
-"
-
-# ╔═╡ 7dad24b4-ca37-4a3b-924a-6e1cdf9ac884
-begin	
-	plot(range(-2, -0.5, 50), x->x, lc=:indianred, label=:none)
-	plot!(range(-0.5, 0.5, 50), x->-0.5, lc=:indianred, label=:none)
-	plot!(range(0.5, 2, 50), x->-x, lc=:indianred, label=:none)	
-	vline!([0], lc=:black, lw=1, label=:none)
-	hline!([0], lc=:black, lw=1, label=:none)
-	title!("Não unicidade do ponto de máximo")
-end
-
-# ╔═╡ a86bdf84-7e74-4cd2-a275-b36a0a8cbe83
-md"
-* Por raciocínio análogo, um extremo de uma função convexa deve ser um mínimo absoluto (ou global), que pode não ser único
-* Um extremo de uma função estritamente convexa deve ser um mínimo absoluto único
-* Em termos da condição de sinal definido de $d^2z$ (ou da matriz Hessiana $H$), se $d^2z$ for negativa (positiva) definida em toda a sua extensão, a função $f$ deve ser estritamente côncava (estritamente convexa)
-"
-
-# ╔═╡ c1911f72-44f2-4211-a4bf-6d49de3e4601
+# ╔═╡ b2caf2c3-907b-4661-9dd0-fa3bd41e4e0c
 md"""
-!!! info "🎥 Spoiler"
-	O principal resultado que teremos nesta seção da disciplina é que, dada uma função objetivo côncava (convexa), qualquer ponto crítico pode ser imediatamente identificado como um máximo (mínimo) global.
-
-	Além disso, se a função objetivo for estritamente côncava (estritamente convexa), o ponto crítico deve ser, de fato, um máximo (mínimo) absoluto único!
-
-	Portanto, uma vez satisfeita a condição necessária de primeira ordem, a concavidade (convexidade) ou concavidade estrita (convexidade estrita) substitui efetivamente as condições de segunda ordem como condição suficiente para um máximo absoluto.
+!!! warning "Menores principais líderes"
+	O teste do determinante para matrizes positivas definidas (negativas definidas) será apresentado formalmente mais adiante
 """
 
-# ╔═╡ 2ea20fe7-b2b2-4e13-8622-5025e5d5d384
+# ╔═╡ 9ca8fb24-b91a-4bb7-a466-6a08201d486e
 md"
-* O poder dessa nova condição suficiente fica claro quando temos $d^2z = 0$ em um pico (vale), o que faz com que a CSO que vimos anteriormente falhe
-* A concavidade (convexidade) ou concavidade estrita (convexidade estrita) pode dar conta até mesmo desses picos (vales) difíceis, porque garante que uma condição suficiente de ordem mais alta seja satisfeita, mesmo que a de segunda ordem não seja
-* É por essa razão que muitas vezes economistas supõem concavidade da função objetivo desde o princípio (em modelos de maximização) já que, neste caso, basta aplicar a CPO
-
-    ⚠️ Todavia, observe que se for usada uma função objetivo específica, a propriedade de concavidade ou convexidade deve ser verificada
-"
-
-# ╔═╡ aa857d0e-035b-4083-a67b-d311e309f3dc
-md"
-## Funções convexas e funções côncavas
-"
-
-# ╔═╡ 73036edf-b28e-40ea-8dce-bf2566a1c751
-md"""
-!!! correct "Definição 7.1 - Função convexa e função côncava"
-	Seja $f: D \to \mathbb{R}$, onde $D \subset \mathbb{R}^n$, dizemos que $f$ é uma **função convexa** se para quaisquer dois pontos $\textbf{x}_1, \textbf{x}_2 \in D$, e qualquer número real $\lambda \in [0,1]$, a seguinte condição é satisfeita:
-
-	$$f(\lambda \textbf{x}_1 + (1-\lambda)\textbf{x}_2) \leq \lambda f(\textbf{x}_1) + (1-\lambda)f(\textbf{x}_2) \tag{1}$$
-
-	Se $f$ é uma função convexa, então, $g = -f$ é uma **função côncava**.
-
-	Algebricamente:
-
-	$$g(\lambda \textbf{x}_1 + (1-\lambda)\textbf{x}_2) \geq \lambda g(\textbf{x}_1) + (1-\lambda)g(\textbf{x}_2) \tag{2}$$
-"""
-
-# ╔═╡ f6689099-ff08-458f-9cdd-651855d47af2
-md"""
-!!! correct "Definição 7.2 - Função estritamente convexa e função estritamente côncava"
-	Seja $f: D \to \mathbb{R}$, onde $D \subset \mathbb{R}^n$, dizemos que $f$ é uma **função estritamente convexa** se para quaisquer dois pontos $\textbf{x}_1, \textbf{x}_2 \in D$, e qualquer número real $\lambda \in (0,1)$, a seguinte condição é satisfeita:
-
-	$$f(\lambda \textbf{x}_1 + (1-\lambda)\textbf{x}_2) < \lambda f(\textbf{x}_1) + (1-\lambda)f(\textbf{x}_2) \tag{3}$$
-
-	Se $f$ é uma função estritamente convexa, então, $g = -f$ é uma **função estritamente côncava**.
-
-	Algebricamente:
-
-	$$g(\lambda \textbf{x}_1 + (1-\lambda)\textbf{x}_2) > \lambda g(\textbf{x}_1) + (1-\lambda)g(\textbf{x}_2) \tag{4}$$
-"""
-
-# ╔═╡ 89cbb8b1-37a1-4fac-910d-1cda73f1367d
-md"
-* As definições de funções côncavas e funções convexas podem ser representadas geometricamente para o caso em que $D \subset \mathbb{R}$ pelas seguintes figuras
-"
-
-# ╔═╡ 99b1e156-bace-48ac-a493-226864e67da9
-begin
-	pontoa = @bind pa Slider(-3:0.1:0, default=-1)
-	pontob = @bind pb Slider(0:0.1:3, default=2)	
-
-	md"""
-	Ponto a: $(pontoa)
-	
-	Ponto b: $(pontob)	
-	
-	"""
-end
-
-# ╔═╡ ab4e2003-278b-40db-b656-322908b94e8c
-begin	
-	plot(range(-3, 3, 100), x->x^2 + 1, lc=:indianred, label="f convexa")
-	plot!(Shape([(pa, pa^2 + 1), (pb, pb^2 + 1)]), label=:none, lc=:deepskyblue4)
-	xlims!(-3, 3)	
-	hline!([0], lc=:black, lw=1, label=:none, ls=:solid)
-	vline!([0], lc=:black, lw=1, label=:none, ls=:solid)
-	scatter!([(pa, pa^2 + 1), (pb, pb^2+1)], label=:none, m = (6, :indianred, stroke(1, :indianred)))	
-end
-
-# ╔═╡ fbd32cae-5bd9-4f04-9097-0b78a429bdd4
-begin
-	pontoaa = @bind paa Slider(-3:0.1:0, default=-1)
-	pontobb = @bind pbb Slider(0:0.1:3, default=2)	
-
-	md"""
-	Ponto a: $(pontoaa)
-	
-	Ponto b: $(pontobb)	
-	
-	"""
-end
-
-# ╔═╡ 123eba48-a134-4d80-9984-f0f3b7e4336c
-begin	
-	plot(range(-3, 3, 100), x->-x^2 + 1, lc=:indianred, label="f côncava")
-	plot!(Shape([(paa, -paa^2 + 1), (pbb, -pbb^2 + 1)]), label=:none, lc=:deepskyblue4)
-	xlims!(-3, 3)	
-	hline!([0], lc=:black, lw=1, label=:none, ls=:solid)
-	vline!([0], lc=:black, lw=1, label=:none, ls=:solid)
-	scatter!([(paa, -paa^2 + 1), (pbb, -pbb^2+1)], label=:none, m = (6, :indianred, stroke(1, :indianred)))	
-end
-
-# ╔═╡ 1e258939-1c5f-48fb-89b8-bfcc2be3244e
-md"
-> Geometricamente, a função $f$ é convexa (côncava) se, e somente se, para qualquer par de pontos distintos $M$ e $N$ em seu gráfico, o segmento de reta $MN$ que une estes pontos estiver sobre ou acima (abaixo) da superfície
+> **Exercício 1 (ANPEC 2010)**. Seja $h: \mathbb{R}^2 \to \mathbb{R}$ definida por $h(x,y) = x^3y^3 - x - y + 1$. Determine se a matriz Hessiana de $h$ é negativa definida no ponto $(-1, 1)$
 >
-> A função é estritamente convexa (estritamente côncava) se, e somente se, o segmento de reta $MN$ estiver inteiramente acima (abaixo) da superfície, exceto em $M$ e $N$
+> **Exercício 2 (ANPEC 2011)**. Seja $f: \mathbb{R}^2 \to \mathbb{R}$ uma função diferenciável, se $H(x,y) = \begin{bmatrix}3x^2 & -1\\ -1 & 3y^2\end{bmatrix}$ é a matriz Hessiana de $f$ e $(0, 0)$ é um ponto crítico de $f$, podemos afirmar que $(0, 0)$ é um ponto mínimo de $f$?
+>
+> **Exercício 3**. Dados $f_{xx} = -2, f_{xy} = 1$ e $f_{yy} = -1$ em um certo ponto de uma função $z = f(x,y)$, $d^2z$ tem um sinal definido naquele ponto independente dos valores de $dx$ e $dy$?
+>
+> **Exercício 4**. A forma quadrática $q = 5u^2 + 3uv + 2v^2$ é positiva definida ou negativa definida?
 "
 
-# ╔═╡ 72915102-07b2-43a8-b1d1-f9165dfe7d01
-md"""
-A função $f$ é côncava, mas não estritamente côncava
-$(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula7_fig1.PNG", width=>800))
-Fonte: Jehle e Reny (2011)
-"""
-
-# ╔═╡ 2f1429f7-932d-424c-847d-3b0bdf990eed
-md"""
-!!! info "Teorema 7.1 - Função linear"
-	Se $f$ é uma função linear, então, $f$ é uma função côncava, bem como uma função convexa, mas não estritamente
-"""
-
-# ╔═╡ e135488d-22c8-49b8-bde2-02b6f9506f22
-md"""
-!!! info "Teorema 7.2 - Negativa de uma função"
-	Se $f$ é uma função côncava, então, $-f$ é uma função convexa, e vice-versa
-
-	De modo semelhante, se $f$ for uma função estritamente côncava, então, $-f$ é uma função estritamente convexa, e vice-versa
-"""
-
-# ╔═╡ 84e81cfd-4d08-4fc8-8af6-2ff280906251
-md"""
-!!! info "Teorema 7.3 - Soma de funções"
-	Se $f$ e $g$ forem ambas funções côncavas (funções convexas), então $f + g$ também é uma função côncava (função convexa)
-
-	Se $f$ e $g$ forem ambas funções côncavas (funções convexas) e, além disso, qualquer uma delas, ou ambas, for estritamente côncava (estritamente convexa), então, $f + g$ é estritamente côncava (estritamente convexa)
-"""
-
-# ╔═╡ 14911687-99ad-4490-993c-2ea9aec2c8af
+# ╔═╡ 6996a4db-505d-45d4-83ae-b6c24d1f076e
 md"
-> **Exercício 1**. Verifique a concavidade ou convexidade da função $f(x) = x^2$
+## Formas quadráticas: funções multivariadas
 "
 
-# ╔═╡ 9a0c48f3-c9c2-469e-a5a3-c2722ce0f984
+# ╔═╡ 198300f8-12fb-4454-87c2-6d49f233754c
+md"
+* Nosso objetivo, agora, é derivar um critério, baseado nas segundas derivadas de uma função multivariada, para que um ponto crítico seja um extremo relativo
+* Já analisamos estes critérios para o caso univariado e bivariado
+* Para o caso mais geral, a segunda derivada é um objeto matemático relativamente complicado
+* Para estabelecer nosso critério, introduziremos uma versão das segundas derivadas - a Hessiana - que, por sua vez, está relacionada a funções quadráticas
+* **Funções quadráticas** são funções $g: \mathbb{R}^n \to \mathbb{R}$ que possuem a forma:
+
+$$g(x_1, \dots, x_n) = \sum_{i, j = 1}^n a_{ij} x_i x_j,$$
+para uma matriz $n\times n$ - $[a_{ij}]$
+* Em notação matricial, podemos representar a função quadrática $g$ da seguinte forma:
+
+$$\begin{eqnarray}g(x_1, \dots, x_n) &=& \begin{bmatrix}x_1 & \dots & x_n\end{bmatrix}\begin{bmatrix}a_{11} & a_{12} & \dots & a_{1n}\\ \vdots & \vdots & \ddots & \vdots \\ a_{n1} & a_{n2} & \dots & a_{nn}\end{bmatrix}\begin{bmatrix}x_1 \\ \vdots \\ x_n\end{bmatrix}\\ &=& \textbf{x}^T A \textbf{x}\end{eqnarray}$$
+"
+
+# ╔═╡ 9d084dbb-ebfd-4c45-8a76-035b53bc8f52
+md"
+---
+### Matrizes positiva e negativa definidas: teste do determinante
+"
+
+# ╔═╡ d15404bd-24b9-4b3e-92e5-ac96496fc950
+md"""
+* Seja $g(x_1, \dots, x_n) = \textbf{x}^T A\textbf{x}$ uma forma quadrática em $n$ variáveis, a condição necessária e suficiente para que $g(\bullet)$ seja **positiva definida** é que os menores principais líderes do discriminante $|A|$ sejam todos positivos
+* Ou seja, $g(\bullet)$ será positiva definida se, e somente se, os determinantes de todas as $n$ submatrizes ao longo da diagonal forem positivas
+* As submatrizes ''diagonais'' são utilizadas no critério de determinação de definição positiva: todas elas devem ter um determinante positivo
+$(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula5_fig1.PNG", width=>400))
+Fonte: Marsden e Tromba (2011)
+
+* De forma mais explícita, devemos ter:
+
+$$\begin{eqnarray}|A_{1}| &\equiv& a_{11} > 0 \\ |A_{2} &\equiv& \begin{vmatrix}a_{11} & a_{12} \\ a_{21} & a_{22}\end{vmatrix} > 0 \\ \vdots &\quad& \ddots \\ |A_n| &\equiv& \begin{vmatrix}a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} & a_{22} & \dots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n1} & a_{n2} & \dots & a_{nn}\end{vmatrix} > 0\end{eqnarray}$$
+"""
+
+# ╔═╡ f7a69251-667b-4c69-bbd0-b948cf7d563e
+md"""
+!!! info "Condição necessária e suficiente para uma forma quadrática negativa definida"
+	A condição necessária e suficiente para que $g(\circ)$ seja **negativa definida** é que os menores principais líderes de $|A|$ alternem sinais, como segue:
+
+	$$|A_1| < 0, \quad |A_2| > 0, \quad |A_3| < 0, \quad |A_4| > 0, \dots$$
+
+	de modo que todos os discriminantes de índice ímpar sejam negativos e todos os de índice par sejam positivos.
+
+	O $n$-ésimo menor principal líder deve, então, satisfazer $(-1)^n|A_n|>0$
+"""
+
+# ╔═╡ 7c9af95d-1898-4ae9-ab7d-3cb16a5db782
+md"""
+!!! danger "Formas quadráticas positivas e negativas definidas: autovalores"
+	Podemos testar se uma forma quadrática $g(\bullet) = \textbf{x}^T A \textbf{x}$, onde $A$ é uma matriz simétrica de valores reais, é positiva ou negativa definida a partir dos autovalores da matriz $A$.
+
+	* A matriz $A$ é **positiva definida** se, e somente se, todos seus autovalores são reais e positivos
+	* A matriz $A$ é **negativa definida** se, e somente se, todos seus autovalores são reais e negativos
+"""
+
+# ╔═╡ 7e0ebf52-825f-45e2-9248-fd5b643a666d
+md"""
+!!! warning "Autovalores e autovetores"
+	Lembrando que, em álgebra linear, um escalar $\lambda$ diz-se um **valor próprio, autovalor ou valor característico** de um operador linear $A: V \to V$ se existir um vetor $\textbf{x}$ diferente de zero tal que
+
+	$$A \textbf{x} = \lambda \textbf{x}$$
+	
+	O vetor $x$ é chamado **vetor próprio, autovetor ou vetor característico**
+"""
+
+# ╔═╡ ee69c5a7-5579-4386-a1fc-5c8cdf98ee21
+md"
+#### Exercícios
+"
+
+# ╔═╡ 36484cc3-40cf-4d6e-b7dd-d94dc83ae7a7
+md"
+> **Exercício 5**. Determine se $q = u_1^2 + 6u_2^2 + 3u_3^2 - 2u_1u_2 - 4u_2u_3$ é positiva ou negativa definida
+"
+
+# ╔═╡ 9c5abd4d-7cec-4f8b-9e80-5a6097ab6b12
 md"""
 !!! hint "Resolução"
-	Tome $x_1, x_2$ números arbitrários pertencentes ao domínio da função $f$ e assuma, sem perda de generalidade, que $x_1 < x_2$. E seja $\lambda \in [0,1]$
+	Em notação matricial, a forma quadrática $q(\bullet)$ pode ser denotada por:
 
-	Temos, então que:
-
-	$$\begin{eqnarray}f(\lambda x_1 + (1-\lambda)x_2) - \lambda f(x_1) &-& (1-\lambda)f(x_2) = [\lambda x_1 + (1-\lambda)x_2]^2 - \lambda x_1^2 - (1-\lambda x_2^2) \\ &=& \lambda^2 x_1^2 + 2\lambda(1-\lambda)x_1x_2 + (1-\lambda)^2 x_2^2 - \lambda x_1^2 - (1-\lambda)x_2^2 \\ &=& -\lambda(1-\lambda)x_1^2 + 2\lambda(1-\lambda)x_1x_2 - \lambda(1-\lambda)x_2^2 \\ &=& -\lambda(1-\lambda)[x_1^2 - 2x_1x_2 + x_2^2] \\ &=& -\lambda(1-\lambda)[x_1-x_2]^2 < 0\end{eqnarray}$$
-
-	Portanto, concluímos que: $f(\lambda x_1 + (1-\lambda)x_2) < \lambda f(x_1) + (1-\lambda)f(x_2)$ e, portanto, a função $f(x) = x^2$ é (estritamente) convexa (Definições 7.1 e 7.2)
+	$$q(u_1, u_2, u_3) = \begin{bmatrix}u_1 & u_2 & u_3\end{bmatrix}\begin{bmatrix}1 & -1 & 0 \\ -1 & 6 & -2 \\ 0 & -2 & 3\end{bmatrix} \begin{bmatrix}u_1 \\ u_2 \\ u_3\end{bmatrix}$$
 """
 
-# ╔═╡ c1e76327-d470-4e5b-ba00-864f00ce4969
+# ╔═╡ 27ef62a2-3f39-497d-8502-233a6da54f68
+println("Primeiro menor principal líder: 1.0")
+
+# ╔═╡ 58461708-9d4b-4f95-93e6-e56b127fa6d7
+println("Segundo menor principal líder: $(det([1 -1; -1 6]))")
+
+# ╔═╡ c4622a53-1ecd-4fcc-8155-7a35ab4fa7cf
+println("Terceiro menor principal líder: $(det([1 -1 0; -1 6 -2; 0 -2 3]))")
+
+# ╔═╡ a7cbf478-d44d-4330-a4d8-6298567ea7b7
+md"
+* Como todos os discriminantes dos menores principais líderes são positivos, a forma quadrática é positiva definida! 
+* Alternativamente, podemos verificar pela condição de autovalores
+"
+
+# ╔═╡ d2e978db-be61-4f9b-b15b-f974c022d241
 begin
-	plot(range(-2, 2, 50), x->x^2, lc=:indianred, label=L"f(x)=x^2")
-	vline!([0], lc=:black, lw=1, label=:none)
-	hline!([0], lc=:black, lw=1, label=:none)
+	Ex1 = eigen([1 -1 0; -1 6 -2; 0 -2 3])
+	println("Autovalores da matriz: $(round.(Ex1.values; digits=3))")
 end
 
-# ╔═╡ d4b57854-dd19-4594-865e-761b411d9ea1
+# ╔═╡ b67e7cb5-3e90-4494-a537-a9313dd9cb42
 md"
-> **Exercício 2**. Verifique a concavidade ou convexidade da função $g(x) = -x^2$
+> **Exercício 6**. Determine se $q = 2u^2 + 3v^2 - w^2 + 6uv - 8uw - 2vw$ é positiva ou negativa definida
 "
 
-# ╔═╡ 09cbeaa6-e090-4033-895b-a3110e49adcb
+# ╔═╡ 16c7ef79-c721-418f-94ae-d5fc3ce123ad
 md"""
 !!! hint "Resolução"
-	1️⃣ Pelo Exercício 1, vimos que $f(x) = x^2$ é uma função (estritamente) convexa. Pelo Teorema 7.2, podemos concluir que $g(x) = -x^2 = -f(x)$ é uma função (estritamente) côncava
-	
-	2️⃣ Tome $x_1, x_2$ números arbitrários pertencentes ao domínio da função $g$ e assuma, sem perda de generalidade, que $x_1 < x_2$. E seja $\lambda \in [0,1]$
+	Em notação matricial, a forma quadrática $q(\bullet)$ pode ser denotada por:
 
-	Temos, então que:
-
-	$$\begin{eqnarray}g(\lambda x_1 + (1-\lambda)x_2) &-& \lambda g(x_1) - (1-\lambda)g(x_2) = -[\lambda x_1 + (1-\lambda)x_2]^2 + \lambda x_1^2 + (1-\lambda x_2^2) \\ &=& -\lambda^2 x_1^2 - 2\lambda(1-\lambda)x_1x_2 - (1-\lambda)^2 x_2^2 + \lambda x_1^2 + (1-\lambda)x_2^2 \\ &=& \lambda(1-\lambda)x_1^2 - 2\lambda(1-\lambda)x_1x_2 + \lambda(1-\lambda)x_2^2 \\ &=& \lambda(1-\lambda)[x_1^2 - 2x_1x_2 + x_2^2] \\ &=& \lambda(1-\lambda)[x_1-x_2]^2 > 0\end{eqnarray}$$
-
-	Portanto, concluímos que: $g(\lambda x_1 + (1-\lambda)x_2) > \lambda g(x_1) + (1-\lambda)g(x_2)$ e, portanto, a função $g(x) = -x^2$ é (estritamente) côncava (Definições 7.1 e 7.2)
+	$$q(u, v, w) = \begin{bmatrix}u & v & w\end{bmatrix}\begin{bmatrix}2 & 3 & -4 \\ 3 & 3 & -1 \\ -4 & -1 & -1\end{bmatrix} \begin{bmatrix}u \\ v \\ w\end{bmatrix}$$
 """
 
-# ╔═╡ f31091a7-225a-465e-be0a-f93e5742af43
+# ╔═╡ dfd7a387-1923-4746-9159-0dd56bd5bcc4
+println("Primeiro menor principal líder: 2.0")
+
+# ╔═╡ cde6383c-911e-4daa-bcc6-11c59b9508f8
+println("Segundo menor principal líder: $(det([2 3; 3 3]))")
+
+# ╔═╡ e27f8543-0e8b-4d4e-ac73-594109768ea7
+println("Terceiro menor principal líder: $(det([2 3 -4; 3 3 -1; -4 -1 -1]))")
+
+# ╔═╡ 1f97b93a-4e20-4359-bfda-12ed7e0a6613
 begin
-	plot(range(-2, 2, 50), x->x^2, lc=:indianred, label=L"g(x)=-x^2")
-	vline!([0], lc=:black, lw=1, label=:none)
-	hline!([0], lc=:black, lw=1, label=:none)
+	Ex2 = eigen([2 3 -4; 3 3 -1; -4 -1 -1])
+	println("Autovalores da matriz: $(round.(Ex2.values; digits=2))")
 end
 
-# ╔═╡ 849ced0b-2223-49ae-8a5a-46628ab4cf01
+# ╔═╡ 88ac3bb3-476e-422d-850e-ea70b52a3775
 md"
-> **Exercício 3**. Verifique a concavidade ou convexidade da função $h(x, y) = x^2 + y^2$
+* Note que, independente do teste, a forma quadrática não é nem positiva nem negativa definida
 "
 
-# ╔═╡ fe2722b8-f584-4da4-8214-b2a32cfe465f
+# ╔═╡ 03860386-86cd-4b3d-9287-dfaefed1b9b8
+md"
+## Condições de primeira e segunda ordem: caso multivariado
+"
+
+# ╔═╡ 49db434f-6ccd-4278-bcb0-d5bdf0c9ca31
+md"
+* Seja $z = f(x_1, \dots, x_n)$ uma função contínua e diferenciável, seu diferencial total de primeira ordem é dado por:
+$$dz = f_1 dx_1 + f_2 dx_2 + \dots + f_n dx_n$$
+* A condição necessária de primeira ordem para que um ponto $\textbf{x}_0$ seja um ponto crítico da função $f$ é dada por (já que devemos ter $dz = 0$):
+$$f_1(\textbf{x}_0) = f_2(\textbf{x}_0) = \dots = f_n(\textbf{x}_0) = 0$$
+* Ou seja, a matriz de derivadas parciais de $f$ em $\textbf{x}_0$ deve ser nula: $\mathbf{D}f(\textbf{x}_0) = 0$
+* Ou, como estamos considerando uma função de valores reais: $\nabla f = 0$
+"
+
+# ╔═╡ a500aca3-726d-42a5-ac89-cf1bf0f5a700
+md"""
+$(Resource("https://upload.wikimedia.org/wikipedia/commons/6/65/Ludwig_Otto_Hesse.jpg", width=>200))
+[Ludwig Otto Hesse (1811 - 1874)](https://en.wikipedia.org/wiki/Otto_Hesse)
+"""
+
+# ╔═╡ b6d50467-ce0b-4b9f-9921-488e21060624
+md"""
+!!! correct "Definição 5.1 - Hessiana de f em um ponto"
+	Seja $f: U\subset \mathbb{R}^n \to \mathbb{R}$ uma função que possua derivadas de segunda-ordem contínuas $(\partial^2 f/\partial x_i\partial x_j)(x_0)$, para $i, j = 1, \dots, n$, em um ponto $x_0 \in U$. A **Hessiana de $f$ em $x_0$** é a função quadrática definida por:
+
+	$$\begin{eqnarray}Hf(\textbf{x}_0)(\textbf{x}) &=& \frac{1}{2}\sum_{i,j=1}^n\frac{\partial^2 f}{\partial \textbf{x}_i\partial \textbf{x}_j} (\textbf{x}_0)x_ix_j\\ &=& \frac{1}{2} \begin{bmatrix}x_1 &\dots & x_n\end{bmatrix}\begin{bmatrix}\frac{\partial^2 f}{\partial x_1 \partial x_1} & \dots & \frac{\partial^2 f}{\partial x_1 \partial x_n} \\ \vdots & \ddots & \vdots \\ \frac{\partial^2 f}{\partial x_n \partial x_1} & \vdots & \frac{\partial^2 f}{\partial x_n \partial x_n}\end{bmatrix}\begin{bmatrix}x_1\\ \vdots \\ x_n\end{bmatrix}\\ &=& \frac{1}{2}\textbf{x}^T B\textbf{x}\end{eqnarray}$$
+
+	Note que, pela simetria das derivadas cruzadas de segunda ordem, a matriz de segundas derivadas é simétrica
+"""
+
+# ╔═╡ b794da5e-bac7-463c-a04f-7029aafcc0cc
+md"""
+!!! info "Teorema 5.1 - Teste de segundas derivadas para extremos locais"
+	Se $f: U\subset \mathbb{R}^n \to \mathbb{R}$ é uma função de classe $\mathcal{C}^3$, $\textbf{x}_0 \in U$ é um ponto crítico de $f$, e a Hessiana $Hf(\textbf{x}_0)$ é positiva definida, então, $\textbf{x}_0$ é um mínimo relativo de $f$.
+
+	De maneira similar, se $Hf(\textbf{x}_0)$ é negativa definida, então, $\textbf{x}_0$ é um máximo relativo de $f$
+"""
+
+# ╔═╡ 65adb919-ea2f-4a40-9cb7-ab7af06a56d8
+md"
+* Portanto, a condição suficiente de segunda ordem para um extremo relativo é, como antes, que todos os menores principais líderes sejam positivos para um ponto de **mínimo local**
+* Para um ponto de **máximo local** os menores principais líderes da matriz Hessiana devem alternar seus sinais algébricos devidamente, sendo negativo para índices ímpares e positivos para índices pares
+* Para os casos em que os determinantes das submatrizes diagonais são não-nulos mas, no entanto, a matriz Hessiana não é nem positiva definida nem negativa definida, o ponto crítico é um **ponto de sela**
+* Em resumo, as condições de primeira ordem e segunda ordem para máximos e mínimos locais da função $z = f(x_1, x_2, \dots, x_n)$ são resumidas na tabela a seguir:
+
+| Condição | Máximo relativo | Mínimo relativo |
+| :---: | :---: | :---: |
+| Necessária de 1ª ordem | $f_1 = \dots = f_n = 0$ | $f_1 = \dots = f_n = 0$ |
+| Suficiente de 2ª ordem | $\begin{vmatrix}H_1\end{vmatrix} < 0, \begin{vmatrix}H_2\end{vmatrix} > 0, \begin{vmatrix}H_3\end{vmatrix} < 0, \dots, (-1)^n\begin{vmatrix}H_n\end{vmatrix}>0$ | $\begin{vmatrix}H_1\end{vmatrix}, \dots, \begin{vmatrix}H_n\end{vmatrix} > 0$ |
+onde $H$ é a matriz Hessiana quadrada e simétrica associada à função $f(\bullet)$
+"
+
+# ╔═╡ e84c7935-c7ab-44cc-bdc1-47a77d601a5d
+md"
+> **Exercício 7**. Encontre os pontos críticos, se houver, da função:
+>
+> $$h(x,y,z) = x^2 + 3y^2 - 3xy + 4yz + 6z^2$$
+"
+
+# ╔═╡ 693a853c-f469-44e8-8370-8e38c38de3b9
 md"""
 !!! hint "Resolução"
-	1️⃣ Pelo Exercício 1, vimos que $f(x) = x^2$ é uma função (estritamente) convexa. Pelo Teorema 7.3, podemos concluir que $h(x, y) = x^2 + y^2$ é uma função (estritamente) convexa, por ser a soma de duas funções (estritamente) convexas
-	
-	2️⃣ Tome $x = (x_1, x_2)$ e $y = (y_1, y_2)$ pontos arbitrários pertencentes ao domínio da função $h$, e seja $\lambda \in [0,1]$
+	* Condições necessárias de primeira ordem:
 
-	Temos, então que:
+	$$\begin{eqnarray} h_x &=& 2x - 3y = 0 \\ h_y &=& 6y - 3x + 4z = 0 \\ h_z &=& 4y + 12z = 0\end{eqnarray}$$
 
-	$$\begin{eqnarray}h(\lambda x + (1-\lambda)y) &-& \lambda h(x) - (1-\lambda)h(y) = [\lambda x_1 + (1-\lambda)y_1]^2 + [\lambda x_1 + (1-\lambda)y_1]^2 \\ &\qquad& -\lambda x_1^2 -\lambda x_2^2 - (1-\lambda) y_1^2 - (1-\lambda) y_2^2\\ &=& -\lambda(1-\lambda)x_1^2 + 2\lambda(1-\lambda)x_1y_1 - \lambda(1-\lambda)y_1^2 \\ &\qquad& -\lambda(1-\lambda)x_2^2 + 2\lambda(1-\lambda)x_2y_2 - \lambda(1-\lambda)y_2^2\\ &=& -\lambda(1-\lambda)[x_1^2 - 2x_1y_1 + y_1^2] -\lambda(1-\lambda)[x_2^2 - 2x_2y_2 + y_2^2] \\ &=& -\lambda(1-\lambda)[x_1-y_1]^2 -\lambda(1-\lambda)[x_2-y_2]^2 < 0\end{eqnarray}$$
+	A solução do sistema de equações simultâneas anterior nos dá o seguinte ponto crítico: $(x^*, y^*, z^*) = (0, 0, 0)$
 
-	Portanto, concluímos que: $h(\lambda x + (1-\lambda)y) < \lambda h(x) + (1-\lambda)h(y)$ e, portanto, a função $h(x,y) = x^2 + y^2$ é (estritamente) convexa (Definições 7.1 e 7.2)
+	* Condição suficiente de segunda ordem:
+
+	A matriz Hessiana é dada por:
+
+	$$H = \begin{bmatrix}2 & -3 & 0 \\ -3 & 6 & 4 \\ 0 & 4 & 12\end{bmatrix}$$
+
+	Menores principais líderes:
+
+	$$\begin{eqnarray}|H_1| &=& 2 > 0 \\ |H_2| &=& 3 > 0 \\ |H_3| &=& 4 > 0\end{eqnarray}$$
+
+	Como todos os menores principais líderes são positivos, concluímos que o ponto crítico $(0, 0, 0)$ é um ponto de mínimo local, já que a matriz Hessiana é positiva definida!
+
+	De forma alternativa, os autovalores associados à matriz Hessiana são dados por: $\lambda_1 = 0,05, \lambda_2 = 5,8, \lambda_3 = 14,2$ que são todos positivos e, portanto, a matriz Hessiana é positiva definida
 """
 
-# ╔═╡ 86a7baa9-7ad4-4ccd-8aac-b08d2d84a07a
-begin	
-	surface(range(-2, 2, 100), range(-2, 2, 100), (x, y) -> x^2 + y^2, c=:thermal, display_option=Plots.GR.OPTION_SHADED_MESH, title=L"f(x, y) = x^2 + y^2", colorbar=false)	
-end
-
-# ╔═╡ 67094557-39a5-49e7-89a1-52bea6ac69bb
+# ╔═╡ 9547946d-4a94-4a0e-82d5-f592fc52ebe2
 md"
-## Funções diferenciáveis
+> **Exercício 8**. Encontre os pontos críticos, se houver, da função:
+>
+> $$h(x,y,z) = xz + x^2 - y + yz + y^2 + 3z^2$$
 "
 
-# ╔═╡ 85e3c144-c7f4-493c-a5c6-dd1fa769e9f3
-md"
-* Vimos que dada uma função objetivo côncava (convexa), qualquer ponto crítico pode ser, imediatamente, identificado como um máximo (mínimo) global do problema de otimização estático irrestrito
-* Além disso, os conceitos estritos de convexidade e concavidade, quando se aplicam, podem ser usados para garantir a unicidade destes máximos ou mínimos globais
-* Como enunciado na Definição 7.1, as definições de funções convexas e funções côncavas são livres de derivada e, portanto, não requerem diferenciabilidade
-* No entanto, se a função for diferenciável, concavidade e convexidade podem, também, ser definidas em termos de suas derivadas primeiras
-"
-
-# ╔═╡ 34e06c87-428b-4f40-9134-f701bbf18304
-md"""
-Função côncava (contínua mas não diferenciável)
-$(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula7_fig2.PNG", width=>800))
-Fonte: Sydsæter et al. (2016)
-"""
-
-# ╔═╡ b1e7f5ef-5fde-4a2b-a1a2-b9751dab416a
-md"""
-Função convexa (contínua e diferenciável)
-$(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula7_fig3.PNG", width=>800))
-Fonte: Sydsæter et al. (2016)
-"""
-
-# ╔═╡ 4a252de9-23ad-4fae-b328-03ed7254c9b7
-md"
-* Para o caso de funções univariadas, contínuas e diferenciáveis, concavidade e convexidade podem ser definidos como segue
-"
-
-# ╔═╡ 92498bda-d01b-46a0-972c-466f5f84934f
-md"""
-!!! correct "Definição 7.3 - Função convexa e função côncava"
-	Seja $f: D\to \mathbb{R}$, $D\subset\mathbb{R}$, uma função contínua e diferenciável, $f$ é uma **função convexa** se, e somente se, para quaisquer $x_1, x_2 \in D$, a seguinte condição for satisfeita:
-
-	$$f(x_1) \geq f(x_2) + f'(x_2)(x_1 - x_2)\tag{5}$$
-
-	De maneira análoga, $f$ é uma **função côncava** se, e somente se, para quaisquer $x_1, x_2 \in D$, a seguinte condição for satisfeita:
-
-	$$f(x_1) \leq f(x_2) + f'(x_2)(x_1 - x_2)\tag{6}$$
-"""
-
-# ╔═╡ 735a6052-b77e-4ee7-a2d1-c5172a07b628
-md"""
-!!! correct "Definição 7.4 - Função estritamente convexa e função estritamente côncava"
-	Seja $f: D\to \mathbb{R}$, $D\subset\mathbb{R}$, uma função contínua e diferenciável, $f$ é uma **função estritamente convexa** se, e somente se, para quaisquer $x_1, x_2 \in D$, a seguinte condição for satisfeita:
-
-	$$f(x_1) > f(x_2) + f'(x_2)(x_1 - x_2)\tag{7}$$
-
-	De maneira análoga, $f$ é uma **função estritamente côncava** se, e somente se, para quaisquer $x_1, x_2 \in D$, a seguinte condição for satisfeita:
-
-	$$f(x_1) < f(x_2) + f'(x_2)(x_1 - x_2)\tag{8}$$
-"""
-
-# ╔═╡ 04825c07-d085-49a2-85bd-72042e02fbee
-md"
-* A interpretação geométrica é similar à que vimos anteriormente, essas definições retratam uma curva convexa (côncava) como uma curva que está sobre ou acima (abaixo) de todas as suas retas tangentes
-* Para qualificar-se como uma curva estritamente convexa (estritamente côncava), a curva deve estar estritamente acima (abaixo) de todas as retas tangentes, exceto nos pontos de tangência
-"
-
-# ╔═╡ 11d8089b-8c1c-4913-9335-fd2b9b9e763b
-md"
-* Para o caso multivariado, as Definições 7.3 e 7.4 precisam de uma pequena modificação
-"
-
-# ╔═╡ d3f146e4-7bcc-4b0f-9adc-34b2ebf382e9
-md"""
-!!! correct "Definição 7.5 - Função convexa e função côncava"
-	Seja $f: D\to \mathbb{R}$, $D\subset\mathbb{R}^n$, uma função contínua e diferenciável, $f$ é uma **função convexa** se, e somente se, para quaisquer $\textbf{u}, \textbf{v} \in D$, a seguinte condição for satisfeita:
-
-	$$f(\textbf{u}) \geq f(\textbf{v}) + \sum_{j=1}^n f_j(\textbf{v})(u_j - v_j)\tag{9},$$
-	onde $f_j(\textbf{v}) \equiv \partial f/\partial x_j$ está avaliada em $\textbf{v} = (v_1, \dots, v_n)$
-
-	De maneira análoga, $f$ é uma **função côncava** se, e somente se, para quaisquer $\textbf{u}, \textbf{v} \in D$, a seguinte condição for satisfeita:
-
-	$$f(\textbf{u}) \leq f(\textbf{v}) + \sum_{j=1}^n f_j(\textbf{v})(u_j - v_j)\tag{10},$$
-	onde $f_j(\textbf{v}) \equiv \partial f/\partial x_j$ está avaliada em $\textbf{v} = (v_1, \dots, v_n)$
-"""
-
-# ╔═╡ fbfb2148-b9e0-44f1-9fd8-5521596de241
-md"""
-!!! correct "Definição 7.6 - Função estritamente convexa e função estritamente côncava"
-	Seja $f: D\to \mathbb{R}$, $D\subset\mathbb{R}^n$, uma função contínua e diferenciável, $f$ é uma **função estritamente convexa** se, e somente se, para quaisquer $\textbf{u}, \textbf{v} \in D$, a seguinte condição for satisfeita:
-
-	$$f(\textbf{u}) > f(\textbf{v}) + \sum_{j=1}^n f_j(\textbf{v})(u_j - v_j)\tag{11},$$
-	onde $f_j(\textbf{v}) \equiv \partial f/\partial x_j$ está avaliada em $\textbf{v} = (v_1, \dots, v_n)$
-
-	De maneira análoga, $f$ é uma **função estritamente côncava** se, e somente se, para quaisquer $\textbf{u}, \textbf{v} \in D$, a seguinte condição for satisfeita:
-
-	$$f(\textbf{u}) < f(\textbf{v}) + \sum_{j=1}^n f_j(\textbf{v})(u_j - v_j)\tag{12},$$
-	onde $f_j(\textbf{v}) \equiv \partial f/\partial x_j$ está avaliada em $\textbf{v} = (v_1, \dots, v_n)$
-"""
-
-# ╔═╡ 74485075-1f39-4ac6-a7b3-d3d31468f718
-md"
-> **Exercício 4**. Verifique a concavidade ou convexidade da função $f(x) = x^2$
-"
-
-# ╔═╡ 742ef73c-3aec-4f59-a0df-3232174e8cd4
+# ╔═╡ cca0c9e0-b73f-4c2a-b9dd-2140ab65cbc2
 md"""
 !!! hint "Resolução"
-	Note que $f(x) = x^2$ é uma função contínua e diferenciável
-	
-	Sejam $x_1, x_2$ números arbitrários pertencentes ao domínio da função $f$
+	* Condições necessárias de primeira ordem:
 
-	Temos, então que:
+	$$\begin{eqnarray} h_x &=& z + 2x = 0 \\ h_y &=& -1 + z + 2y = 0 \\ h_z &=& x + y + 6z = 0\end{eqnarray}$$
 
-	$$\begin{eqnarray}f(x_1) - f(x_2) - f'(x_2)(x_1 - x_2) &=& x_1^2 - x_2^2 - 2x_2(x_1 - x_2) \\ &=& x_1^2 - 2x_1x_2 + x_2^2 \\ &=& (x_1 - x_2)^2 > 0\end{eqnarray}$$
+	A solução do sistema de equações simultâneas anterior nos dá o seguinte ponto crítico: $(x^*, y^*, z^*) = \left(\frac{1}{20}, \frac{11}{20}, -\frac{1}{10}\right)$
 
-	Portanto, concluímos que: $f(x_1) > f(x_2) + f'(x_2)(x_2-x_2)$ e, portanto, a função $f(x) = x^2$ é (estritamente) convexa (Definições 7.3 e 7.4)
+	* Condição suficiente de segunda ordem:
+
+	A matriz Hessiana é dada por:
+
+	$$H = \begin{bmatrix}2 & 0 & 1 \\ 0 & 2 & 1 \\ 1 & 1 & 6\end{bmatrix}$$
+
+	Menores principais líderes:
+
+	$$\begin{eqnarray}|H_1| &=& 2 > 0 \\ |H_2| &=& 4 > 0 \\ |H_3| &=& 20 > 0\end{eqnarray}$$
+
+	Como todos os menores principais líderes são positivos, concluímos que o ponto crítico $\left(\frac{1}{20}, \frac{11}{20}, -\frac{1}{10}\right)$ é um ponto de mínimo local, já que a matriz Hessiana é positiva definida!
+
+	De forma alternativa, os autovalores associados à matriz Hessiana são dados por: $\lambda_1 = 1,55, \lambda_2 = 2, \lambda_3 = 6,45$ que são todos positivos e, portanto, a matriz Hessiana é positiva definida
 """
 
-# ╔═╡ 5188a887-7502-4033-8e19-9190eb4a6cf1
-md"
-> **Exercício 5**. Verifique a concavidade ou convexidade da função $g(x) = -x^2$
-"
+# ╔═╡ a87e8205-647b-4c5e-a76e-2138b875af2e
+pontos_criticos = [2 0 1; 0 2 1; 1 1 6]\[0; 1; 0]
 
-# ╔═╡ 437af6c8-78e2-46dc-986f-5f97ee4f4f6e
-md"""
-!!! hint "Resolução"
-	Note que $g(x) = -x^2$ é uma função contínua e diferenciável
-	
-	Sejam $x_1, x_2$ números arbitrários pertencentes ao domínio da função $g$
-
-	Temos, então que:
-
-	$$\begin{eqnarray}g(x_1) - g(x_2) - g'(x_2)(x_1 - x_2) &=& -x_1^2 + x_2^2 + 2x_2(x_1 - x_2) \\ &=& -x_1^2 + 2x_1x_2 - x_2^2 \\ &=& -(x_1 - x_2)^2 < 0\end{eqnarray}$$
-
-	Portanto, concluímos que: $g(x_1) < g(x_2) + g'(x_2)(x_2-x_2)$ e, portanto, a função $g(x) = -x^2$ é (estritamente) côncava (Definições 7.3 e 7.4)
-"""
-
-# ╔═╡ 55edb607-2cd2-4606-a70b-3f83f2fa56d6
-md"
-> **Exercício 6**. Verifique a concavidade ou convexidade da função $h(x) = x^2 + y^2$
-"
-
-# ╔═╡ 4cf22954-bb6d-4769-bc23-041ccb4dd2d3
-md"""
-!!! hint "Resolução"
-	Note que $h(x, y) = x^2 + y^2$ é uma função contínua e diferenciável
-	
-	Sejam $\textbf{u} = (u_1, u_2)$ e $\textbf{v} = (v_1, v_2)$ pontos arbitrários pertencentes ao domínio da função $h$
-
-	Temos, então que:
-
-	$$\begin{eqnarray}h(\textbf{u}) - h(\textbf{v}) - \sum_{j=1}^2 h_j(\textbf{v})(\textbf{u}_j - \textbf{v}_j) &=& (u_1^2 + u^2) - (v_1^2 + v^2) - [2v_1(u_1-v_1) + 2v_2(u_2 - v_2)] \\ 
-	&=& u_1^2 + u_2^2 - v_1^2 - v_2^2 - 2u_1v_1 + 2v_1^2 - 2u_2v_2 + 2v_2^2 \\
-	&=& (u_1^2 - 2u_1v_1 + v_1^2) + (u_2^2 - 2u_2v_2 + v_2^2) \\
-	&=& (u_1-v_1)^2 + (u_2-v_2)^2 > 0
-	\end{eqnarray}$$
-
-	Portanto, concluímos que: $h(\textbf{u}) > h(\textbf{v}) + \sum_{j=1}^2 h_j(\textbf{v})(\textbf{u}_j - \textbf{v}_j)$ e, portanto, a função $h(x, y) = x^2 + y^2$ é (estritamente) convexa (Definições 7.5 e 7.6)
-"""
-
-# ╔═╡ 570e3dbb-b9be-4f32-b117-8abc43554087
-md"
-* Por fim, podemos enunciar os seguintes resultados (sem demonstrações) que contém os resultados mais importantes referentes a funções côncavas e funções convexas para nossos propósitos
-"
-
-# ╔═╡ 7c1ca537-2543-402e-b5af-02c9df0dffee
-md"""
-!!! info "Teorema 7.4"
-	Seja $f: D\to \mathbb{R}, D\subset\mathbb{R}^n$ uma função contínua e duas vezes diferenciável, então, $f$ é uma **função convexa** se, e somente se, $d^2f$ for positiva semidefinida em toda a sua extensão.
-
-	Ou seja, $f$ é uma função convexa se, e somente se, sua Hessiana é positiva semidefinida para todo $\textbf{x} \in D$:
-
-	$$\text{f é convexa} \Leftrightarrow \textbf{z}'\bigtriangledown f(x)\textbf{z}\geq 0, \qquad \forall\textbf{x}\in D, \forall \textbf{z}\in\mathbb{R}^n\tag{13}$$
-	---
-	De maneira análoga, $f$ é uma **função côncava** se, e somente se, $d^2f$ for negativa semidefinida em toda a sua extensão.
-
-	Ou seja, $f$ é uma função côncava se, e somente se, sua Hessiana é negativa semidefinida para todo $\textbf{x} \in D$:
-
-	$$\text{f é côncava} \Leftrightarrow \textbf{z}'\bigtriangledown f(x)\textbf{z}\leq 0, \qquad \forall\textbf{x}\in D, \forall \textbf{z}\in\mathbb{R}^n\tag{14}$$
-"""
-
-# ╔═╡ a6c2d04c-5b7c-49d8-99ba-90887485019d
-md"""
-!!! warning "Função estritamente convexa e função estritamente côncava"
-	As definições de funções estritamente convexas e funções estritamente côncavas podem ser obtidas substituindo os termos ''semidefinida'' por ''definida'' no Teorema 7.4
-"""
-
-# ╔═╡ 0bebfc3a-52f5-4ec2-9681-2348a6674bd2
-md"
-* Com isso podemos, então, enunciar o teorema mais importante desta seção (sem demonstrá-lo)
-"
-
-# ╔═╡ 9dc7ce83-9c4e-4c9f-9e89-437fbc561178
-md"""
-!!! danger "Teorema 7.5"
-	Se $f$ é uma função convexa, então, qualquer ponto de mínimo local é, também, um ponto de mínimo global
-
-	---
-
-	De maneira similar, se $f$ é uma função côncava, então, qualquer ponto de máximo local é, também, um ponto de máximo global
-"""
-
-# ╔═╡ d0c06db8-1d82-4c1b-90f8-303e313053f8
-md"
-* A importância dos conceitos de concavidade e convexidade, especialmente em trabalhos teóricos, deve estar clara a esta altura
-* Podemos assegurar a existência de um ponto de mínimo ou máximo global ao assumirmos que as funções objetivos sejam convexas ou côncavas
-* Por exemplo, em microeconomia assumimos que as curvas de indiferença sejam convexas e as fronteiras de produção sejam côncavas
-"
-
-# ╔═╡ 961a7493-53f1-4250-acb7-70e04635f6d0
-md"
-## Funções convexas x conjuntos convexos
-"
-
-# ╔═╡ a0d91e62-ff8e-44b1-8fe2-21751437557a
-md"
-* Embora conjuntos convexos e funções convexas não deixem de estar relacionados, são conceitos distintos e, portanto, é importante não confundi-los
-* Começaremos com a caracterização geométrica de um conjunto convexo
-* Seja $S$ um conjunto de pontos em um espaço bidimensional ou tridimensional. Se, para quaisquer dois pontos no conjunto $S$, o segmento de reta que une esses dois pontos estiver contido inteiramente em $S$, então, diz-se que o conjunto $S$ é um **conjunto convexo**
-* Exemplos de conjuntos convexos são: a linha real, o conjunto composto por um único ponto, o conjunto vazio
-* Em termos gerais, para qualificar-se como um conjunto convexo, um conjunto de pontos não pode conter nenhum buraco, e sua fronteira não pode ter nenhuma reentrância (ou recorte)
-"
-
-# ╔═╡ 242a1a4f-8977-4e97-b1f8-49c1d366d42c
+# ╔═╡ c8e4e822-5c6a-4c5f-8991-5e1d8b666db1
 md"
 ## 📚 Bibliografia
 "
 
-# ╔═╡ 7756b9bd-d772-4b15-86c6-edfcc8605476
+# ╔═╡ 01bf9a53-0ebb-484a-99f0-7fd20f99e9dd
 md"
-CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas.
-Rio de Janeiro: Elsevier, 2006.
-
-DADKHAH, K. Foundations of Mathematical and Computational
-Economics. Boston: Springer, 2011.
-
-JEHLE, G. A.; RENY, P. J. Advanced Microeconomic Theory. 3rd.ed.
-Essex: Pearson Education Limited, 2011.
-
-SYDSÆTER, K.; HAMMOND, P.J.; STRØM, A.; CARVAJAL, A.
-Essential mathematics for economic analysis. 5th.ed. Harlow, UK:
-Pearson Education Limited, 2016.
+* CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas. Rio de Janeiro: Elsevier, 2006.
+* MARSDEN, J.E.; TROMBA, A. Vector Calculus. 6.ed. New York: W.H. Freeman & Company, 2011.
+* SIMON, C.P.; BLUME, L. Matemática para economistas. Porto Alegre: Bookman, 2004.
 "
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Measures = "442fdcdd-2543-5da2-b0f3-8c86c306513e"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
@@ -641,7 +396,7 @@ PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 [compat]
 LaTeXStrings = "~1.3.0"
 Measures = "~0.3.2"
-Plots = "~1.38.8"
+Plots = "~1.38.9"
 PlutoUI = "~0.7.50"
 """
 
@@ -651,7 +406,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "70f75929b5ad01b42d4cd7f638c3d19b05d428b6"
+project_hash = "b21705f6b65e7468c61d37143087ae09eff746d8"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -833,15 +588,15 @@ version = "3.3.8+0"
 
 [[deps.GR]]
 deps = ["Artifacts", "Base64", "DelimitedFiles", "Downloads", "GR_jll", "HTTP", "JSON", "Libdl", "LinearAlgebra", "Pkg", "Preferences", "Printf", "Random", "Serialization", "Sockets", "TOML", "Tar", "Test", "UUIDs", "p7zip_jll"]
-git-tree-sha1 = "4423d87dc2d3201f3f1768a29e807ddc8cc867ef"
+git-tree-sha1 = "0635807d28a496bb60bc15f465da0107fb29649c"
 uuid = "28b8d3ca-fb5f-59d9-8090-bfdbd6d07a71"
-version = "0.71.8"
+version = "0.72.0"
 
 [[deps.GR_jll]]
 deps = ["Artifacts", "Bzip2_jll", "Cairo_jll", "FFMPEG_jll", "Fontconfig_jll", "GLFW_jll", "JLLWrappers", "JpegTurbo_jll", "Libdl", "Libtiff_jll", "Pixman_jll", "Qt5Base_jll", "Zlib_jll", "libpng_jll"]
-git-tree-sha1 = "3657eb348d44575cc5560c80d7e55b812ff6ffe1"
+git-tree-sha1 = "99e248f643b052a77d2766fe1a16fb32b661afd4"
 uuid = "d2c73de3-f751-5644-a686-071e5b155ba9"
-version = "0.71.8+0"
+version = "0.72.0+0"
 
 [[deps.Gettext_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl", "Libiconv_jll", "Pkg", "XML2_jll"]
@@ -1198,9 +953,9 @@ version = "1.3.4"
 
 [[deps.Plots]]
 deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers", "GR", "JLFzf", "JSON", "LaTeXStrings", "Latexify", "LinearAlgebra", "Measures", "NaNMath", "Pkg", "PlotThemes", "PlotUtils", "Preferences", "Printf", "REPL", "Random", "RecipesBase", "RecipesPipeline", "Reexport", "RelocatableFolders", "Requires", "Scratch", "Showoff", "SnoopPrecompile", "SparseArrays", "Statistics", "StatsBase", "UUIDs", "UnicodeFun", "Unzip"]
-git-tree-sha1 = "f49a45a239e13333b8b936120fe6d793fe58a972"
+git-tree-sha1 = "186d38ea29d5c4f238b2d9fe6e1653264101944b"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
-version = "1.38.8"
+version = "1.38.9"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
@@ -1537,9 +1292,9 @@ version = "1.2.12+3"
 
 [[deps.Zstd_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "c6edfe154ad7b313c01aceca188c05c835c67360"
+git-tree-sha1 = "49ce682769cd5de6c72dcf1b94ed7790cd08974c"
 uuid = "3161d3a3-bdf6-5164-811a-617609db77b4"
-version = "1.5.4+0"
+version = "1.5.5+0"
 
 [[deps.fzf_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -1612,80 +1367,52 @@ version = "1.4.1+0"
 """
 
 # ╔═╡ Cell order:
-# ╟─407c2350-d35d-11ed-3732-970fa3d6d6b1
-# ╟─2b89dc01-35e1-432f-84a9-33f4c3bbe052
-# ╟─cf2fbc7b-6f3f-41a1-8f20-1e1b6de5b3b8
-# ╟─0c60cc99-614b-44ba-969f-4ba20476d943
-# ╟─4f508c8b-176f-4b13-b4fa-65e3fe578255
-# ╟─b4357649-ae3e-4d44-8451-4969be877616
-# ╟─bf1ebb30-c9a5-4f82-9193-9b8373275f70
-# ╟─4691f12c-79e4-4d77-917e-d67944bda4e3
-# ╟─803642c9-bb73-47b1-833e-b8a6359f6344
-# ╟─ceae33b1-a67c-4b70-8e6e-813c94fede82
-# ╟─e427e6d6-6d3f-4fae-8db4-c781dafa8ac7
-# ╟─14802dbc-dff2-471a-8fdb-8eea86cc7835
-# ╟─31494539-6c43-4ab7-b6f4-674dfe01d6a1
-# ╟─8942cc1c-28a5-4735-af9e-aeb3ce84af35
-# ╟─bcfa64c1-5ba6-452f-b68b-d7642c7ae7e6
-# ╟─0fabe2df-6343-410e-ab10-a784b0798a3d
-# ╟─d8c18dbf-cf8c-4c25-8546-44506db3919b
-# ╟─9c09a35d-333c-426f-91f8-3902e1d4b108
-# ╟─58036263-5f21-4aaf-8ebe-53b7d0863dfb
-# ╟─3c8e461a-59cb-40e9-9527-3be51315a67f
-# ╟─37e1792f-a700-48e7-a36d-482dac507cf1
-# ╟─9a2deedf-5b59-49b8-a086-be794e0c2545
-# ╟─7dad24b4-ca37-4a3b-924a-6e1cdf9ac884
-# ╟─a86bdf84-7e74-4cd2-a275-b36a0a8cbe83
-# ╟─c1911f72-44f2-4211-a4bf-6d49de3e4601
-# ╟─2ea20fe7-b2b2-4e13-8622-5025e5d5d384
-# ╟─aa857d0e-035b-4083-a67b-d311e309f3dc
-# ╟─73036edf-b28e-40ea-8dce-bf2566a1c751
-# ╟─f6689099-ff08-458f-9cdd-651855d47af2
-# ╟─89cbb8b1-37a1-4fac-910d-1cda73f1367d
-# ╟─99b1e156-bace-48ac-a493-226864e67da9
-# ╟─ab4e2003-278b-40db-b656-322908b94e8c
-# ╟─fbd32cae-5bd9-4f04-9097-0b78a429bdd4
-# ╟─123eba48-a134-4d80-9984-f0f3b7e4336c
-# ╟─1e258939-1c5f-48fb-89b8-bfcc2be3244e
-# ╟─72915102-07b2-43a8-b1d1-f9165dfe7d01
-# ╟─2f1429f7-932d-424c-847d-3b0bdf990eed
-# ╟─e135488d-22c8-49b8-bde2-02b6f9506f22
-# ╟─84e81cfd-4d08-4fc8-8af6-2ff280906251
-# ╟─14911687-99ad-4490-993c-2ea9aec2c8af
-# ╟─9a0c48f3-c9c2-469e-a5a3-c2722ce0f984
-# ╟─c1e76327-d470-4e5b-ba00-864f00ce4969
-# ╟─d4b57854-dd19-4594-865e-761b411d9ea1
-# ╟─09cbeaa6-e090-4033-895b-a3110e49adcb
-# ╟─f31091a7-225a-465e-be0a-f93e5742af43
-# ╟─849ced0b-2223-49ae-8a5a-46628ab4cf01
-# ╟─fe2722b8-f584-4da4-8214-b2a32cfe465f
-# ╟─86a7baa9-7ad4-4ccd-8aac-b08d2d84a07a
-# ╟─67094557-39a5-49e7-89a1-52bea6ac69bb
-# ╟─85e3c144-c7f4-493c-a5c6-dd1fa769e9f3
-# ╟─34e06c87-428b-4f40-9134-f701bbf18304
-# ╟─b1e7f5ef-5fde-4a2b-a1a2-b9751dab416a
-# ╟─4a252de9-23ad-4fae-b328-03ed7254c9b7
-# ╟─92498bda-d01b-46a0-972c-466f5f84934f
-# ╟─735a6052-b77e-4ee7-a2d1-c5172a07b628
-# ╟─04825c07-d085-49a2-85bd-72042e02fbee
-# ╟─11d8089b-8c1c-4913-9335-fd2b9b9e763b
-# ╟─d3f146e4-7bcc-4b0f-9adc-34b2ebf382e9
-# ╟─fbfb2148-b9e0-44f1-9fd8-5521596de241
-# ╟─74485075-1f39-4ac6-a7b3-d3d31468f718
-# ╟─742ef73c-3aec-4f59-a0df-3232174e8cd4
-# ╟─5188a887-7502-4033-8e19-9190eb4a6cf1
-# ╟─437af6c8-78e2-46dc-986f-5f97ee4f4f6e
-# ╟─55edb607-2cd2-4606-a70b-3f83f2fa56d6
-# ╟─4cf22954-bb6d-4769-bc23-041ccb4dd2d3
-# ╟─570e3dbb-b9be-4f32-b117-8abc43554087
-# ╟─7c1ca537-2543-402e-b5af-02c9df0dffee
-# ╟─a6c2d04c-5b7c-49d8-99ba-90887485019d
-# ╟─0bebfc3a-52f5-4ec2-9681-2348a6674bd2
-# ╟─9dc7ce83-9c4e-4c9f-9e89-437fbc561178
-# ╟─d0c06db8-1d82-4c1b-90f8-303e313053f8
-# ╟─961a7493-53f1-4250-acb7-70e04635f6d0
-# ╟─a0d91e62-ff8e-44b1-8fe2-21751437557a
-# ╟─242a1a4f-8977-4e97-b1f8-49c1d366d42c
-# ╟─7756b9bd-d772-4b15-86c6-edfcc8605476
+# ╟─8a9be680-d57b-11ed-2a9a-51e17ab974ef
+# ╟─07d7783e-ebd0-4e05-ba29-a29e8fe97c69
+# ╟─42dc5d74-7ac1-439c-9ed6-29cf21c78da4
+# ╟─32112fbe-37f6-4d27-a451-67d9bbc7ca68
+# ╟─770e4561-0c5c-443f-a984-bdcf7d441a36
+# ╟─0ddc3ab2-c270-4419-a121-56d189836f05
+# ╟─a8a829d7-c717-42ac-85ef-7804ce8f7529
+# ╟─b6714ee0-98c8-4df6-8c44-dcee769a97e1
+# ╟─9eb872ca-56cb-4490-bf6e-687efb7cf3e3
+# ╟─12a3c6c6-5144-4ec1-a6d7-77cfcd674917
+# ╟─b2caf2c3-907b-4661-9dd0-fa3bd41e4e0c
+# ╟─9ca8fb24-b91a-4bb7-a466-6a08201d486e
+# ╟─6996a4db-505d-45d4-83ae-b6c24d1f076e
+# ╟─198300f8-12fb-4454-87c2-6d49f233754c
+# ╟─9d084dbb-ebfd-4c45-8a76-035b53bc8f52
+# ╟─d15404bd-24b9-4b3e-92e5-ac96496fc950
+# ╟─f7a69251-667b-4c69-bbd0-b948cf7d563e
+# ╟─7c9af95d-1898-4ae9-ab7d-3cb16a5db782
+# ╟─7e0ebf52-825f-45e2-9248-fd5b643a666d
+# ╟─ee69c5a7-5579-4386-a1fc-5c8cdf98ee21
+# ╟─36484cc3-40cf-4d6e-b7dd-d94dc83ae7a7
+# ╟─9c5abd4d-7cec-4f8b-9e80-5a6097ab6b12
+# ╟─27ef62a2-3f39-497d-8502-233a6da54f68
+# ╟─58461708-9d4b-4f95-93e6-e56b127fa6d7
+# ╟─c4622a53-1ecd-4fcc-8155-7a35ab4fa7cf
+# ╟─a7cbf478-d44d-4330-a4d8-6298567ea7b7
+# ╟─d2e978db-be61-4f9b-b15b-f974c022d241
+# ╟─b67e7cb5-3e90-4494-a537-a9313dd9cb42
+# ╟─16c7ef79-c721-418f-94ae-d5fc3ce123ad
+# ╟─dfd7a387-1923-4746-9159-0dd56bd5bcc4
+# ╟─cde6383c-911e-4daa-bcc6-11c59b9508f8
+# ╟─e27f8543-0e8b-4d4e-ac73-594109768ea7
+# ╟─1f97b93a-4e20-4359-bfda-12ed7e0a6613
+# ╟─88ac3bb3-476e-422d-850e-ea70b52a3775
+# ╟─03860386-86cd-4b3d-9287-dfaefed1b9b8
+# ╟─49db434f-6ccd-4278-bcb0-d5bdf0c9ca31
+# ╟─a500aca3-726d-42a5-ac89-cf1bf0f5a700
+# ╟─b6d50467-ce0b-4b9f-9921-488e21060624
+# ╟─b794da5e-bac7-463c-a04f-7029aafcc0cc
+# ╟─65adb919-ea2f-4a40-9cb7-ab7af06a56d8
+# ╟─e84c7935-c7ab-44cc-bdc1-47a77d601a5d
+# ╟─693a853c-f469-44e8-8370-8e38c38de3b9
+# ╟─9547946d-4a94-4a0e-82d5-f592fc52ebe2
+# ╟─cca0c9e0-b73f-4c2a-b9dd-2140ab65cbc2
+# ╠═a87e8205-647b-4c5e-a76e-2138b875af2e
+# ╟─c8e4e822-5c6a-4c5f-8991-5e1d8b666db1
+# ╟─01bf9a53-0ebb-484a-99f0-7fd20f99e9dd
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
