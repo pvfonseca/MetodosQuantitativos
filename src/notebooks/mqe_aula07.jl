@@ -82,7 +82,7 @@ md"
 
 # ╔═╡ 14802dbc-dff2-471a-8fdb-8eea86cc7835
 begin	
-	plot(range(-2, 2, 100), x -> -x^2, lc=:indianred, label=L"f(x) = -x^2")
+	plot(x -> -x^2, -2, 2, lc=:indianred, label=L"f(x) = -x^2")
 	hline!([0], lw=1, lc=:black, label=:none)
 	vline!([0], lw=1, lc=:black, label=:none)
 	ylims!(-4, 1)
@@ -90,7 +90,7 @@ end
 
 # ╔═╡ 31494539-6c43-4ab7-b6f4-674dfe01d6a1
 begin	
-	surface(range(-2, 2, 100), range(-2, 2, 100), (x, y) -> -x^2 - y^2, c=:thermal, display_option=Plots.GR.OPTION_SHADED_MESH, title=L"f(x, y) = -x^2 - y^2")	
+	surface(range(-2, 2, 50), range(-2, 2, 50), (x, y) -> -x^2 - y^2, c=:thermal, display_option=Plots.GR.OPTION_SHADED_MESH, title=L"f(x, y) = -x^2 - y^2")	
 end
 
 # ╔═╡ 8942cc1c-28a5-4735-af9e-aeb3ce84af35
@@ -101,7 +101,7 @@ md"
 
 # ╔═╡ bcfa64c1-5ba6-452f-b68b-d7642c7ae7e6
 begin	
-	plot(range(-2, 2, 100), x -> x^2, lc=:indianred, label=L"f(x) = x^2")
+	plot(x -> x^2, -2, 2, lc=:indianred, label=L"f(x) = x^2")
 	hline!([0], lw=1, lc=:black, label=:none)
 	vline!([0], lw=1, lc=:black, label=:none)
 	ylims!(-1, 4)
@@ -109,7 +109,7 @@ end
 
 # ╔═╡ 0fabe2df-6343-410e-ab10-a784b0798a3d
 begin	
-	surface(range(-2, 2, 100), range(-2, 2, 100), (x, y) -> x^2 + y^2, c=:thermal, display_option=Plots.GR.OPTION_SHADED_MESH, title=L"f(x, y) = x^2 + y^2")	
+	surface(range(-2, 2, 50), range(-2, 2, 50), (x, y) -> x^2 + y^2, c=:thermal, display_option=Plots.GR.OPTION_SHADED_MESH, title=L"f(x, y) = x^2 + y^2")	
 end
 
 # ╔═╡ d8c18dbf-cf8c-4c25-8546-44506db3919b
@@ -121,7 +121,7 @@ md"
 
 # ╔═╡ 9c09a35d-333c-426f-91f8-3902e1d4b108
 begin	
-	surface(range(-3, 3, 100), range(-3, 3, 100), (x, y) -> x*exp(-x^2-y^2), camera=(30,15), display_option = Plots.GR.OPTION_SHADED_MESH, c=:thermal, level=true, title=L"f(x, y) = xe^{-x^2-y^2}")	
+	surface(range(-3, 3, 50), range(-3, 3, 50), (x, y) -> x*exp(-x^2-y^2), camera=(30,15), display_option = Plots.GR.OPTION_SHADED_MESH, c=:thermal, level=true, title=L"f(x, y) = xe^{-x^2-y^2}")	
 end
 
 # ╔═╡ 58036263-5f21-4aaf-8ebe-53b7d0863dfb
@@ -141,10 +141,9 @@ md"
 * As figuras que vimos até agora foram de funções estritamente convexas ou côncavas
 "
 
-# ╔═╡ 37e1792f-a700-48e7-a36d-482dac507cf1
+# ╔═╡ 31add238-90e5-4e89-9575-039fa4689a6f
 begin
-	plot(range(-2, 0, 100), x-> -x, lc=:indianred, label=L"f(x) = |x|")
-	plot!(range(0, 2, 100), x-> x, lc=:indianred, label=:none)
+	plot(x-> abs(x), -2, 2, lc=:indianred, label=L"f(x) = |x|")	
 	vline!([0], lw=1, lc=:black, label=:none)
 	hline!([0], lw=1, lc=:black, label=:none)
 end
@@ -387,7 +386,7 @@ md"""
 
 # ╔═╡ 86a7baa9-7ad4-4ccd-8aac-b08d2d84a07a
 begin	
-	surface(range(-2, 2, 100), range(-2, 2, 100), (x, y) -> x^2 + y^2, c=:thermal, display_option=Plots.GR.OPTION_SHADED_MESH, title=L"f(x, y) = x^2 + y^2", colorbar=false)	
+	surface(range(-2, 2, 50), range(-2, 2, 50), (x, y) -> x^2 + y^2, c=:thermal, display_option=Plots.GR.OPTION_SHADED_MESH, title=L"f(x, y) = x^2 + y^2", colorbar=false)	
 end
 
 # ╔═╡ 67094557-39a5-49e7-89a1-52bea6ac69bb
@@ -703,6 +702,156 @@ md"
 
 $$S^{\leq} \equiv \{x|f(x)\leq k\} \qquad [f(x) \text{ convexa }]$$
 "
+
+# ╔═╡ a71bf054-6538-4dcb-91f1-aa035666b3b7
+md"""
+Função convexa e conjunto convexo
+$(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula7_fig6.PNG", width=>800))
+Fonte: Chiang e Wainwright (2006)
+"""
+
+# ╔═╡ 25f21f5b-eab1-4f59-9408-dd6cfa358f89
+md"
+* Uma função côncava está relacionada a conjuntos convexos de maneira similar
+* A definição de uma função côncava implica um domínio que seja um conjunto convexo
+* Além disso, mesmo uma função $g$ côncava pode gerar um conjunto convexo associado, dada uma constante $k$
+* Esse conjunto convexo é dado por:
+
+$$S^{\geq} \equiv \{x| g(x)\geq k\} \qquad [g(x) \text{ côncava}]$$
+* Geometricamente, o conjunto $S^{\geq}$ contém todos os valores de $x$ correspondentes à parte do gráfico de $g$ que está sobre ou acima da reta horizontal tracejada de $k$
+* Assim, como no caso de funções convexas, ele é um segmento de reta sobre o eixo horizontal - um conjunto convexo
+"
+
+# ╔═╡ 72fb1376-5769-4663-af14-97c918a6b98f
+md"""
+Função côncava e conjunto convexo
+$(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula7_fig7.PNG", width=>800))
+Fonte: Chiang e Wainwright (2006)
+"""
+
+# ╔═╡ 814758d9-9ef1-45c1-884b-2beea6d83c66
+md"
+* Em resumo, enunciamos os seguintes teoremas (sem demonstração)
+"
+
+# ╔═╡ 79568ad3-3e25-42b1-980b-2f51ec445479
+md"""
+!!! info "Teorema 7.5"
+	Seja $S^{\leq} \equiv \{(x, k)| x\in D, f(x)\leq k\}$ o conjunto de pontos "sobre e acima" do gráfico da função $f: D \to \mathbb{R}$, onde $D\subset\mathbb{R}^n$ é um conjunto convexo. Então:
+
+	$$f \text{ é uma função convexa } \Rightarrow S^{\leq} \text{ é um conjunto convexo}$$
+
+	Ou seja, os pontos sobre e acima do gráfico de uma função convexa formam um conjunto convexo
+
+	---
+	De maneira análoga, seja $S^{\geq} \equiv \{(x, k)| x\in D, g(x)\geq k\}$ o conjunto de pontos "sobre e abaixo" do gráfico da função $g: D \to \mathbb{R}$, onde $D\subset\mathbb{R}^n$ é um conjunto convexo. Então:
+
+	$$g \text{ é uma função côncava } \Rightarrow S^{\geq} \text{ é um conjunto convexo}$$
+
+	Ou seja, os pontos sobre e abaixo do gráfico de uma função côncava formam um conjunto convexo
+"""
+
+# ╔═╡ 8b9e2940-be51-48e7-9036-3aeab80ee735
+md"
+### Exercícios
+"
+
+# ╔═╡ 8717aa78-27b3-477a-aafa-64b042398583
+md"
+> **Exercício 7**. Os seguintes conjuntos constituem conjuntos convexos no espaço tridimensional?
+>
+> (a) Uma rosquinha
+>
+> (b) Um pino de boliche
+>
+> (c) Uma bola de gude perfeita
+"
+
+# ╔═╡ 0ff1e1ec-a2ee-4bb5-8924-561cb98c3e9b
+md"""
+(a) Rosquinha
+
+$(Resource("https://dictionary.cambridge.org/pt/images/full/doughn_noun_002_11387.jpg?version=5.0.312", width=>400))
+"""
+
+# ╔═╡ 2cd24839-3ed4-40c0-b8df-5abc82a611e5
+md"""
+(b) Pino de boliche
+
+$(Resource("https://upload.wikimedia.org/wikipedia/commons/a/a0/20190406_Ten-pin_bowling_-_pin_manufacturing_stages.jpg", width=>600))
+"""
+
+# ╔═╡ c7cabb98-8748-4610-b858-87783f1c40ca
+md"""
+(c) Bola de gude
+
+$(Resource("https://upload.wikimedia.org/wikipedia/commons/a/a1/JM_marbles_01.jpg", width=>400))
+"""
+
+# ╔═╡ eb5d83e1-98a9-4813-af49-c2fe4d73cc8b
+md"
+> **Exercício 8**. A equação $x^2 + y^2 = 4$ representa um círculo de centro $(0, 0)$ e raio $2$
+>
+> (a) Qual a interpretação geométrica do conjunto $\{(x, y)| x^2 + y^2 \leq 4\}$?
+>
+> (b) Esse conjunto é convexo?
+"
+
+# ╔═╡ 22a68883-c0eb-4ad5-9eaa-358ee776ef6d
+begin
+	plot(x -> √(4 - x^2), -2, 2, lc=:indianred, fill=true, label=:none, c=:indianred)
+	plot!(x -> -√(4 - x^2), -2, 2, fill=true, c=:indianred, lc=:indianred, label=L"x^2 + y^2 \leq 4")
+end
+
+# ╔═╡ 7cec8204-3f09-4d8c-9383-07a7f3f1cbcf
+md"
+> **Exercício 9**. Represente o gráfico de cada um dos seguintes conjuntos e indique se são convexos:
+>
+> (a) $\{(x, y)| y = e^x\}$
+>
+> (b) $\{(x, y)| y \leq e^x\}$
+>
+> (c) $\{(x, y)| y \geq e^x\}$
+>
+> (d) $\{(x, y)| y \leq 13 - x^2\}$
+>
+> (e) $\{(x, y)| xy \geq 1; \quad x > 0, y > 0\}$
+"
+
+# ╔═╡ 2fb45014-4439-4290-be16-084ec4419d37
+begin
+	plot(x -> exp(x), -2, 2, lc=:indianred, label=L"y = e^x")
+	vline!([0], lc=:black, lw=0.5, label=:none)
+	hline!([0], lc=:black, lw=0.5, label=:none)
+end
+
+# ╔═╡ 1bb04b93-7b39-42d5-aeed-a19945b20684
+begin
+	plot(x -> exp(x), -2, 2, lc=:indianred, label=L"y \leq e^x", fill=true, c=:indianred)
+	vline!([0], lc=:black, lw=0.5, label=:none)
+	hline!([0], lc=:black, lw=0.5, label=:none)
+end
+
+# ╔═╡ a7484198-1e26-4663-92ae-92bc27672336
+begin
+	plot(x -> exp(x), -2, 2, lc=:indianred, label=L"y \leq e^x", fillrange=8, c=:indianred, legend=:bottomright)
+	vline!([0], lc=:black, lw=0.5, label=:none)
+	hline!([0], lc=:black, lw=0.5, label=:none)
+end
+
+# ╔═╡ 4cd5a5d9-e039-441e-a81e-015ab14bde47
+begin
+	plot(x -> 13-x^2, -5, 5, lc=:indianred, label=L"y \leq 13 - x^2", fillrange=-15, c=:indianred)
+	vline!([0], lc=:black, lw=0.5, label=:none)
+	hline!([0], lc=:black, lw=0.5, label=:none)
+end
+
+# ╔═╡ 93e1da9a-e73b-4d97-bf25-7eeda9c6bc48
+begin
+	plot(x -> 1/x, 0.01, 3, lc=:indianred, label=L"xy \geq 1, \quad x, y > 0", fillrange = 100, c=:indianred)
+	vline!([0], lc=:black, lw=0.5, label=:none)
+	hline!([0], lc=:black, lw=0.5, label=:none)
+end
 
 # ╔═╡ 242a1a4f-8977-4e97-b1f8-49c1d366d42c
 md"
@@ -1727,7 +1876,7 @@ version = "1.4.1+0"
 # ╟─9c09a35d-333c-426f-91f8-3902e1d4b108
 # ╟─58036263-5f21-4aaf-8ebe-53b7d0863dfb
 # ╟─3c8e461a-59cb-40e9-9527-3be51315a67f
-# ╟─37e1792f-a700-48e7-a36d-482dac507cf1
+# ╟─31add238-90e5-4e89-9575-039fa4689a6f
 # ╟─9a2deedf-5b59-49b8-a086-be794e0c2545
 # ╟─7dad24b4-ca37-4a3b-924a-6e1cdf9ac884
 # ╟─a86bdf84-7e74-4cd2-a275-b36a0a8cbe83
@@ -1790,7 +1939,25 @@ version = "1.4.1+0"
 # ╟─dc8654fb-1644-477d-8393-93c4c99bf992
 # ╟─e2317f53-21ac-4c2e-adb2-f0fe0a83d4d0
 # ╟─238d79ab-b48c-4492-b99b-4c07a49b64f4
-# ╠═c419cc3d-f25a-413a-b3b3-d0e5f5ac3a23
+# ╟─c419cc3d-f25a-413a-b3b3-d0e5f5ac3a23
+# ╟─a71bf054-6538-4dcb-91f1-aa035666b3b7
+# ╟─25f21f5b-eab1-4f59-9408-dd6cfa358f89
+# ╟─72fb1376-5769-4663-af14-97c918a6b98f
+# ╟─814758d9-9ef1-45c1-884b-2beea6d83c66
+# ╟─79568ad3-3e25-42b1-980b-2f51ec445479
+# ╟─8b9e2940-be51-48e7-9036-3aeab80ee735
+# ╟─8717aa78-27b3-477a-aafa-64b042398583
+# ╟─0ff1e1ec-a2ee-4bb5-8924-561cb98c3e9b
+# ╟─2cd24839-3ed4-40c0-b8df-5abc82a611e5
+# ╟─c7cabb98-8748-4610-b858-87783f1c40ca
+# ╟─eb5d83e1-98a9-4813-af49-c2fe4d73cc8b
+# ╟─22a68883-c0eb-4ad5-9eaa-358ee776ef6d
+# ╟─7cec8204-3f09-4d8c-9383-07a7f3f1cbcf
+# ╟─2fb45014-4439-4290-be16-084ec4419d37
+# ╟─1bb04b93-7b39-42d5-aeed-a19945b20684
+# ╟─a7484198-1e26-4663-92ae-92bc27672336
+# ╟─4cd5a5d9-e039-441e-a81e-015ab14bde47
+# ╟─93e1da9a-e73b-4d97-bf25-7eeda9c6bc48
 # ╟─242a1a4f-8977-4e97-b1f8-49c1d366d42c
 # ╟─7756b9bd-d772-4b15-86c6-edfcc8605476
 # ╟─00000000-0000-0000-0000-000000000001
