@@ -650,6 +650,60 @@ $$\lambda \mathbf{x}^1 + (1-\lambda)\mathbf{x}^2, \qquad 0\leq\lambda\leq 1 \lab
 * A característica exclusiva da combinação convexa em ($\ref{15}$) é que, para qualquer valor aceitável de $\lambda$, o vetor soma resultante está sobre o segmento de reta que liga os pontos $\mathbf{x}^1$ e $\mathbf{x}^2$
 "
 
+# ╔═╡ 8cb98cc0-d59b-4474-ad51-e79908e3d5f4
+md"""
+Combinações convexas na reta real $\mathbb{R}$
+$(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula7_fig5.PNG", width=>800))
+Fonte: Chiang e Wainwright (2006)
+"""
+
+# ╔═╡ eb66d200-c3b5-4e74-adcc-2c9cfc4f2a6c
+md"
+* Podemos, agora, definir algebricamente um conjunto convexo
+* Dizemos que $S\subset\mathbb{R}^n$ é um **conjunto convexo** se, e somente se, para quaisquer dois pontos $\mathbf{x}^1, \mathbf{x}^2\in S$, e para qualquer escalar $\lambda\in [0,1]$, a combinação convexa entre estes dois pontos também é um elemento do conjunto $S$
+"
+
+# ╔═╡ 7775f862-323c-4bf2-9207-40726f70f8c2
+md"""
+!!! correct "Definição 7.7 - Conjunto convexo"
+	Dizemos que $S\subset\mathbb{R}^n$ é um **conjunto convexo** se para quaisquer $\mathbf{x}^1 \in S$ e $\mathbf{x}^2 \in S$, temos:
+
+	$$\lambda\mathbf{x}^1 + (1-\lambda)\mathbf{x}^2 \in S\tag{16}$$
+	para qualquer $\lambda$ no intervalo $0\leq\lambda\leq 1$
+"""
+
+# ╔═╡ dc8654fb-1644-477d-8393-93c4c99bf992
+md"
+* O que a definição algébrica 7.7 diz é o mesmo que a motivação geométrica (generalizando para o caso $n$-variado)
+* Um conjunto é convexo se para quaisquer dois pontos pertencentes a este conjunto, todas as médias ponderadas entre esses dois pontos (com os pesos somando 1) são, também, pontos deste mesmo conjunto
+"
+
+# ╔═╡ e2317f53-21ac-4c2e-adb2-f0fe0a83d4d0
+md"""
+* Comparando a definição de conjunto convexo com a de função convexa, percebe-se que, ainda que seja utilizado o mesmo termo (_convexo_) para ambos, o significado dessa palavra muda de um contexto para o outro
+* Quando aplicado a funções, o termo _convexo_ especifica como a curva desta função se comporta - deve formar um vale
+* Ao descrever um conjunto, o termo _convexo_ especifica que os pontos do conjunto são "empacotados", i.e., não devem possibilitar a existência de buracos e a fronteira não deve ser recortada
+* Portanto, funções convexas e conjuntos convexos são, claramente, entidades matemáticas distintas
+"""
+
+# ╔═╡ 238d79ab-b48c-4492-b99b-4c07a49b64f4
+md"
+* Ainda assim, funções convexas e conjuntos convexos estão relacionados
+* Uma razão é que ao definirmos uma função convexa, precisamos de um conjunto convexo para o domínio
+* A definição requer que, para quaisquer dois pontos no domínio, todas as combinações convexas entre eles também deve pertencer ao domínio - domínio deve ser um conjunto convexo
+* Esse requisito é satisfeito se assume-se que o domínio consiste em todo o espaço de $n$ dimensões que é, de fato, um conjunto convexo
+* Contudo, essa premissa pode ser relaxada, basta que adotemos como hipótese que o domínio é um subconjunto convexo do $\mathbb{R}^n$
+* Portanto, para que nossas definições anteriores estejam matematicamente corretas, para que $f$ seja uma função convexa, seu domínio $S \subset \mathbb{R}^n$ deve ser um conjunto convexo
+"
+
+# ╔═╡ c419cc3d-f25a-413a-b3b3-d0e5f5ac3a23
+md"
+* Há, ainda, um outro modo pelo qual funções convexas estão relacionadas a conjuntos convexos
+* Se $f$ for uma função convexa, então, para qualquer constante $k$, ela pode originar um conjunto convexo:
+
+$$S^{\leq} \equiv \{x|f(x)\leq k\} \qquad [f(x) \text{ convexa }]$$
+"
+
 # ╔═╡ 242a1a4f-8977-4e97-b1f8-49c1d366d42c
 md"
 ## 📚 Bibliografia
@@ -1730,6 +1784,13 @@ version = "1.4.1+0"
 # ╟─d2ae8c7e-b070-4cb1-9259-f410f9f873ca
 # ╟─f0c2ee74-03bf-4554-8a81-e4fd5c5bc26d
 # ╟─527e37cf-7cb2-4add-bc44-6fbff89bd872
+# ╟─8cb98cc0-d59b-4474-ad51-e79908e3d5f4
+# ╟─eb66d200-c3b5-4e74-adcc-2c9cfc4f2a6c
+# ╟─7775f862-323c-4bf2-9207-40726f70f8c2
+# ╟─dc8654fb-1644-477d-8393-93c4c99bf992
+# ╟─e2317f53-21ac-4c2e-adb2-f0fe0a83d4d0
+# ╟─238d79ab-b48c-4492-b99b-4c07a49b64f4
+# ╠═c419cc3d-f25a-413a-b3b3-d0e5f5ac3a23
 # ╟─242a1a4f-8977-4e97-b1f8-49c1d366d42c
 # ╟─7756b9bd-d772-4b15-86c6-edfcc8605476
 # ╟─00000000-0000-0000-0000-000000000001
