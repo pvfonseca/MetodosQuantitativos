@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.22
+# v0.19.9
 
 using Markdown
 using InteractiveUtils
@@ -408,12 +408,264 @@ let
 	scatter!((100, 21), ms=6, mc=:lightgreen, label="Novo ótimo restrito", legend=:topright)	
 end
 
+# ╔═╡ ab8f1307-e8b0-47e1-a32c-34cdf5fc6eda
+md"
+## Abordagem de diferencial total
+"
+
+# ╔═╡ b60965aa-e123-4b85-a5d7-00314de32c69
+md"
+* Para o problema de otimização estático com restrição de igualdade:
+
+$$\begin{align}\max_{x,y}  \quad & z = f(x,y) \\ \text{s.r. } \quad & g(x,y) = c\end{align}$$
+
+* A condição de primeira ordem em termos de diferencial total, $dz$, que vimos para um extremo livre de $z = f(x,y)$ permanece válida:
+
+$$dz = f_x dx + f_y dy = 0$$
+
+* Mas na presença da restrição, $dx$ e $dy$ não podem mais ser considerados variações arbitrárias
+
+* Isso deve-se ao fato de que se $g(x,y) = c$ deve ser satisfeita, então:
+
+$$g_x dx + g_y dy = 0$$
+
+* Essas relações tornam $dx$ e $dy$ dependentes uma da outra
+
+* Portanto, para satisfazer a condição necessária de primeira ordem em um problema de otimização estático com restrição de igualdade, devemos ter:
+
+$$\frac{f_x}{g_x} = \frac{f_y}{g_y}$$
+
+* Os valores ótimos $x^*$ e $y^*$ que solucionam o problema de otimização são dados pela solução do sistema de equações simultâneas:
+
+$$\begin{align}g(x,y) &= c \\ \frac{f_x}{f_y} &= \frac{g_x}{g_y}\end{align}$$
+"
+
+# ╔═╡ fa709446-80b3-489d-8b9f-d14471537b2d
+md"""
+!!! warning "Diferencial total X multiplicador de Lagrange"
+	* Note que temos:
+
+	$$\frac{f_x}{g_x} = \lambda \qquad \text{e} \qquad \frac{f_y}{g_y} = \lambda$$
+
+	* A abordagem do diferencial total resulta na mesma CPO do método do multiplicador de Lagrange
+
+	* No entanto, a diferencial total nos dá apenas os pontos críticos
+
+	* O método do multiplicador de Lagrange, por sua vez, também nos dá o valor de $\lambda^*$ como um subproduto direto
+
+	* O multiplicador de Lagrange nos dá uma medida da sensibilidade de $\mathcal{L}^*$ (e $z^*$) a uma mudança na restrição
+
+	* Portanto, o método do multiplicador de Lagrange oferece a vantagem de conter certas informações de estática comparativa embutidas na solução
+"""
+
+# ╔═╡ 0c54534e-f6c4-4e57-ace4-20b717c89b23
+md"
+## Interpretação do multiplicador de Lagrange
+"
+
+# ╔═╡ 45b6f72a-d698-4b85-b121-f725416e709a
+md"
+* Para mostrar que $\lambda^*$ mede a sensibilidade da função Lagrangeana $\mathcal{L}^*$ a variações na restrição, executaremos uma análise de estática comparativa da CPO
+* As CPOs do problema de otimização restrito enunciado acima são dadas pelo seguinte sistema de equações:
+
+$$\begin{align}\mathcal{L}_\lambda &= c - g(x,y) = 0 \\ \mathcal{L}_x &= f_x - \lambda g_x = 0 \tag{1}\label{eq1}\\ \mathcal{L}_y &= f_y - \lambda g_y = 0\end{align}$$
+
+* Visto que $\lambda, x$ e $y$ são variáveis endógenas, a única variável exógena é o parâmetro de restrição $c$
+
+* Uma variação em $c$ causaria um deslocamento da curva de restrição no plano $xy$ e, consequentemente, alteraria a solução ótima
+
+* Em particular, o efeito de um aumento em $c$ indicaria como a solução ótima é afetada por um abrandamento da restrição
+
+* Para conduzir a análise de estática comparativa, recorremos ao [**Teorema da Função Implícita**](https://en.wikipedia.org/wiki/Implicit_function_theorem)
+"
+
+# ╔═╡ 530d1c7b-39f5-4b84-83c9-bdbb6f01ec72
+md"""
+!!! info "Teorema da Função Implícita"	
+	▶️ **Duas variáveis reais** 
+
+	* Considere a função contínua de variáveis reais $f(x_1, x_2)$ em um conjunto aberto $V \in \mathbb{R}^2$
+	* Supondo que $f$ é continuamente diferenciável com relação aos seus argumentos, consideraremos o problema de solucionar as seguintes equações implícitas de primeira ordem:
+
+	$$\begin{align}f^1(x_1, x_2, \alpha) &= 0 \\ f^2(x_1, x_2, \alpha) &= 0\end{align}$$
+
+	para as relações explícitas:
+
+	$$\begin{align}x_1 &= x_1^*(\alpha) \\ x_2 &= x_2^*(\alpha)\end{align}$$
+
+	onde $x_1$ e $x_2$ são as variáveis de escolha e $\alpha$ representa os parâmetros do modelo
+
+	* As condições suficientes sob as quais este procedimento é válido são dadas pelo **Teorema da Função Implícita**
+
+	* Diferenciando o sistema de equações simultâneas, obtemos:
+
+	$$\begin{bmatrix}\frac{\partial f^1}{\partial x_1} & \frac{\partial f^1}{\partial x_2} \\ \frac{\partial f^2}{\partial x_1} & \frac{\partial f^2}{\partial x_2}\end{bmatrix}\begin{bmatrix}\frac{\partial x_1^*}{\partial \alpha} \\ \frac{\partial x_2^*}{\partial \alpha}\end{bmatrix} = \begin{bmatrix}-f^1_\alpha \\ -f^2_\alpha\end{bmatrix}$$
+
+	* Uma condição necessária e suficiente para resolvermos para $\partial x_1^*/\partial \alpha$ e $\partial x_2^*/\partial \alpha$ unicamente é que o determinante Jacobiano $J$ seja diferente de zero:
+
+	$$J = \begin{vmatrix}\frac{\partial f^1}{\partial x_1} & \frac{\partial f^1}{\partial x_2} \\ \frac{\partial f^2}{\partial x_1} & \frac{\partial f^2}{\partial x_2}\end{vmatrix} \neq 0$$
+
+	---
+	▶️ **$n$ variáveis reais** 
+
+	* Para modelos com $n$ equações:
+
+	$$\begin{align}f^1(x_1, \dots, x_n, \alpha) &= 0 \\ \vdots & \ddots \vdots \\ f^n(x_1, \dots, x_n, \alpha) &= 0\end{align}$$
+
+	* Uma condição suficiente para que existam soluções explícitas do tipo:
+
+	$$x_i = x_i^*(\alpha), \qquad i \in \{1, \dots, n\}$$
+
+	em um dado ponto é que o Jacobiano associado, avaliado neste ponto, seja não-nulo:
+
+	$$J = \begin{vmatrix}f_1^1 & f_2^1 & \dots & f_n^1 \\ \vdots & \vdots & \ddots & \vdots \\ f_1^n & f_2^n & \dots & f_n^n\end{vmatrix} \neq 0$$
+"""
+
+# ╔═╡ 88a31b36-3168-4419-9e8b-e981e3983ee7
+md"
+* Com as três equações em ($\ref{eq1}$) na forma $F^j(\lambda, x, y; c) = 0$ e supondo que elas possuem derivadas parciais contínuas, devemos verificar se o Jacobiano de variáveis endógenas associado não se anula no estado ótimo:
+
+$$|J| = \begin{vmatrix}\frac{\partial F^1}{\partial \lambda} & \frac{\partial F^1}{\partial x} & \frac{\partial F^1}{\partial y} \\ \frac{\partial F^2}{\partial \lambda} & \frac{\partial F^2}{\partial x} & \frac{\partial F^2}{\partial y} \\ \frac{\partial F^3}{\partial \lambda} & \frac{\partial F^3}{\partial x} & \frac{\partial F^3}{\partial y}\end{vmatrix} = \begin{vmatrix}0 & -g_x & -g_y \\ -g_x & f_{xx} - \lambda g_{xx} & f_{xy} - \lambda g_{xy} \\ -g_y & f_{xy} - \lambda g_{xy} & f_{yy} - \lambda g_{yy}\end{vmatrix}$$
+
+🔜 Neste momento vamos supor que $|J| \neq 0$, fato que demonstraremos mais adiante na disciplina
+
+* Podemos, então, expressar $\lambda^*, x^*$ e $y^*$ como funções implícitas do parâmetro $c$:
+
+$$\lambda^* = \lambda^*(c), \quad x^* = x^*(c) \quad \text{ e } \quad y^* = y^*(c)$$
+"
+
+# ╔═╡ 7932b23c-236c-4e5d-8ab4-5e4c36309f19
+md"
+* Além disso, temos as identidades de equilíbrio:
+
+$$\begin{align}c - g(x^*, y^*) &= 0 \\ f_x(x^*, y^*) - \lambda^* g_x(x^*, y^*) &= 0 \\ f_y(x^*, y^*) - \lambda^* g_y(x^*, y^*) &= 0\end{align}$$
+
+* Como o valor ótimo de $\mathcal{L}$ depende de $\lambda^*, x^*$ e $y^*$, temos:
+
+$$\mathcal{L^*}(\lambda^*, x^*, y^*; c) = f(x^*, y^*) + \lambda^*[c - g(x^*, y^*)]$$
+
+* Tomando o diferencial total de $\mathcal{L}^*$ com relação a $c$, obtemos:
+
+$$\frac{d\mathcal{L}^*}{dc} = (f_x - \lambda^* g_x)\frac{dx^*}{dc} + (f_y-\lambda^* g_y)\frac{dy^*}{dc} + [c - g(x^*, y^*)]\frac{d\lambda^*}{dc} + \lambda^*$$
+
+onde $f_x, f_y, g_x$ e $g_y$ devem ser avaliadas no ponto ótimo
+
+* Portanto, concluímos que:
+
+$$\frac{d\mathcal{L}^*}{dc} = \lambda^*$$
+
+* Ou seja, o valor de solução do multiplicador de Lagrange constitui uma medida do efeito de uma variação na restrição por meio do parâmetro $c$ sobre o valor ótimo da função Lagrangeana
+"
+
+# ╔═╡ 8748d113-d402-4781-bbc9-ab1d118c0f02
+md"""
+> **Exercício**. Considere o seguinte problema de maximização de utilidade:
+>
+> $$\begin{align}\max_{x,y} \quad & xy \\ \text{s.r.} \quad & 2x + y = m\end{align}$$
+>
+> Suponha que, inicialmente, $m = 100$. Se $m$ aumentar em uma unidade, qual o efeito sobre a utilidade máxima deste consumidor?
+"""
+
+# ╔═╡ 0d797f84-863a-4d45-a6fa-fb847274c944
+md"""
+> **Exercício**. Suponha que $Q = F(K, L)$ seja a função de produção de uma firma controlada pelo Estado
+>
+> Suponha, ainda, que os preços unitários do capital e do trabalho sejam denotados, respectivamente, por $r$ e $w$
+>
+> Além disso, essa firma tem um orçamento total de $m$ unidades monetárias para despender nos dois insumos de produção
+>
+> O objetivo da firma é determinar os valores de capital e trabalho que maximizem sua produção
+>
+> Portanto, o problema de otimização é dado por:
+>
+> $$\begin{align}\max_{K,L} \quad & F(K, L) \\ \text{s.r.} \quad & rK + wL = m\end{align}$$
+>
+> Se $F(K,L) = 120KL, r = 2$ e $w = 5$, mostre que o valor do multiplicador de Lagrange nos diz, aproximadamente, o aumento observado na quantidade ótima produzida se $m$ aumentar em 1 unidade
+"""
+
+# ╔═╡ 8ec25d8f-5d7c-4dac-82c7-37f4febcb6ee
+md"
+## Caso multivariado
+"
+
+# ╔═╡ 633efa11-239b-44f7-84b7-2ae8f4d93e46
+md"
+* Os problemas de otimização restrita em economia, geralmente, envolvem mais do que apenas duas variáveis de escolha
+* O problema típico com $n$ variáveis pode ser formulado da seguinte maneira:
+
+$$\begin{align}\max(\min) \quad & f(x_1, \dots, x_n) \\ \text{s.r.} \quad & g(x_1, \dots, x_n) = c\end{align}$$
+
+* Consideraremos, então, uma generalização do método do multiplicador de Lagrange
+* Como anteriormente, associa-se o multiplicador de Lagrange $\lambda$ à restrição para formarmos a função Lagrangeana:
+
+$$\mathcal{L} = f(x_1, \dots, x_n) + \lambda[c - g(x_1, \dots, x_n)]$$
+
+* A seguir, encontramos as condições de primeira ordem que assumirá a forma de um sistema de $n + 1$ equações simultâneas:
+
+$$\begin{align}\mathcal{L}_\lambda &= c - g(x_1, \dots, x_n) = 0 \\ \mathcal{L}_1 &= f_1 - \lambda g_1 = 0 \\ \vdots & \quad \vdots \quad \ddots \\ \mathcal{L}_n &= f_n - \lambda g_n = 0\end{align}$$
+
+* A primeira equação assegura que a restrição seja satisfeita
+"
+
+# ╔═╡ 3f69caa9-0463-4872-9121-c502ffb9b8bb
+md"
+## Múltiplas restrições
+"
+
+# ╔═╡ 2a6cccea-4607-4c9e-8698-05e7b617d89d
+md"
+* Ocasionalmente, economistas precisam considerar problemas de otimização com mais do que uma restrição de igualdade
+🔜 Mesmo que o caso mais comum seja o de múltiplas restrições de desigualdade, que veremos mais adiante no curso
+* O problema de otimização generalizado correspondente pode, então, ser formulado da seguinte forma:
+
+$$\begin{align}\max(\min) \quad & f(x_1, \dots, x_n) \\ \text{s.r.} \quad & \begin{cases}g_1(x_1, \dots, x_n) = c_1 \\ g_2(x_1, \dots, x_n) = c_2 \\ \qquad \vdots \\ g_m(x_1, \dots, x_n) = c_m\end{cases}\end{align}$$
+
+* Quando há mais do que uma restrição, o método dos multiplicadores de Lagrange é igualmente aplicável, contanto que sejam introduzidos tantos multiplicadores quantas forem as restrições na função Lagrangeana
+
+* Portanto, associando um multiplicador de Lagrange a cada uma das restrições, a função Lagrangeana é dada por:
+
+$$\mathcal{L}(x_1, \dots, x_n) = f(x_1, \dots, x_n) + \sum_{j = 1}^m \lambda_j[c_j - g_j(x_1, \dots, x_n)]$$
+
+* A função Lagrangeana assim definida terá o mesmo valor que a função objetivo original $f$ se as $m$ restrições impostas forem satisfeitas
+* Isto é, se os $m$ termos finais da função Lagrangeana se anularem
+* Neste caso, as condições necessárias de primeira ordem formarão um sistema de $n + m$ equações simultâneas:
+
+$$\begin{align}\mathcal{L}_{\lambda_j} &= c_j - g_j(x_1, \dots, x_n) = 0, \qquad j\in\{1, \dots, n\} \\ \mathcal{L}_{x_i} &= f_i - \sum_{k=1}^m \lambda_k \frac{\partial g_k(x_1, \dots, x_n)}{\partial x_i} = 0, \qquad i\in\{1,\dots, n\}\end{align}$$
+
+* Essas equações, normalmente, nos habilitam a resolver para todos os valores de $x_i$, bem como para todos os $\lambda_j$
+"
+
+# ╔═╡ d157f708-eca3-4394-846c-1bdf439acb77
+md"""
+> **Exercício**. Resolva o seguinte problema de maximização de utilidade do consumidor:
+>
+> $$\begin{align}\max_{x,y,z} \quad & U(x,y,z) = x^2y^3z \\ \text{s.r.} \quad & x + y + z = 12\end{align}$$
+"""
+
+# ╔═╡ 8569d318-cd2b-4501-bc50-d026fc0e91f3
+md"""
+> **Exercício**. Solucione o seguinte problema de otimização:
+>
+> $$\begin{align}\min_{x,y,z} \quad & (x-4)^2 + (y-4)^2 + \left(z - \frac{1}{2}\right)^2 \\ \text{s.r.} \quad & x^2 + y^2 = z\end{align}$$
+"""
+
+# ╔═╡ 60ac45ad-3088-4988-8e6f-856b35c4afd7
+md"""
+> **Exercício**. Solucione o seguinte problema de otimização:
+>
+> $$\begin{align}\min_{x,y,z} \quad & x^2 + y^2 + z^2 \\ \text{s.r.} \quad & \begin{cases}x + 2y + z = 30 \\ 2x - y - 3z = 10\end{cases}\end{align}$$
+"""
+
 # ╔═╡ 061bb44d-dbf0-490a-b607-409620aba229
 md"
 ## 📚 Bibliografia
 
 CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas.
 Rio de Janeiro: Elsevier, 2006.
+
+HOY, M.; LIVERNOIS, J.; McKENNA, C.; REES, R.; STENGOS, T.
+Mathematics for Economics. 3rd.ed. Cambridge, Massachusetts: The
+MIT Press, 2011.
 
 SIMON, C.P.; BLUME, L. Matemática para economistas. Porto
 Alegre: Bookman, 2004.
@@ -1446,6 +1698,23 @@ version = "1.4.1+0"
 # ╟─192e3ba7-00a8-4724-8574-4e530c074f1d
 # ╟─e8afee77-4ef7-4ac9-b9ce-81312f124b67
 # ╟─4f2b55c2-1e01-4478-9c35-f54ecb3f191f
+# ╟─ab8f1307-e8b0-47e1-a32c-34cdf5fc6eda
+# ╟─b60965aa-e123-4b85-a5d7-00314de32c69
+# ╟─fa709446-80b3-489d-8b9f-d14471537b2d
+# ╟─0c54534e-f6c4-4e57-ace4-20b717c89b23
+# ╟─45b6f72a-d698-4b85-b121-f725416e709a
+# ╟─530d1c7b-39f5-4b84-83c9-bdbb6f01ec72
+# ╟─88a31b36-3168-4419-9e8b-e981e3983ee7
+# ╟─7932b23c-236c-4e5d-8ab4-5e4c36309f19
+# ╟─8748d113-d402-4781-bbc9-ab1d118c0f02
+# ╟─0d797f84-863a-4d45-a6fa-fb847274c944
+# ╟─8ec25d8f-5d7c-4dac-82c7-37f4febcb6ee
+# ╟─633efa11-239b-44f7-84b7-2ae8f4d93e46
+# ╟─3f69caa9-0463-4872-9121-c502ffb9b8bb
+# ╟─2a6cccea-4607-4c9e-8698-05e7b617d89d
+# ╟─d157f708-eca3-4394-846c-1bdf439acb77
+# ╟─8569d318-cd2b-4501-bc50-d026fc0e91f3
+# ╟─60ac45ad-3088-4988-8e6f-856b35c4afd7
 # ╟─061bb44d-dbf0-490a-b607-409620aba229
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
