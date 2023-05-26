@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.22
+# v0.19.26
 
 using Markdown
 using InteractiveUtils
@@ -317,6 +317,154 @@ md"
 > Determine se é um ponto de mínimo ou de máximo
 "
 
+# ╔═╡ a5036a1b-ad07-45f7-af1f-890f1e9e0b86
+md"
+### Caso multivariado
+"
+
+# ╔═╡ aaa59a0b-f6b3-4b22-a8df-61407cd3fc73
+md"
+* Vamos supor, agora, que a função objetivo e a restrição de igualdade consideradas sejam funções de $n$ variáveis reais:
+
+$$\begin{align}
+\max (\min) \quad & \quad z = f(x_1, x_2, \dots, x_n) \\
+\text{s.r.} \quad & \quad g(x_1, x_2, \dots, x_n) = c\end{align}$$
+
+* Para este caso, a condição de segunda ordem depende, ainda, do sinal algébrico do diferencial total de segunda ordem $d^2z$
+
+* Visto que o diferencial total de segunda ordem, $d^2z$, é uma forma quadrática restrita nas variáveis $dx_1, dx_2, \dots, dx_n$ sujeita à restrição:
+
+$$g_1dx_1 + g_2dx_2 + \dots + g_ndx_n = 0,$$
+
+as condições para formas quadráticas positivas definidas ou negativas definidas envolvem, novamente, o Hessiano aumentado
+
+* No entanto, essas condições devem ser expressas em termos dos menores principais líderes aumentados do Hessiano
+
+* O Hessiano aumentado, para o caso de $n$ variáveis, é dado por:
+
+$$|\bar{H}| = \begin{vmatrix} 0 & g_1 & g_2 & \dots & g_n \\ g_1 & \mathcal{L}_{11} & \mathcal{L}_{12} & \dots & \mathcal{L}_{1n} \\ g_2 & \mathcal{L}_{21} & \mathcal{L}_{22} & \dots & \mathcal{L}_{2n} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ g_n & \mathcal{L}_{n1} & \mathcal{L}_{n2} & \dots & \mathcal{L}_{nn}\end{vmatrix}$$
+"
+
+# ╔═╡ e0679d62-0cbf-4026-a28e-640e266abd56
+md"
+* Os menores principais líderes do Hessiano aumentado podem, então, ser definidos como:
+
+$$|\bar{H_2}| \equiv \begin{vmatrix}0 & g_1 & g_2 \\ g_1 & \mathcal{L}_{11} & \mathcal{L}_{12} \\ g_2 & \mathcal{L}_{21} & \mathcal{L}_{22}\end{vmatrix}, \qquad |\bar{H_3}| \equiv \begin{vmatrix}0 & g_1 & g_2 & g_3 \\ g_1 & \mathcal{L}_{11} & \mathcal{L}_{12} & \mathcal{L}_{13} \\ g_2 & \mathcal{L}_{21} & \mathcal{L}_{22} & \mathcal{L}_{23} \\ g_3 & \mathcal{L}_{31} & \mathcal{L}_{32} & \mathcal{L}_{33}\end{vmatrix}, \qquad \text{etc.}$$
+
+* Sendo que $|\bar{H_n}| = |\bar{H}|$
+"
+
+# ╔═╡ 9a957841-86d6-45ed-a4c0-cf8d573e3c32
+md"""
+!!! info "Formas quadráticas definidas: caso multivariado"
+	As condições para uma forma quadrática $d^2z$ ser positiva definida ou negativa definida são dadas por:
+
+	1.  $d^2z$ é **positiva definida** se, e somente se, $|\bar{H_2}|, |\bar{H_3}|, \dots, |\bar{H_n}| < 0$
+
+	2.  $d^2z$ é **negativa definida** se, e somente se, $|\bar{H_2}| > 0, |\bar{H_3}| < 0, |\bar{H_4}| > 0, \dots, (-1)^n |\bar{H_n}| > 0$
+"""
+
+# ╔═╡ 31d8981e-d70c-4b89-9c9e-c515b32e002b
+md"
+* Como antes, $d^2z$ ser positiva definida é uma condição suficiente para estabelecer um valor estacionário de $z$ como seu mínimo relativo
+*  $d^2z$ ser negativa definida é suficiente para estabelecer como um valor de máximo relativo
+* Em resumo, temos as seguintes condições com determinantes para extremos relativos da função $z = f(x_1, x_2, \dots, x_n)$, sujeito a $g(x_1, x_2, \dots, x_n) = c$
+"
+
+# ╔═╡ b86e5d45-c850-4668-8f7c-849e8b14bbc8
+md"""
+!!! correct "Condições necessárias e suficientes para extremos relativos restritos"
+	Condições para extremo relativo restrito: $\mathcal{L} = f(x_1, \dots, x_n) + \lambda[c - g(x_1, \dots, x_n)]$
+
+	| Condição | Máximo relativo | Mínimo relativo |
+	| :---: | :---: | :---: |
+	| Necessária de 1ª ordem | $\mathcal{L}_\lambda = \mathcal{L}_1 = \dots = \mathcal{L}_n = 0$ | $\mathcal{L}_\lambda = \mathcal{L}_1 = \dots = \mathcal{L}_n = 0$ |
+	| Suficiente de 2ª ordem | $\begin{vmatrix}\bar{H_2}\end{vmatrix} > 0, \begin{vmatrix}\bar{H_3}\end{vmatrix} < 0, \begin{vmatrix}\bar{H_4}\end{vmatrix} > 0, \dots, (-1)^n \begin{vmatrix}\bar{H_n}\end{vmatrix} > 0$ | $\begin{vmatrix}\bar{H_2}\end{vmatrix}, \begin{vmatrix}\bar{H_3}\end{vmatrix}, \dots, \begin{vmatrix}\bar{H_n}\end{vmatrix} < 0$ |
+"""
+
+# ╔═╡ cf7c51c2-a142-4df0-af2b-e9db8f4d1537
+md"
+### Caso de múltiplas restrições
+"
+
+# ╔═╡ 7459d965-1e13-489a-a600-358672a4e11d
+md"
+* Consideraremos agora, de maneira ainda mais geral, um problema de otimização que envolva $n$ variáveis de escolha e $m$ restrições de igualdade ($m < n$)
+
+* Ao associarmos um multiplicador de Lagrange a cada uma das restrições, temos a função Lagrangeana dada por:
+
+$$\mathcal{L} = f(x_1, \dots, x_n) + \sum_{j = 1}^m \lambda_j[c_j - g^j(x_1, \dots, x_n)]$$
+
+* A matriz Hessiana aumentada é, então, dada por:
+
+$$|\bar{H}| \equiv \begin{vmatrix}
+0 & 0 & \dots & 0 & g_1^1 & g_2^1 & \dots & g_n^1 \\
+0 & 0 & \dots & 0 & g_1^2 & g_2^2 & \dots & g_n^2 \\
+\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \dots & 0 & g_1^m & g_2^m & \dots & g_n^m \\
+g_1^1 & g_1^2 & \dots & g_1^m & \mathcal{L}_{11} & \mathcal{L}_{12} & \dots & \mathcal{L}_{1n} \\
+g_2^1 & g_2^2 & \dots & g_2^m & \mathcal{L}_{21} & \mathcal{L}_{22} & \dots & \mathcal{L}_{2n} \\
+\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+g_n^1 & g_n^2 & \dots & g_n^m & \mathcal{L}_{n1} & \mathcal{L}_{n2} & \dots & \mathcal{L}_{nn}
+\end{vmatrix}$$
+
+* Na matriz anterior, $g_i^j \equiv \partial g^j/\partial x_i$ são as derivadas parciais das funções de restrição, e os símbolos $\mathcal{L}$ com dois índices denotam as derivadas parciais de segunda ordem da função Lagrangeana
+
+* Vários menores principais líderes podem ser formados a partir de $|\bar{H}|$:
+
+$$|\bar{H}_2| \equiv \begin{vmatrix}
+0 & 0 & \dots & 0 & g_1^1 & g_2^1 \\
+0 & 0 & \dots & 0 & g_1^2 & g_2^2 \\
+\vdots & \vdots & \ddots & \vdots & \vdots & \vdots \\
+0 & 0 & \dots & 0 & g_1^m & g_2^m \\
+g_1^1 & g_1^2 & \dots & g_1^m & \mathcal{L}_{11} & \mathcal{L}_{12} \\
+g_2^1 & g_2^2 & \dots & g_2^m & \mathcal{L}_{21} & \mathcal{L}_{22}
+\end{vmatrix}$$
+
+$$|\bar{H}_3| \equiv \begin{vmatrix}
+0 & 0 & \dots & 0 & g_1^1 & g_2^1 & g_3^1\\
+0 & 0 & \dots & 0 & g_1^2 & g_2^2 & g_3^2 \\
+\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \dots & 0 & g_1^m & g_2^m & g_3^m\\
+g_1^1 & g_1^2 & \dots & g_1^m & \mathcal{L}_{11} & \mathcal{L}_{12} & \mathcal{L}_{13} \\
+g_2^1 & g_2^2 & \dots & g_2^m & \mathcal{L}_{21} & \mathcal{L}_{22} & \mathcal{L}_{23} \\
+g_3^1 & g_3^2 & \dots & g_3^m & \mathcal{L}_{31} & \mathcal{L}_{32} & \mathcal{L}_{33}
+\end{vmatrix}$$
+"
+
+# ╔═╡ 478a49f3-7b0c-4599-abeb-0bff2ee6d984
+md"
+* Podemos obter os próximos menores principais líderes incluindo mais uma linha e mais uma coluna, até $|\bar{H}_n|$
+* Podemos, então, enunciar a condição suficiente de segunda ordem em temos dos sinais dos seguintes $(n-m)$ menores principais líderes aumentados:
+
+$$|\bar{H}_{m+1}|, |\bar{H}_{m+2}|, \dots, |\bar{H}_{n}| (= |\bar{H}|)$$
+* Estes menores principais líderes devem ser de ordem maior que $m$ pois um determinante envolvendo menos do que $m$ colunas e linhas será igual a zero
+"
+
+# ╔═╡ 4750558f-8d37-4ad8-bc63-0891320e26ee
+md"""
+!!! correct "Condições de segunda ordem: n variáveis e m restrições de igualdade"
+	* Para um máximo local de $z$, uma condição suficiente é que os menores principais líderes aumentados alternem sinais algébricos, sendo que o sinal de $|\bar{H}_{m+1}|$ é o mesmo sinal de $(-1)^{m+1}$
+	* Para um mínimo local de $z$, uma condição suficiente é que os menores principais líderes aumentados tenham o mesmo sinal algébrico, a saber, o mesmo sinal que $(-1)^m$
+"""
+
+# ╔═╡ 2835e56c-a290-4542-aa9b-e880e82199fa
+md"""
+!!! danger "Observação"
+	* Note que ter um número ímpar ou par de restrições faz uma grande diferença
+
+	* Isso porque $(-1)$ elevado a uma potência ímpar resultará no sinal oposto ao de $(-1)$ elevado a uma potência par
+
+	* Para o caso $m = 1$, a condição apenas enunciada é a mesma que vimos anteriormente, de problemas de otimização com $n$ variáveis de escolha e uma restrição de igualdade
+"""
+
+# ╔═╡ 7da98e1b-3f0e-4212-90a5-4ac82de5382a
+md"""
+> **Exercício**. Escreva o Hessiano aumentado para um problema de otimização restrita com quatro variáveis de escolha e duas restrições
+>
+> Enuncie, especificamente, a condição suficiente de segunda ordem para um máximo local e um mínimo local de $z$
+"""
+
 # ╔═╡ 8b0dcec9-c715-4fc0-bdea-6e25a0675a38
 md"
 ## 📚 Bibliografia
@@ -351,9 +499,9 @@ PlutoUI = "~0.7.51"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.8.5"
+julia_version = "1.9.0"
 manifest_format = "2.0"
-project_hash = "e9be83a6c7fd21f04cfc4051871fb477d5cc6cf9"
+project_hash = "ba38107133561ad9f4100b0beef7714c40d01d4a"
 
 [[deps.AbstractPlutoDingetjes]]
 deps = ["Pkg"]
@@ -431,15 +579,19 @@ uuid = "5ae59095-9a9b-59fe-a467-6f913c188581"
 version = "0.12.10"
 
 [[deps.Compat]]
-deps = ["Dates", "LinearAlgebra", "UUIDs"]
+deps = ["UUIDs"]
 git-tree-sha1 = "7a60c856b9fa189eb34f5f8a6f6b5529b7942957"
 uuid = "34da2185-b29b-5c13-b0c7-acf172513d20"
 version = "4.6.1"
+weakdeps = ["Dates", "LinearAlgebra"]
+
+    [deps.Compat.extensions]
+    CompatLinearAlgebraExt = "LinearAlgebra"
 
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
-version = "1.0.1+0"
+version = "1.0.2+0"
 
 [[deps.ConcurrentUtilities]]
 deps = ["Serialization", "Sockets"]
@@ -469,7 +621,9 @@ uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
 
 [[deps.DelimitedFiles]]
 deps = ["Mmap"]
+git-tree-sha1 = "9e2f36d3c96a820c678f2f1f1782582fcf685bae"
 uuid = "8bb1440f-4735-579b-a4ab-409b98df4dab"
+version = "1.9.1"
 
 [[deps.DocStringExtensions]]
 deps = ["LibGit2"]
@@ -672,6 +826,14 @@ git-tree-sha1 = "099e356f267354f46ba65087981a77da23a279b7"
 uuid = "23fbe1c1-3f47-55db-b15f-69d7ec21a316"
 version = "0.16.0"
 
+    [deps.Latexify.extensions]
+    DataFramesExt = "DataFrames"
+    SymEngineExt = "SymEngine"
+
+    [deps.Latexify.weakdeps]
+    DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+    SymEngine = "123dc426-2d89-5057-bbad-38513e3affd8"
+
 [[deps.LibCURL]]
 deps = ["LibCURL_jll", "MozillaCACerts_jll"]
 uuid = "b27032c2-a3e7-50c8-80cd-2d36dbcbfd21"
@@ -743,14 +905,20 @@ uuid = "38a345b3-de98-5d2b-a5d3-14cd9215e700"
 version = "2.36.0+0"
 
 [[deps.LinearAlgebra]]
-deps = ["Libdl", "libblastrampoline_jll"]
+deps = ["Libdl", "OpenBLAS_jll", "libblastrampoline_jll"]
 uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 
 [[deps.LogExpFunctions]]
-deps = ["ChainRulesCore", "ChangesOfVariables", "DocStringExtensions", "InverseFunctions", "IrrationalConstants", "LinearAlgebra"]
+deps = ["DocStringExtensions", "IrrationalConstants", "LinearAlgebra"]
 git-tree-sha1 = "0a1b7c2863e44523180fdb3146534e265a91870b"
 uuid = "2ab3a3ac-af41-5b50-aa03-7779005ae688"
 version = "0.3.23"
+weakdeps = ["ChainRulesCore", "ChangesOfVariables", "InverseFunctions"]
+
+    [deps.LogExpFunctions.extensions]
+    LogExpFunctionsChainRulesCoreExt = "ChainRulesCore"
+    LogExpFunctionsChangesOfVariablesExt = "ChangesOfVariables"
+    LogExpFunctionsInverseFunctionsExt = "InverseFunctions"
 
 [[deps.Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
@@ -785,7 +953,7 @@ version = "1.1.7"
 [[deps.MbedTLS_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
-version = "2.28.0+0"
+version = "2.28.2+0"
 
 [[deps.Measures]]
 git-tree-sha1 = "c13304c81eec1ed3af7fc20e75fb6b26092a1102"
@@ -803,7 +971,7 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[deps.MozillaCACerts_jll]]
 uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
-version = "2022.2.1"
+version = "2022.10.11"
 
 [[deps.NaNMath]]
 deps = ["OpenLibm_jll"]
@@ -824,7 +992,7 @@ version = "1.3.5+1"
 [[deps.OpenBLAS_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
 uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
-version = "0.3.20+0"
+version = "0.3.21+4"
 
 [[deps.OpenLibm_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -863,7 +1031,7 @@ version = "1.6.0"
 [[deps.PCRE2_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "efcefdf7-47ab-520b-bdef-62a2eaa19f15"
-version = "10.40.0+0"
+version = "10.42.0+0"
 
 [[deps.Parsers]]
 deps = ["Dates", "PrecompileTools", "UUIDs"]
@@ -883,9 +1051,9 @@ uuid = "30392449-352a-5448-841d-b1acce4e97dc"
 version = "0.40.1+0"
 
 [[deps.Pkg]]
-deps = ["Artifacts", "Dates", "Downloads", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
+deps = ["Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
 uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
-version = "1.8.0"
+version = "1.9.0"
 
 [[deps.PlotThemes]]
 deps = ["PlotUtils", "Statistics"]
@@ -904,6 +1072,20 @@ deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers"
 git-tree-sha1 = "6c7f47fd112001fc95ea1569c2757dffd9e81328"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 version = "1.38.11"
+
+    [deps.Plots.extensions]
+    FileIOExt = "FileIO"
+    GeometryBasicsExt = "GeometryBasics"
+    IJuliaExt = "IJulia"
+    ImageInTerminalExt = "ImageInTerminal"
+    UnitfulExt = "Unitful"
+
+    [deps.Plots.weakdeps]
+    FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+    GeometryBasics = "5c1252a2-5f33-56bf-86c9-59e7332b4326"
+    IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
+    ImageInTerminal = "d8c32880-2388-543b-8c61-d9f865259254"
+    Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
 [[deps.PlutoUI]]
 deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
@@ -1004,18 +1186,23 @@ uuid = "a2af1166-a08f-5f64-846c-94a0d3cef48c"
 version = "1.1.0"
 
 [[deps.SparseArrays]]
-deps = ["LinearAlgebra", "Random"]
+deps = ["Libdl", "LinearAlgebra", "Random", "Serialization", "SuiteSparse_jll"]
 uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [[deps.SpecialFunctions]]
-deps = ["ChainRulesCore", "IrrationalConstants", "LogExpFunctions", "OpenLibm_jll", "OpenSpecFun_jll"]
+deps = ["IrrationalConstants", "LogExpFunctions", "OpenLibm_jll", "OpenSpecFun_jll"]
 git-tree-sha1 = "ef28127915f4229c971eb43f3fc075dd3fe91880"
 uuid = "276daf66-3868-5448-9aa4-cd146d93841b"
 version = "2.2.0"
+weakdeps = ["ChainRulesCore"]
+
+    [deps.SpecialFunctions.extensions]
+    SpecialFunctionsChainRulesCoreExt = "ChainRulesCore"
 
 [[deps.Statistics]]
 deps = ["LinearAlgebra", "SparseArrays"]
 uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+version = "1.9.0"
 
 [[deps.StatsAPI]]
 deps = ["LinearAlgebra"]
@@ -1029,15 +1216,20 @@ git-tree-sha1 = "d1bf48bfcc554a3761a133fe3a9bb01488e06916"
 uuid = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 version = "0.33.21"
 
+[[deps.SuiteSparse_jll]]
+deps = ["Artifacts", "Libdl", "Pkg", "libblastrampoline_jll"]
+uuid = "bea87d4a-7f5b-5778-9afe-8cc45184846c"
+version = "5.10.1+6"
+
 [[deps.TOML]]
 deps = ["Dates"]
 uuid = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
-version = "1.0.0"
+version = "1.0.3"
 
 [[deps.Tar]]
 deps = ["ArgTools", "SHA"]
 uuid = "a4e569a6-e804-4fa4-b0f3-eef7a1d5b13e"
-version = "1.10.1"
+version = "1.10.0"
 
 [[deps.TensorCore]]
 deps = ["LinearAlgebra"]
@@ -1236,7 +1428,7 @@ version = "1.4.0+3"
 [[deps.Zlib_jll]]
 deps = ["Libdl"]
 uuid = "83775a58-1f1d-513f-b197-d71354ab007a"
-version = "1.2.12+3"
+version = "1.2.13+0"
 
 [[deps.Zstd_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
@@ -1263,9 +1455,9 @@ uuid = "0ac62f75-1d6f-5e53-bd7c-93b484bb37c0"
 version = "0.15.1+0"
 
 [[deps.libblastrampoline_jll]]
-deps = ["Artifacts", "Libdl", "OpenBLAS_jll"]
+deps = ["Artifacts", "Libdl"]
 uuid = "8e850b90-86db-534c-a0d3-1478176c7d93"
-version = "5.1.1+0"
+version = "5.7.0+0"
 
 [[deps.libfdk_aac_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -1346,6 +1538,18 @@ version = "1.4.1+0"
 # ╟─4ddba26f-a646-4010-8d55-be1bfbe6ee6c
 # ╟─cf94138c-8904-4635-a05a-d051db55e147
 # ╟─75a7948a-5397-435f-bdd9-76de01fdd4bd
+# ╟─a5036a1b-ad07-45f7-af1f-890f1e9e0b86
+# ╟─aaa59a0b-f6b3-4b22-a8df-61407cd3fc73
+# ╟─e0679d62-0cbf-4026-a28e-640e266abd56
+# ╟─9a957841-86d6-45ed-a4c0-cf8d573e3c32
+# ╟─31d8981e-d70c-4b89-9c9e-c515b32e002b
+# ╟─b86e5d45-c850-4668-8f7c-849e8b14bbc8
+# ╟─cf7c51c2-a142-4df0-af2b-e9db8f4d1537
+# ╟─7459d965-1e13-489a-a600-358672a4e11d
+# ╟─478a49f3-7b0c-4599-abeb-0bff2ee6d984
+# ╟─4750558f-8d37-4ad8-bc63-0891320e26ee
+# ╟─2835e56c-a290-4542-aa9b-e880e82199fa
+# ╟─7da98e1b-3f0e-4212-90a5-4ac82de5382a
 # ╟─8b0dcec9-c715-4fc0-bdea-6e25a0675a38
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
