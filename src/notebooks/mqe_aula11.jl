@@ -453,7 +453,7 @@ md"""
 # ╔═╡ 4dbdb8be-db39-4ef0-8b60-6deb170f9336
 md"""
 Quase-concavidade e condições de segunda ordem. Fonte: Chiang e Wainwright (2006)
-$(Resource("https://raw.githubusercontent.com/gist/fonsp/9a36c183e2cad7c8fc30290ec95eb104/raw/ca3a38a61f95cd58d79d00b663a3c114d21e284e/cute.svg"))
+$(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula11_fig8.PNG", :width=>800))
 """
 
 # ╔═╡ 6bc3325e-90e7-4113-9c00-d6b9d8fc6939
