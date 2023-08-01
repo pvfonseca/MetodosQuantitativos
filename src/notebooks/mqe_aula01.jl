@@ -26,6 +26,12 @@ md"
 * **Página da disciplina:** [Métodos Quantitativos I](https://pvfonseca.github.io/teaching/metodosquant/)
 "
 
+# ╔═╡ 6f6d438e-6b53-45dc-b3d2-4503ef5f3cfc
+md"""
+!!! danger "Aviso"
+	O texto que segue não tem a menor pretensão de originalidade. Ele serve apenas como registro dos principais princípios, conceitos e técnicas analíticas que são trabalhados em sala de aula.
+"""
+
 # ╔═╡ 9df15e63-4af6-449f-9379-ba4b85403718
 md"
 ## Introdução
@@ -333,6 +339,75 @@ $$X(\bar{u}) = \{x \in \mathbb{R}_+^n| u(x)\geq\bar{u}\}.$$
 * O objetivo é resolver o seguinte problema de otimização:
 
 $$\min p\cdot x \qquad \text{sujeito a} \qquad x \in X(\bar{u}).$$
+"
+
+# ╔═╡ cbf0ed50-8013-4fdf-a171-6edab512c619
+md"""
+### 3. Maximização de lucros
+* A Teoria da Produção estuda o processo decisório das firmas.
+
+* O modelo canônico de maximização de lucros de uma firma uniproduto envolve analisar o comportamento de uma firma que produz um único bem utilizando $n$ insumos através de uma relação de produção $y = g(x_1, \dots, x_n)$.
+ 
+| Variável | Significado |
+| :--- | ---: |
+| $x_i$ | Qtdade utilizada do insumo $i$ no processo produtivo |
+| $y$ | Qtdade produzida |
+| $g: \mathbb{R}_+^n \to \mathbb{R}_+$ | Função (tecnologia) de produção |
+
+* Denote o preço unitário do insumo $i$ por $w_i \geq 0$ e o preço unitário do bem produzido por $p(y)$, onde $p: \mathbb{R}_+ \to \mathbb{R}_+$ é a _curva de demanda inversa_.
+
+* O objetivo da firma é escolher uma combinação de insumos $x$ que maximize seu nível de lucros:
+
+$$\max p(g(x))g(x) - w\cdot x \quad s.t. \quad x \in \mathbb{R}_+^n.$$
+"""
+
+# ╔═╡ 2e945185-f4b2-45cb-b3f1-6dc2940e38ce
+md"
+### 4. Minimização de custos
+
+* O objetivo é identificar a combinação de insumos que minimize o custo de produção de pelo menos $\bar{y}$ unidades de produto, dados a função de produção $g: \mathbb{R}_+^n \to \mathbb{R}_+$ e o vetor de preços dos insumos $w = (w_1, \dots, w_n) \in \mathbb{R}_+^n$.
+
+* Portanto, o conjunto factível de escolha de insumos é dado por:
+$$F(\bar{y}) = \{x \in \mathbb{R}_+^n| g(x) \geq \bar{y}\}.$$
+
+* O objetivo é resolver o seguinte problema de otimização:
+$$\min w\cdot x \quad s.t. \quad x \in F(\bar{y}).$$
+"
+
+# ╔═╡ 2c288d85-86df-441c-ab7e-a3c05f8af16e
+md"""
+!!! warning "Propriedade de livre descarte (free disposal)"
+	Implicitamente, esta formulação do problema de minimização de custos assume que a propriedade de livre descarte (_free disposal_) seja satisfeita.
+
+	Lembrando que uma tecnologia apresenta a propriedade de livre descarte quando é sempre possível a absorção de quantidades adicionais de pelo menos um insumo sem que isto acarrete redução da produção. Uma outra interpretação é a de que quantidades extras de insumos ou produtos podem ser descartadas ou eliminadas sem custo.
+
+	No caso em que existe um custo de descarte não-nulo, isso deve ser incorporado à função objetivo.
+"""
+
+# ╔═╡ 6c20ef9b-b38e-4d9c-8add-e318d4431bfe
+md"""
+> ⚠️ Mais exemplos serão apresentados ao longo da disciplina.
+"""
+
+# ╔═╡ 1edc765a-fb1c-488f-8211-6a82e09a4072
+md"
+## Objetivos da Teoria da Otimização
+"
+
+# ╔═╡ 1eb81622-e860-47a7-bdd8-6b98f1dea783
+md"
+A Teoria da Otimização tem dois objetivos principais:
+
+1. Identificar o conjunto de condições sobre $f$ e $\mathcal{D}$ sob as quais a **existência** de soluções ao problema de otimização é garantida.
+2. Obtenção de uma **caracterização** do conjunto de pontos ótimos.
+"
+
+# ╔═╡ 6f8564ce-d864-4485-b696-10b3a3a92f2e
+md"
+Com relação ao segundo objetivo, podemos identificar algumas questões de interesse:
+* Identificação das condições que toda solução de um problema de otimização _deve_ satisfazer, i.e., identificar as **condições necessárias** para um ponto ótimo.
+* Identificação das condições tais que _qualquer_ ponto que as satisfaça é uma solução ao problema, i.e., **condições suficientes** para classificar um ponto como solução.
+* Identificação das condições que asseguram que uma solução única existe para um dado problema de otimização, i.e., condições que asseguram a **unicidade** das soluções.
 "
 
 # ╔═╡ 985f4597-0c85-490c-ba68-905559699a6b
@@ -1413,6 +1488,7 @@ version = "1.4.1+0"
 # ╟─02d06cb9-60f7-47e4-afbe-82fe174b1c04
 # ╟─e20e23bf-d93e-4371-ab12-0d054ac45562
 # ╟─56bfaeb1-e311-4f21-9b02-740a76c0c55d
+# ╟─6f6d438e-6b53-45dc-b3d2-4503ef5f3cfc
 # ╟─9df15e63-4af6-449f-9379-ba4b85403718
 # ╟─8a633d26-f9e0-4433-bcfc-77d992f0ca80
 # ╟─fb412b00-9cdb-4894-853c-9e068961ff18
@@ -1448,6 +1524,13 @@ version = "1.4.1+0"
 # ╟─fe247c14-9c8b-4e30-b5f6-99cba0aad4d1
 # ╟─37d4ffe7-7efa-4b6f-a700-1c3881e5acae
 # ╟─5b8d8856-c6c7-4a80-b67b-4f8c69e06feb
+# ╟─cbf0ed50-8013-4fdf-a171-6edab512c619
+# ╟─2e945185-f4b2-45cb-b3f1-6dc2940e38ce
+# ╟─2c288d85-86df-441c-ab7e-a3c05f8af16e
+# ╟─6c20ef9b-b38e-4d9c-8add-e318d4431bfe
+# ╟─1edc765a-fb1c-488f-8211-6a82e09a4072
+# ╟─1eb81622-e860-47a7-bdd8-6b98f1dea783
+# ╟─6f8564ce-d864-4485-b696-10b3a3a92f2e
 # ╟─985f4597-0c85-490c-ba68-905559699a6b
 # ╟─9b0e6075-d2c1-4b99-b8de-bb7ac60f1d43
 # ╟─00000000-0000-0000-0000-000000000001
