@@ -40,9 +40,9 @@ md"""
 # ╔═╡ 3709a461-a301-4843-b78a-fc8c7bfa6ee5
 md"
 * **Disciplina:** 33MQEI - Métodos Quantitativos em Economia I
-* **Data:** 02/03/2023
 * **Docente:** [Paulo Victor da Fonseca](https://pvfonseca.github.io)
 * **Contato:** [paulo.fonseca@udesc.br](mailto:paulo.fonseca@udesc.br)
+* **Página da disciplina:** [Métodos Quantitativos I](https://pvfonseca.github.io/teaching/metodosquant/)
 "
 
 # ╔═╡ 90b94b6d-4004-43ae-88bd-41788fac1a13
@@ -252,7 +252,7 @@ md"""
 	| :--- | ---: |
 	| Soma (diferença) | $(f \pm g)(x) = f(x) \pm g(x)$ |
 	| Produto | $(f \cdot g)(x) = f(x) \cdot g(x)$ |
-	| Quociente | $(\frac{f}{g})(x) = \frac{f(x)}{g(x)}$ |
+	| Quociente | $\left(\frac{f}{g}\right)(x) = \frac{f(x)}{g(x)}$ |
 	| Mult. por constante | $(c \cdot f)(x) = c \cdot f(x), \quad c \in \mathbb{R}$ |
 	| Composta | $(f \circ g)(x) = f(g(x))$ |
 """
@@ -367,11 +367,11 @@ md"""
 
 	* Se $n = 2$, falamos de uma **curva de nível** (de valor $c$).
 
-	* Se $n 3$, falamos de uma **superfície de nível** (de valor $c$).
+	* Se $n = 3$, falamos de uma **superfície de nível** (de valor $c$).
 
 	Formalmente, o conjunto de nível de valor $c$ é definido por:
 
-	$$\{x \in U| f(x) = c\} \subset \mathbb{R}^n$$.
+	$$\{x \in U| f(x) = c\} \subset \mathbb{R}^n.$$
 
 	Note que o conjunto de nível está sempre no espaço do domínio
 """
@@ -382,7 +382,7 @@ A temperatura $T$ em um ponto da superfície da Terra, em um dado instante de te
 
 Podemos traçar as curvas de nível para a função temperatura, que neste caso são chamadas **isotérmicas**, que ligam localidades que têm a mesma temperatura.
 
-A Figura abaixo mostra um mapa de clima indicando as temperaturas médias do mês de julho.
+A Figura abaixo mostra um mapa de clima indicando as temperaturas médias (ºF) do mês de julho.
 
 $(Resource("https://raw.githubusercontent.com/pvfonseca/MetodosQuantitativos/main/notas/figures/aula2_temperatura.png", :width => 800))
 """
@@ -435,7 +435,7 @@ md"""
 
 	$$F(K, L) = A K^{\alpha}L^{1-\alpha}$$
 
-	Por MQO, Cobb e Douglas estimaram a seguinte função de produção para a economia dos EUA no período amostral:
+	Por [Mínimos Quadrados Ordinários (MQO)](https://pt.wikipedia.org/wiki/M%C3%A9todo_dos_m%C3%ADnimos_quadrados), Cobb e Douglas estimaram a seguinte função de produção para a economia dos EUA no período amostral:
 	
 	$$F(K, L) = 1,01 K^{0,25}L^{0,75}$$
 """
@@ -565,7 +565,7 @@ md"""
 !!! correct "Definição (Derivada)"
 	A **derivada de uma função $f$ em um número $a$**, denotada por $f'(a)$, é dada por:
 
-	$$f'(a) = \lim_{h \to 0}\frac{f(a + h) - f(a)}{h}$$
+	$$f'(a) \equiv \lim_{h \to 0}\frac{f(a + h) - f(a)}{h}$$
 
 	Neste caso, dizemos que a função $f$ é **diferenciável** no ponto $a$.
 
@@ -585,7 +585,7 @@ md"
 | $f(x) = x^n$ | $f'(x) = nx^{n-1}$ |
 | $(f \pm g)(x)$ | $(f \pm g)'(x) = f'(x) \pm g'(x)$ |
 | $(f \cdot g)(x)$ | $(f \cdot g)'(x) = f'(x) \cdot g(x) + f(x) \cdot g'(x)$ |
-| $(\frac{f}{g})(x)$ | $(\frac{f}{g})'(x) = \frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{g(x)^2}$ |
+| $\left(\frac{f}{g}\right)(x)$ | $\left(\frac{f}{g}\right)'(x) = \frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{g(x)^2}$ |
 | $(f\circ g)(x)$ | $(f\circ g)'(x) = f'(g(x)) \cdot g'(x)$ |
 | $f(x) = e^x$ | $f'(x) = e^x$ |
 | $f(x) = a^x$ | $f'(x) = a^x \ln a$ |
@@ -601,8 +601,8 @@ md"
 md"""
 !!! warning "Exercícios"
 	* Encontre as derivadas das seguintes funções:
-	    *  $f(x) = (2 - x^2)^3$
-	    *  $f(x) = (x^3 + x^2)^{50}$
+	    *  $f(x) = \left(2 - x^2\right)^3$
+	    *  $f(x) = \left(x^3 + x^2\right)^{50}$
 	    *  $f(x) = \sqrt{x^2 + 1}$
 	    *  $f(x) = \frac{3x-5}{x-2}$
 	* Encontre a primeira e segunda derivadas das seguintes funções:
@@ -641,7 +641,7 @@ md"""
 !!! correct "Definição (Derivada parcial)"
 	Sem perda de generalidade, a derivada parcial da função $f(x_1, \dots, x_n)$ com relação a $x_1$ é definida, formalmente, por:
 
-	$$\left.\frac{\partial f}{\partial x_1}\right|_{\bar{x}_2, \dots, \bar{x}_n} = f_1 = \lim_{h \to 0} \frac{f(x_1 + h, \bar{x}_2, \dots, \bar{x}_n) - f(x_1, \bar{x}_2, \dots, \bar{x}_n)}{h}$$
+	$$\left.\frac{\partial f}{\partial x_1}\right|_{\bar{x}_2, \dots, \bar{x}_n} \equiv f_1 \equiv \lim_{h \to 0} \frac{f(x_1 + h, \bar{x}_2, \dots, \bar{x}_n) - f(x_1, \bar{x}_2, \dots, \bar{x}_n)}{h}$$
 """
 
 # ╔═╡ ab7f17ba-946d-4711-b443-84eb595c70f6
@@ -678,7 +678,7 @@ md"""
 !!! correct "Definição (Diferencial total)"
 	Seja $y = f(x_1, \dots, x_n)$ uma função contínua e diferenciável, o diferencial total de primeira ordem de $y = f(\textbf{x})$, denotado por $dy$ ou $df$, é dado por:
 
-	$$dy = df = \frac{\partial f}{\partial x_1} dx_1 + \dots + \frac{\partial f}{\partial x_n} dx_n = \sum_{i=1}^n f_i dx_i$$
+	$$dy = df \equiv \frac{\partial f}{\partial x_1} dx_1 + \dots + \frac{\partial f}{\partial x_n} dx_n = \sum_{i=1}^n f_i dx_i$$
 """
 
 # ╔═╡ f1129478-d95b-4643-97ff-35bdcacf5e09
@@ -766,6 +766,22 @@ begin
 	hline!([0], lw=1, lc=:black, ls=:dash, label=:none)
 	vline!([0], lw=1, lc=:black, ls=:dash, label=:none)
 end
+
+# ╔═╡ 3a05f46c-2f70-4290-8a61-d9281353923f
+md"
+## Bibliografia 📚
+"
+
+# ╔═╡ 397e0922-5bde-4c4f-8fdf-2f00af850a54
+md"""
+CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas. Rio de Janeiro: Elsevier, 2006.
+
+MARSDEN, J.E.; TROMBA, A. Vector Calculus. 6.ed. W. H. Freeman, 2011.
+
+STEWART, J. Cálculo – Volume 1. 8.ed. Cengage Learning Brasil, 2017. Disponível em: [app.minhabiblioteca.com.br/books/9788522126859/](https://app.minhabiblioteca.com.br/#/books/9788522126859/)
+
+STEWART, J. Cálculo – Volume 2. 8.ed. Cengage Learning Brasil, 2017. Disponível em: [app.minhabiblioteca.com.br/books/9788522126866](https://app.minhabiblioteca.com.br/#/books/9788522126866/)
+"""
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1780,7 +1796,7 @@ version = "1.4.1+0"
 # ╟─60438d3e-b977-11ed-2c3f-31fcfeed2a61
 # ╟─1f8cd57d-7e54-4b61-8f6b-6176fa8c4393
 # ╟─5d2ecc37-03e6-4eec-8e8e-e18bdd5ac910
-# ╠═24c71569-6341-4bc4-a672-985a95b9efb8
+# ╟─24c71569-6341-4bc4-a672-985a95b9efb8
 # ╟─3709a461-a301-4843-b78a-fc8c7bfa6ee5
 # ╟─90b94b6d-4004-43ae-88bd-41788fac1a13
 # ╟─e0cd5b85-d359-46b2-aa1d-58ada1f8d44f
@@ -1864,5 +1880,7 @@ version = "1.4.1+0"
 # ╟─516ec22b-a158-4c87-9a4f-d5d3c4f8a7e3
 # ╟─4e8a3cc5-d721-4854-a1d1-da94a3c17415
 # ╟─e7309153-c9e8-4daa-934b-321defe4b843
+# ╟─3a05f46c-2f70-4290-8a61-d9281353923f
+# ╟─397e0922-5bde-4c4f-8fdf-2f00af850a54
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
