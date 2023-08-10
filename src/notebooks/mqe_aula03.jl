@@ -39,9 +39,9 @@ md"""
 # ╔═╡ e6556f3c-85e0-4dc9-b70b-dd7a48efce49
 md"
 * **Disciplina:** 33MQEI - Métodos Quantitativos em Economia I
-* **Data:** 08/03/2023
 * **Docente:** [Paulo Victor da Fonseca](https://pvfonseca.github.io)
 * **Contato:** [paulo.fonseca@udesc.br](mailto:paulo.fonseca@udesc.br)
+* **Página da disciplina:** [Métodos Quantitativos I](https://pvfonseca.github.io/teaching/metodosquant/)
 "
 
 # ╔═╡ c22d4f93-d70a-4ba3-ab70-b11c2e98cb7c
@@ -1618,7 +1618,7 @@ PlutoUI = "~0.7.50"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.9.0"
+julia_version = "1.9.2"
 manifest_format = "2.0"
 project_hash = "9d8e0b5eb44ada63f68e061ff9afa8d2a96e47f7"
 
@@ -1698,7 +1698,7 @@ weakdeps = ["Dates", "LinearAlgebra"]
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
-version = "1.0.2+0"
+version = "1.0.5+0"
 
 [[deps.ConcurrentUtilities]]
 deps = ["Serialization", "Sockets"]
@@ -2158,7 +2158,7 @@ version = "0.40.1+0"
 [[deps.Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
 uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
-version = "1.9.0"
+version = "1.9.2"
 
 [[deps.PlotThemes]]
 deps = ["PlotUtils", "Statistics"]
@@ -2564,7 +2564,7 @@ version = "0.15.1+0"
 [[deps.libblastrampoline_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "8e850b90-86db-534c-a0d3-1478176c7d93"
-version = "5.7.0+0"
+version = "5.8.0+0"
 
 [[deps.libfdk_aac_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
