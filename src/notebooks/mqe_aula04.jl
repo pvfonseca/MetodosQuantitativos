@@ -445,7 +445,7 @@ md"""
 	| Condição | Máximo relativo | Mínimo relativo |
 	| :--- | ---: | ---: |
 	| Necessária de primeira ordem | $f_x = f_y = 0$ | $f_x = f_y = 0$ |
-	| Suficiente de segunda ordem | $\begin{eqnarray} f_{xx}, f_{yy} &<& 0 \\ f_{xx}f_{yy} &>& f_{xy}^2\end{eqnarray}$ | $\begin{eqnarray} f_{xx}, f_{yy} &<& 0 \\ f_{xx}f_{yy} &>& f_{xy}^2\end{eqnarray}$ |
+	| Suficiente de segunda ordem | $\begin{eqnarray} f_{xx}, f_{yy} &<& 0 \\ f_{xx}f_{yy} &>& f_{xy}^2\end{eqnarray}$ | $\begin{eqnarray} f_{xx}, f_{yy} &>& 0 \\ f_{xx}f_{yy} &>& f_{xy}^2\end{eqnarray}$ |
 """
 
 # ╔═╡ 336b83c0-14d1-4c3a-89df-bc2529ef9282
