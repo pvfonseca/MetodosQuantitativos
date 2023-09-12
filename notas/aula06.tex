@@ -1,0 +1,631 @@
+\documentclass[preprintnumbers,nofootinbib,amsmath,amssymb,12pt]{article}
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{amsthm}
+\usepackage[english,brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{makeidx}
+\usepackage{framed}
+\usepackage{cmap}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[caption = false]{subfig}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+%\usepackage{booktabs}
+\usepackage{setspace}
+\usepackage{lscape}
+\usepackage{anysize}
+\usepackage{hyperref}
+\usepackage{booktabs,caption}
+\usepackage{longtable}
+\usepackage{chngcntr}
+\usepackage[portuguese,linesnumbered,ruled]{algorithm2e}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, filecolor=blue, pagecolor=blue, urlcolor=blue,
+            pdfauthor={Nome do Autor},
+            pdftitle={Título do Projeto},
+            pdfsubject={Assunto do Projeto},
+            pdfkeywords={palavra-chave, palavra-chave, palavra-chave},
+            pdfproducer={Latex},
+            pdfcreator={pdflatex}}
+\marginsize{2cm}{2cm}{2cm}{2cm}
+\renewenvironment{quote}{\list{}{\small \singlespacing \leftmargin=4cm\rightmargin=0cm}\item[]}{\endlist} 
+\usepackage{natbib}
+\newtheorem{alg}{Algoritmo}
+\newtheorem{prop}{Proposição}
+\newtheorem{teo}{Teorema}
+\newtheorem{defi}{Definição}
+\newtheorem{lema}{Lema}
+\newtheorem{coro}{Corolário}
+\newtheorem{hip}{Hipótese}
+\newcommand{\algorithmfootnote}[2][\footnotesize]{%
+  \let\old@algocf@finish\@algocf@finish% Store algorithm finish macro
+  \def\@algocf@finish{\old@algocf@finish% Update finish macro to insert "footnote"
+    \leavevmode\rlap{\begin{minipage}{\linewidth}
+    #1#2
+    \end{minipage}}%
+  }%
+}
+
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{center}
+\textbf{UNIVERSIDADE DO ESTADO DE SANTA CATARINA \\ Centro de Ciências da Administração e Socioeconômicas \\ Departamento de Ciências Econômicas}
+\end{center}
+
+\vskip 1em
+
+\noindent\textbf{Disciplina:} Métodos Quantitativos em Economia I
+
+\noindent\textbf{Docente:} \href{https://pvfonseca.github.io}{Paulo Victor da Fonseca} 
+
+\noindent\textbf{Contato:} \href{mailto:paulo.fonseca@udesc.br}{paulo.fonseca@udesc.br}
+
+\noindent\textbf{Página da disciplina:} \href{https://pvfonseca.github.io/teaching/metodosquant}{Métodos Quantitativos I}
+
+\hrulefill
+
+\vskip 1em
+\section{Otimização estática irrestrita: Aplicações econômicas}
+
+\subsection{Maximização de lucros de uma firma competitiva uniproduto}
+
+Suponha que uma firma produza em um mercado perfeitamente competitivo combinando os insumos capital ($K$) e trabalho ($L$), de acordo com a seguinte função de produção:
+\begin{equation}
+    Q = F(K,L).
+    \label{eq1}
+\end{equation}
+
+Sejam $p$ o preço unitário do produto produzido, $r$ o custo unitário (taxa de aluguel) do capital e $w$ o custo unitário do trabalho (taxa salarial), assume-se que a firma seja tomadora de preços no mercado de bens e no mercado de insumos e, ainda, que $p, w$ e $r$ são constantes positivas.
+
+O lucro, $\pi$, de produzir e vender $F(K,L)$ unidades é, então, dada pela diferença entre receita total e custo total, ou seja, dado pela seguinte função:
+\begin{equation}
+    \pi(K,L) = pF(K,L) - wL - rK.
+    \label{eq2}
+\end{equation}
+
+Supondo que o objetivo da firma seja maximizar seus lucros, temos, então, o seguinte problema de otimização estática e sem restrições:
+\begin{eqnarray}
+&\max_{\{K,L\}}& pF(K,L) - wL - rK.
+\end{eqnarray}
+
+Se $F$ é uma função diferenciável e $\pi$ tem um ponto de máximo interior, ou seja, com $K>0$ e $L>0$, as condições necessárias de primeira ordem são dadas por:
+\begin{eqnarray}
+\pi_K(K,L) &\therefore& pF_K(K,L) - r = 0 \label{eq4} \\
+\pi_L(K,L) &\therefore& pF_L(K,L) - w = 0 \label{eq5}
+\end{eqnarray}
+
+A equação (\ref{eq4}) nos diz que, no ponto de ótimo, o custo do capital $r$ deve equalizar o valor, ao preço unitário $p$, do produto marginal do capital. A equação (\ref{eq5}) possui uma interpretação similar para o trabalho.
+
+Podemos, ainda, reescrever as equações (\ref{eq4})-(\ref{eq5}) da seguinte forma:
+\begin{eqnarray}
+F_K(K,L) &=& \frac{r}{p}, \label{eq6} \\
+F_L(K,L) &=& \frac{w}{p}. \label{eq7}
+\end{eqnarray}
+
+A equação (\ref{eq6}) nos diz que, para obter lucro máximo, a firma deve escolher $K$ e $L$ que equalize a produtividade marginal do capital ao seu preço ``relativo'', $r/p$. De maneira análoga, temos a expressão para o trabalho.
+
+Cabe ressaltar que as condições (\ref{eq4})-(\ref{eq5}) são apenas necessárias mas não suficientes para assegurar um ponto de máximo. Seja $(K^*, L^*)$ o par ordenado que satisfaz de forma simultânea o sistema citado, as condições suficientes de segunda ordem para um ponto de máximo são, então, dadas por:
+\begin{eqnarray*}
+F_{KK}(K^*, L^*) < 0, \qquad F_{LL}(K^*, L^*) < 0 \\
+F_{KK}(K^*, L^*)F_{LL}(K^*, L^*) > [F_{KL}(K^*, L^*)]^2.
+\end{eqnarray*}
+
+\noindent\textbf{Exercícios.}
+\begin{enumerate}
+    \item Encontre os valores de capital e trabalho que maximizem a função lucro a seguir e verifique que o ponto é, de fato, um ponto de máximo local:
+    \[
+    \pi(K,L) = 12K^{1/2}L^{1/4} - 1,2K - 0,6L.
+    \]
+    
+    \item Suponha uma firma que produza dois tipos de bens operando em um mercado de concorrência perfeita.
+    
+    Se os preços unitários das mercadorias produzidas são denotados por $p_1$ e $p_2$, a função receita total é dada por:
+    \[
+    R = p_1q_1 + p_2q_2.
+    \]
+    
+    Suponha que a firma depara-se com uma função custo total quadrática\footnote{Note que os custos marginais de cada bem dependem da quantidade produzida da outra mercadoria. Dizemos, então, que as mercadorias estão tecnicamente relacionadas em termos de produção.}:
+    \[
+    C = 2q_1^2 + q_1q_2 + 2q_2^2.
+    \]
+    
+    Encontre os valores produzidos de cada bem que maximizem a função lucro e mostre que o ponto é, de fato, um ponto de máximo relativo.
+\end{enumerate}
+
+\newpage
+\subsection{Monopólio com discriminação de preços}
+Um monopolista é capaz de dividir o mercado existente pelo bem que produz em dois submercados. Suponha que as funções de demanda inversas em cada submercado são dadas por:
+\begin{eqnarray}
+p_1 &=& 100-q_1, \nonumber \\
+p_2 &=& 120 - 2q_2. \nonumber
+\end{eqnarray}
+
+Supõe-se que este monopolista produz seu bem usando uma única planta industrial, de forma que a função custo é dada pela seguinte expressão:
+\begin{equation}
+    C = 20(q_1 + q_2).
+    \nonumber
+\end{equation}
+
+Portanto, o custo unitário de produção é constante em \$20, não há custo fixo e não distingue-se o produto dos dois bens no processo produtivo.
+
+Temos, então, que a função lucro é dada por:
+\begin{eqnarray*}
+\pi(q_1, q_2) &=& p_1q_1 + p_2q_2 - C \\
+&=& 80q_1 - q_1^2 + 100q_2 - 2q_2^2.
+\end{eqnarray*}
+
+Se o objetivo do monopolista discriminador de preços é maximizar sua função lucro temos, então, as condições necessárias de primeira ordem são dadas pelas seguintes expressões:
+\begin{eqnarray*}
+\pi_1 &\therefore& 80 - 2q_1 = 0, \\
+\pi_2&\therefore& 100-4q_2 = 0.
+\end{eqnarray*}
+Portanto, as quantidades ótimas produzidas serão dadas por $(q_1^*, q_2^*) = (40, 25)$ o que implica que os preços nos dois submercados serão iguais a $(p_1, p_2) = (\$60, \$70)$ e o lucro máximo será de \$2.850.
+
+Para verificar que o ponto crítico é, de fato, um ponto de ótimo obtemos a matriz Hessiana associada ao problema de otimização:
+\[
+|H| = \begin{vmatrix}
+-2 & 0 \\0 & -4
+\end{vmatrix},
+\]
+os determinantes dos menores principais líderes implicam que $|H_1| = -2<0$ e $|H_2| = 8> 0$ e, então, a matriz Hessiana é negativa definida o que assegura um ponto de máximo.
+
+\newpage
+\subsubsection{Problema de alocação do produto total}
+
+Consideraremos, agora, o problema de alocação do produto total para esse monopolista discriminador de preços de uma maneira mais geral.
+
+A função lucro, neste caso, é dada por:
+\begin{equation}
+    \pi(q_1, q_2) = R^1(q_1) + R^2(q_2) - c(q_1 + q_2),
+    \label{eq10}
+\end{equation}
+onde $R^i$ é a função receita total no submercado $i \in\{1,2\}$, $c > 0$ é o custo unitário constante.
+
+Supondo que o objetivo do monopolista discriminador é maximizar sua função lucro e as funções de receita total são diferenciáveis, então, as condições necessárias de primeira ordem são:
+\begin{eqnarray}
+\pi_1 &\therefore& RMg^1(q_1^*) - c = 0, \label{eq11} \\
+\pi_2 &\therefore& RMg^2(q_2^*) - c = 0, \label{eq12}
+\end{eqnarray}
+onde $RMg^i$ é a receita marginal no submercado $i$.
+
+Portanto, as receitas marginais nos dois submercados devem ser equalizadas:
+\begin{equation}
+    RMg^1(q_1^*) = RMg^2(q_2^*). \label{eq13}
+\end{equation}
+
+A intuição por trás da condição (\ref{eq13}) é simples. Se $RMg^1 \neq RMg^2$, então, uma unidade de produto poderia ser realocada do mercado com receita marginal mais baixa para o mercado com receita marginal mais alta levando, assim, a um aumento líquido nas receitas e sem aumento no custo (já que o nível de produção permanece constante) e, portanto, os lucros aumentariam. O que implica, então, que na situação inicial o monopolista não estava maximizando os lucros.
+
+Embora simples, a condição (\ref{eq13}) tem uma implicação importante. Note que, no caso de um monopólio, a função receita total é dada por:
+\[
+R = p(q)q,
+\]
+portanto, a receita marginal será:
+\[
+RMg = \frac{dR}{dq} = q\frac{dp}{dq} + p = p\left(1 + \frac{dp}{dq}\frac{q}{p}\right),
+\]
+seja a elasticidade-preço da demanda dada por:
+\[
+\epsilon = -\frac{p}{q}\frac{dq}{dp},
+\]
+temos, então:
+\[
+RMg = p\left(1 - \frac{1}{\epsilon}\right).
+\]
+
+Portanto, pela condição (\ref{eq13}), temos o seguinte resultado:
+\begin{eqnarray}
+p_1\left(1-\frac{1}{\epsilon_1}\right) &=& p_2\left(1-\frac{1}{\epsilon_2}\right), \nonumber \\
+\frac{p_1}{p_2} &=& \frac{1-(1/\epsilon_2)}{1-(1/\epsilon_1)}. \label{eq14}
+\end{eqnarray}
+Ou seja, \textcolor{blue}{o mercado com maior preço de equilíbrio é aquele com menor elasticidade-preço da demanda no ponto ótimo}.
+
+\subsubsection{Firma monopolista no mercado doméstico e tomadora de preços no mercado mundial}
+
+Suponha uma firma monopolista no mercado doméstico mas que, no mercado mundial, toma o preço unitário ($p_w$) pelo seu produto como dado.
+
+As quantidades vendidas no mercado doméstico e no mercado mundial são, respectivamente, $x_d$ e $x_w$.
+
+O preço obtido no mercado doméstico, como função das vendas realizadas, é dado pela função de demanda inversa:
+\[
+p_d = P(x_d).
+\]
+
+O custo de produção de $x$ unidades é dado pela função custo $C(x)$, independente de como o produto é distribuído entre os mercados doméstico e mundial.
+
+Temos, então, que a receita doméstica total é dada por $R_d = P(x_d)x_d$ e a receita no mercado mundial é igual a $R_w = p_wx_w$. Portanto, a função lucro é igual a\footnote{$P$ e $C$ são funções.}:
+\[
+\pi(x_d, x_w) = P(x_d)x_d + p_wx_w - C(x_d + x_w).
+\]
+
+Supondo que as funções são diferenciáveis, que a firma é maximizadora de lucros e um ponto de máximo interior, então, as condições necessárias de primeira ordem serão:
+\begin{eqnarray*}
+\pi_d &\therefore& p_d + P'(x_d)x_d - C'(x_d + x_w) = 0, \\
+\pi_w &\therefore& p_w - C'(x_d + x_w) = 0.
+\end{eqnarray*}
+
+Temos, então, que no mercado mundial o custo marginal deve ser igual ao preço que, por sua vez, também se iguala à receita marginal.
+
+No mercado doméstico, o custo marginal também se iguala à receita marginal. Note, no entanto, que pela função de demanda inversa $P'(x_d) < 0$, portanto, o preço praticado no mercado doméstico ($p_d$) é maior que o custo marginal, ou seja, $p_d > RMg_d = CMg_d$.
+
+Se supormos que a elasticidade-preço da demanda no mercado doméstico é constante e igual a $\epsilon = 2$ segue, então que:
+\[
+RMg_d = p_d\left(1 - \frac{1}{2}\right) = C'(x_d + x_w) = p_w.
+\]
+Logo, o preço no mercado doméstico é duas vezes maior que o preço praticado no mercado mundial.
+\newpage
+\subsection{Duopólio de Cournot}
+Considere duas firmas com poder de mercado que produzem produtos idênticos e os vendem em um único mercado descrito pela seguinte função de demanda linear:
+\[
+p = 100 - (q_1 + q_2).
+\]
+
+Assumimos que o custo de produção de cada firma é igual a zero e que o objetivo de cada firma é maximizar seus lucros.
+
+A função lucro da firma $i \in \{1, 2\}$ é, então, dada por:
+\[
+\pi_i = pq_i = 100q_i - (q_1 + q_2)q_i.
+\]
+
+A ideia básica é que o preço de mercado depende da produção total das duas firmas e, então, o lucro de cada firma dependerá do nível de produção da firma rival e da sua própria produção.
+
+Essa forma de interdependência é característica de mercados oligopolistas, dos quais o duopólio de duas firmas é um caso especial.
+
+A dificuldade que uma firma encontra ao resolver seu problema de maximização de lucros é saber o quanto a outra firma irá produzir, já que sem esta informação não conseguirá computar o lucro resultante de qualquer escolha de seu próprio nível de produção.
+
+A hipótese feita pelo economista francês Augustin Cournot é de que cada firma toma o nível de produção da outra firma como um parâmetro no seu processo de escolha de produção e, então, o equilíbrio de mercado será dado pelo par de equações simultâneas resultante.
+
+Neste caso, as condições necessárias de primeira ordem serão:
+\begin{eqnarray}
+\frac{\partial \pi_1}{\partial q_1}&\therefore& 100 - 2q_1 - q_2 = 0, \nonumber \\
+\frac{\partial \pi_2}{\partial q_2}&\therefore& 100 - q_1 - 2q_2 = 0. \nonumber
+\end{eqnarray}
+
+Resolvendo esse sistema, temos que $(q_1^*, q_2^*) = (33.33, 33.33)$, a quantidade total produzida será $q = 66,67$ e o preço $p = \$33,33$.
+
+Verificando as condições de segunda ordem, temos:
+\[
+\frac{\partial^2 \pi_1}{\partial q_1^2} = \frac{\partial^2 \pi_2}{\partial q_2^2} = -2 < 0
+\]
+logo, temos ponto de máximo relativo.
+
+Portanto, dado a simetria do equilíbrio no exemplo, as firmas irão dividir igualmente o mercado.
+
+Pelas condições de primeira ordem, podemos reescrever as expressões da seguinte maneira:
+\[
+q_1 = \frac{100-q_2}{2}, \qquad q_2 = \frac{100-q_1}{2}.
+\]
+Essas equações nos dizem o nível de produção de uma firma que é a melhor estratégia adotada para cada nível de produção possível da outra firma - \textcolor{blue}{melhor resposta} ou \textcolor{blue}{função de reação}.
+
+As funções de melhor resposta de cada firma estão representadas na Figura \ref{fig1} abaixo e o equilíbrio de Cournot é dado pela intersecção entre essas curvas.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figures/aula6_fig1.PNG}
+    \caption{Equilíbrio de Cournot e funções de reação. Fonte: Hoy et al. (2001).}
+    \label{fig1}
+\end{figure}
+
+\textbf{O nível total de produção neste mercado duopolista está entre os níveis de monopólio e de competição perfeita}, demonstraremos no próximo tópico.
+
+\subsubsection{Equilíbrio de Cournot com $n$ firmas idênticas}
+
+Considere, agora, um oligopólio com $n$ firmas idênticas que se deparam com a seguinte função de demanda de mercado:
+\begin{equation}
+    p = 100 - \sum_{i=1}^n q_i.
+    \label{eq15}
+\end{equation}
+
+Assumindo, ainda, que o custo de produção de cada firma é igual a zero, temos a seguinte função lucro para a firma $i \in \{1, \dots, n\}$:
+\begin{equation}
+    \pi_i = 100q_i - q_i \sum_{\substack{j = 1 \\j \neq i}}^n q_j - q_i^2.
+    \label{eq16}
+\end{equation}
+
+A condição necessária de primeira ordem da firma $i$ maximizadora de lucros é dada por:
+\begin{equation}
+    \frac{\partial \pi_i}{\partial q_i} = 100 - 2q_i - \sum_{\substack{j=1\\j\neq 1}}^n q_j = 0.
+    \label{eq17}
+\end{equation}
+
+Portanto, a função de reação de cada firma será igual a:
+\begin{equation}
+    q_i = \frac{100 - \sum_{\substack{j=1\\j\neq 1}}^n q_j}{2}.
+    \label{eq18}
+\end{equation}
+
+Supondo simetria do equilíbrio de Cournot (um resultado que deveria ser demonstrado) temos que, se $q^*$ é o nível ótimo de produção comum a todas as firmas, então segue da função de reação que:
+\[
+q^* = \frac{100-(n-1)q^*}{2}.
+\]
+
+Portanto, a quantidade ótima produzida em um equilíbrio simétrico de Cournot com $n$ firmas idênticas será:
+\begin{equation}
+    q^* = \frac{100}{n + 1}.
+    \label{eq19}
+\end{equation}
+
+\begin{enumerate}
+    \item \textcolor{blue}{Monopólio}. No caso de um monopólio temos $n = 1$ e, portanto, a quantidade produzida será igual a:
+    \[
+    q^* = 50.
+    \]
+    \item \textcolor{blue}{Duopólio}. Neste caso, $n = 2$ e, portanto:
+    \[
+    q^* = 33,33\dots
+    \]
+    
+    O que implica que a quantidade total produzida será $2q^* = 66,67$.
+    
+    \item \textcolor{blue}{Mercado perfeitamente competitivo}. Neste caso temos $n \to \infty$ e, portanto:
+    \[
+    \lim_{n\to\infty} q^* = \lim_{n\to\infty} \left(\frac{100}{n+1}\right) = 0.
+    \]
+    
+    Ou seja, a quantidade ótima produzida por cada firma individual fica cada vez menor à medida que $n$ aumenta.
+    
+    A produção total em um mercado perfeitamente competitivo será:
+    \[
+    \lim_{n\to\infty} nq^* = \lim_{n\to\infty} \left(\frac{100n}{n+1}\right) = \lim_{n\to\infty} \left(\frac{100}{1+\frac{1}{n}}\right) = 100.
+    \]
+\end{enumerate}
+
+Portanto, como mencionado anteriormente, a quantidade total produzida em um duopólio está entre os níveis totais de produção de um mercado perfeitamente competitivo e um monopólio.
+\newpage
+\subsection{Diversificação de portfólio}
+Uma forma que indivíduos avessos ao risco encontram para reduzir o risco associado às suas decisões de investimento é a \textcolor{blue}{diversificação de portfólio}: ``não colocar todos os ovos em uma única cesta''.
+
+Se distribuirmos os riscos de maneira conveniente entre os ativos, podemos reduzir a variabilidade do portfólio sem reduzir o payoff esperado.
+
+Suponha um indivíduo que dispõe de uma riqueza $W$ para alocar entre dois ativos \textbf{independentes}\footnote{Lembrando que duas variáveis aleatórias $X$ e $Y$ são ditas independentes se a covariância entre elas for nula: $Cov(X,Y) = 0$, ou ainda $E(XY) = E(X)E(Y)$. Note que a inversa não é necessariamente verdadeira, uma covariância igual a zero não implica necessariamente independência estatística.} com risco mas que possuem o mesmo retorno esperado ($\mu$) e variâncias ($\sigma^2$) iguais, ou seja:
+\begin{eqnarray}
+\mu_1 &=& \mu_2, \label{eq20} \\
+\sigma_1^2 &=& \sigma_2^2. \label{eq21}
+\end{eqnarray}
+
+\begin{enumerate}
+    \item \textcolor{blue}{Portfólio não-diversificado}. Se o indivíduo não diversifica seu portfólio, então, o retorno esperado deste porftólio será igual a $\mu_{ND} = \mu_1 = \mu_2$ e a variância será $\sigma_{ND}^2 = \sigma_1^2 = \sigma_2^2$.
+    
+    \item \textcolor{blue}{Diversificação de portfólio}. Suponha, agora, que o indivíduo diversifique seu portfólio investindo uma fração $\alpha$ de sua riqueza no ativo 1 e o restante $(1-\alpha)$ no ativo 2.
+    
+    Neste caso, o retorno esperado do portfólio diversificado será dado por:
+    \[
+    \mu_D = \alpha \mu_1 + (1-\alpha)\mu_2 = \mu_1 = \mu_2.
+    \]
+    Ou seja, neste caso, mesmo com a diversificação de portfólio o indivíduo consegue manter o mesmo nível de retorno esperado em seus investimentos.
+    
+    A variância do portfólio diversificado será dada por:
+    \begin{eqnarray*}
+    \sigma_D^2 &=& \alpha^2 \sigma_1^2 + (1-\alpha)^2\sigma_2^2 \\
+    &=& (1 - 2\alpha + 2\alpha^2)\sigma_1^2.
+    \end{eqnarray*}
+    
+    Portanto, se o objetivo deste indivíduo ao diversificar o portfólio é minimizar o risco associado ao seu investimento, temos que:
+    \[
+    \min_{\alpha} (1 - 2\alpha + 2\alpha^2)\sigma_1^2
+    \]
+    
+    A condição necessária de primeira ordem será dada por:
+    \[
+    \frac{d\sigma_D^2}{d\alpha} \therefore -2\sigma_1^2 + 4\alpha\sigma_1^2 = 0.
+    \]
+    
+    Portanto, o ponto crítico associado a este problema de minimização de riscos é dado por $(\alpha, 1-\alpha) = (1/2, 1/2)$.
+    
+    Note que $\frac{d^2\sigma_D^2}{d\alpha^2} = 4\sigma_1^2 > 0$ e, portanto, o ponto crítico é, de fato, um ponto de mínimo relativo.
+    
+    Com $\alpha = 1/2$ temos a seguinte relação:
+    \[
+    \sigma_D^2 = \frac{1}{2}\sigma_1^2 < \sigma_1^2 = \sigma_{ND}^2.
+    \]
+    \end{enumerate}
+    
+    O portfólio ótimo divide a riqueza igualmente entre os dois ativos de risco, mantendo o mesmo retorno que o de um portfólio não-diversificado, mas reduzindo a variância pela metade.
+    
+    Cabe ressaltar que a diversificação funcionou neste exemplo pois assumimos que os ativos de risco são independentes - quando o retorno de um ativo é baixo, existe a chance de que o outro terá um retorno alto, e vice-versa. Portanto, retornos extremos serão compensados algumas vezes, reduzindo a variância associada ao portfólio.
+    
+    A diversificação funcionará desde que não haja correlação perfeita entre os retornos dos ativos.
+    
+    Quanto menor a correlação entre os ativos, melhor a diversificação funcionará para reduzir a variância no portfólio.
+    
+    \newpage
+    \subsection{Econometria: Regressão linear}
+    A economia empírica preocupa-se com analisar os dados de forma a identificar padrões que ajudem a compreender o passado e, possivelmente, fazer predições sobre o futuro.
+    
+    Por exemplo, os dados de preço e quantidade para uma mercadoria particular (e.g., gás natural) podem ser usados para tentar estimar uma função demanda.
+    
+    Essa função de demanda estimada, por sua vez, pode ser usada para fazer predições acerca de como a demanda responderá a variações futuras nos preços.
+    
+    A técnica mais comumente utilizada para estimar estas funções é a \textcolor{blue}{regressão linear}.
+    
+    Suponha que uma variável $y$ dependa de uma outra variável $x$ e, ainda, que tenhamos observações $(x_t, y_t)$ de ambas variáveis para $t = 1, 2, \dots, T$.
+    
+    O modelo simples de regressão linear objetiva ajustar uma função linear do tipo:
+    \[
+    y = \alpha + \beta x.
+    \]
+    
+    Um ajuste exato só seria possível se existissem valores de $\alpha$ e $\beta$ tais que:
+    \[
+    y_t = \alpha + \beta x_t, \qquad \forall t = 1, \dots, T,
+    \]
+    o que é raramente possível.
+    
+\begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth]{./figures/aula6_fig2.JPG}
+        \caption{Regressão linear: valores ajustados e resíduos. Fonte: SYDSÆTER et al. (2016).}
+        \label{fig2}
+\end{figure}
+    
+    Normalmente, então, temos uma equação que relaciona a \textcolor{blue}{variável dependente} $y$ à \textcolor{blue}{variável independente} $x$ da seguinte forma:
+    \begin{equation}
+        y_t = \alpha + \beta x_t + u_t,
+        \label{eq22}
+    \end{equation}
+    onde $u_t$ é um termo de erro e representa quaisquer outros fatores distintos de $x$ que possam influenciar a variável $y$ - ver Figura \ref{fig2}.
+    
+    A variável $y$ pode, ainda, ser denominada: variável explicada, variável de resposta, regressando. A variável $x$, por sua vez, pode ser denominada: variável explicativa, variável de controle, regressor.
+    
+    Nosso objetivo é que o termo de erro seja o menor possível. Uma possível solução seria fazer com que:
+    \[
+    \sum_{t=1}^T (y_t - \alpha - \beta x_t) = 0.
+    \]
+    No entanto, neste caso, valores altos e positivos para o termo de erro seriam cancelados por valores altos e negativos. Mesmo que a soma dos erros fosse nula, poderíamos ter uma situação em que nossa aproximação linear estivesse muito longe de fornecer um ajuste razoável aos dados.
+    
+    Devemos, então, de alguma forma, impedir que grandes desvios positivos cancelem grandes desvios negativos.
+    
+    Normalmente isso é feito minimizando uma função perda quadrática da forma:
+    \begin{equation}
+        L(\alpha, \beta) = \sum_{t=1}^T u_t^2 = \sum_{t=1}^T (y_t - \alpha - \beta x_t)^2.
+        \label{eq23}
+    \end{equation}
+    
+    Formalmente, então, nosso objetivo é caracterizar as soluções de $\hat{\alpha}$ e $\hat{\beta}$ que resolvem o seguinte problema de minimização irrestrito:
+    \begin{equation}
+        \min_{\alpha, \beta} \sum_{t=1}^T (y_t - \alpha - \beta x_t)^2,
+        \label{eq24}
+    \end{equation}
+    ou seja, queremos minimizar a soma do quadrado dos resíduos - por isso o método é conhecido como \textcolor{blue}{mínimos quadrados ordinários} (MQO).
+    
+    As condições necessárias de primeira ordem para obtermos os estimadores de MQO do nosso modelo de regressão linear serão:
+    \begin{eqnarray}
+    \frac{\partial L(\alpha, \beta)}{\partial \alpha} &\therefore& -2\sum_{t=1}^T (y_t - \hat{\alpha} - \hat{\beta}x_t) = 0, \label{eq25} \\
+    \frac{\partial L(\alpha, \beta)}{\partial \beta} &\therefore& -2\sum_{t=1}^T x_t(y_t - \hat{\alpha} - \hat{\beta}x_t) = 0. \label{eq26}
+    \end{eqnarray}
+    
+    Da equação (\ref{eq25}) temos que:
+    \begin{equation}
+    \hat{\alpha} = \mu_y - \hat{\beta}\mu_x,
+    \label{eq27}
+    \end{equation}
+    onde $\mu_x = \frac{\sum_{t=1}^T x_t}{T}$ e $\mu_y = \frac{\sum_{t=1}^T y_t}{T}$.
+    
+    Substituindo a expressão anterior em (\ref{eq26}) temos:
+    \begin{eqnarray*}
+    \sum_{t=1}^T x_t[(y_t - \mu_y) - \hat{\beta}(x_t - \mu_x)] &=& 0 \\
+    \sum_{t=1}^T x_t(y_t - \mu_y) &=& \hat{\beta}\sum_{t=1}^T x_t(x_t - \mu_x) \\
+    \sum_{t=1}^T (x_t - \mu_x)(y_t - \mu_y) &=& \hat{\beta}\sum_{t=1}^T (x_t - \mu_x)^2
+    \end{eqnarray*}
+    
+    Portanto, temos que:
+    \begin{equation}
+        \hat{\beta} = \frac{\sum_{t=1}^T (x_t - \mu_x)(y_t - \mu_y)}{\sum_{t=1}^T (x_t - \mu_x)^2} = \frac{\widehat{Cov(x, y)}}{\hat{\sigma}_x^2} = \hat{\rho}_{xy}\frac{\hat{\sigma_y}}{\hat{\sigma_x}}.
+        \label{eq28}
+    \end{equation}
+    
+    Uma vez calculado o valor de $\hat{\beta}$ como a razão entre a covariância amostral de $x$ e $y$ e a variância amostral de $x$, podemos obter $\hat{\alpha}$ pela expressão (\ref{eq27}).
+\newpage    
+\subsection{Senhoriagem e inflação}
+Inflação, às vezes, atinge níveis consideravelmente elevados. Os casos mais extremos são denominados \textcolor{blue}{hiperinflações} que, tecnicamente, são definidos como períodos quando a taxa de inflação supera 50\% ao mês. O recorde histórico hiperinflacionário foi registrado na Hungria entre agosto de 1945 e julho de 1946. Durante esse período, o nível de preços aumentou por um fator de aproximadamente $10^{27}$. No mês de pico hiperinflacionário, os preços, em média, triplicavam diariamente.
+
+A hiperinflação no Zimbábue entre 2007 e 2009 foi quase tão elevada, com os preços duplicando diariamente.
+
+A existência de um trade-off entre produto e inflação não é suficiente para explicar períodos hiperinflacionários ou mesmo níveis muito elevados de inflação. Quando a inflação atinge três dígitos, os custos inflacionários são consideravelmente elevados e os efeitos reais de variações monetários, muito provavelmente, serão muito limitados. Portanto, nenhum formulador de política econômica optaria por submeter uma economia a custos tão elevados para obter ganhos tão modestos de produto.
+
+A causa subjacente da maioria, se não todos, dos episódios de hiperinflação  ou inflação muito elevada é a necessidade do governo de obter \textcolor{blue}{senhoriagem} - isto é, as receitas geradas por imprimir moeda.
+
+Guerras, quedas nos preços de bens de exportação, evasão fiscal, etc. frequentemente levam governos a situações de elevados déficits orçamentários. E muitas das vezes os investidores não tem a confiança de que o governo irá cumprir suas obrigações com relação à dívida pública e, portanto, não estarão dispostos a comprar títulos - financiar o governo. Portanto, a única escolha do governo é recorrer às receitas de senhoriagem.
+
+Aqui analisaremos a interação entre necessidade de senhoriagem, crescimento da moeda e inflação. Focaremos apenas na situação em que as necessidades de senhoriagem são sustentáveis e veremos como isso pode levar a elevados níveis de inflação. Não estudaremos o caso em que as necessidades de senhoriagem são insustentáveis e, portanto, podendo levar a hiperinflações.
+
+\subsubsection{Taxa de inflação e senhoriagem}
+
+Assumiremos que a função de demanda por encaixes reais depende negativamente da taxa nominal de juros e positivamente da renda real:
+\begin{eqnarray}
+\frac{M}{P} &=& L(i, Y), \label{eq29} \\
+&=& L(r + \pi^e, Y), \qquad L_i < 0, \quad L_Y>0. \nonumber
+\end{eqnarray}
+Como estamos interessados na receita obtida pelo governo ao criar moeda, $M$ deve ser interpretado como base monetária\footnote{\emph{High-powered money}.} (moeda e reservas emitidas pelo governo).
+
+Vamos focar no estado estacionário. Portanto, é razoável assumir que o produto real e a taxa de juros real não são afetados pela taxa de crescimento da moeda, e que a inflação efetiva é igual à inflação esperada.
+
+Se desconsiderarmos o crescimento do produto, então, no estado estacionário, a quantidade de encaixes reais é constante. Isso implica que a taxa de inflação é igual à taxa de crescimento da moeda:
+\begin{equation}
+    \frac{M}{P} = L(\bar{r} + g_M, \bar{Y}),
+    \label{eq30}
+\end{equation}
+$g_M$ é a taxa de crescimento da moeda $\dot{M}/M$.
+
+A quantidade de aquisições reais por unidade do tempo que o governo financia via criação de moeda é igual ao aumento do estoque nominal de moeda por unidade do tempo dividido pelo nível de preços:
+\begin{eqnarray}
+S &=& \frac{\dot{M}}{P} \nonumber \\
+&=& \frac{\dot{M}}{M}\frac{M}{P} \nonumber \\
+&=& g_M \frac{M}{P}. \label{eq31}
+\end{eqnarray}
+Ou seja, no estado estacionário, a receita real de senhoriagem é igual à taxa de crescimento do estoque de moeda multiplicada pela quantidade de encaixes reais. A taxa de crescimento da moeda, como vimos, é igual à taxa à qual a retenção nominal de moeda perde valor real, $\pi$. Portanto, a senhoriagem é igual à ``alíquota de imposto'' sobre os encaixes reais, $\pi$, vezes a quantidade sujeita à taxação, $M/P$. Por esse motivo, as receitas de senhoriagem são frequentemente chamadas de receitas de \textcolor{blue}{imposto inflacionário}.
+
+Substituindo (\ref{eq31}) em (\ref{eq30}), temos:
+\begin{equation}
+    S = g_M L(\bar{r} + g_M, \bar{Y}).
+    \label{eq32}
+\end{equation}
+A equação (\ref{eq32}) nos diz que um aumento no crescimento da moeda $g_M$ aumenta a senhoriagem ao aumentar a taxa na qual as detenções reais de moeda são taxadas, mas diminui a senhoriagem ao reduzir a base tributária. Formalmente:
+\begin{equation}
+    \frac{dS}{dg_M} = L(\bar{r} + g_M, \bar{Y}) + g_ML_i(\bar{r} + g_M, \bar{Y}).
+\end{equation}
+
+O primeiro termo é positivo enquanto o segundo é negativo. O segundo termo tende a zero quando $g_M \to 0$. Como o primeiro termo é estritamente positivo, segue que para valores suficientemente baixos de $g_M$, $dS/dg_M$ é positivo: a baixas alíquotas de imposto, a senhoriagem cresce quando a alíquota aumenta. É plausível, no entanto, que à medida que $g_M$ aumenta, o segundo termo eventualmente venha a dominar - quando a alíquota é muito alta, se continuar crescendo a receita diminuirá. Temos, portanto, um caso de curva de Laffer e imposto inflacionário como na Figura \ref{fig3}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figures/aula6_fig3.PNG}
+    \caption{A curva de Laffer de imposto inflacionário. Fonte: Romer (2018).}
+    \label{fig3}
+\end{figure}
+
+Em 1956, Cagan sugeriu que uma boa descrição para a função de demanda por moeda, particularmente em períodos de alta inflação, é dada por:
+\begin{equation}
+    \ln \frac{M}{P} = a - bi + \ln Y, \qquad b > 0.
+    \label{eq34}
+\end{equation}
+
+Transformando a expressão anterior em nível e substituindo na equação (\ref{eq32}), temos:
+\begin{eqnarray}
+S &=& g_M e^a\bar{Y}e^{-b(\bar{r} + g_M)} \nonumber \\
+&=& C g_M e^{-bg_M}, \label{eq35}
+\end{eqnarray}
+onde $C \equiv e^a\bar{Y}e^{-b\bar{r}}$.
+
+O impacto de uma variação no crescimento da moeda sobre a receita de senhoriagem é, portanto:
+\begin{eqnarray}
+    \frac{dS}{dg_M} &=& Ce^{-bg_M} - bCg_Me^{-bg_M} \nonumber \\
+    &=& (1-bg_M)Ce^{-bg_M}. \label{eq36}
+\end{eqnarray}
+A expressão é positiva para $g_M<1/b$ e negativa caso contrário - Figura \ref{fig4}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./figures/aula6_fig4.PNG}
+    \caption{Necessidade de senhoriagem e determinação da inflação. Fonte: Romer (2018).}
+    \label{fig4}
+\end{figure}
+
+A receita com senhoriagem atinge seu valor máximo (pela CPO) quando $g_M = 1/b$. Cagan, Sachs e Larrain (1993) argumentam que para a maioria dos países, a senhoriagem no pico da curva de Laffer é de cerca de 10\% do PIB.
+
+Consideremos, então, um governo que precise financiar uma quantidade $G$ de aquisições reais via senhoriagem. Vamos assumir que $G < S^{MAX}$ - a quantidade máxima factível de receita de senhoriagem. Portanto, como evidenciado pela Figura \ref{fig4}, existem duas taxas de crescimento de moeda que são compatíveis com essa necessidade de financiamento - $g_1$ e $g_2$.
+
+Na primeira, a inflação é baixa e os encaixes reais são elevados. Na segunda, a inflação é elevada e os encaixes reais são baixos. O equilíbrio de inflação elevada tem algumas características peculiares de estática comparativa, e.g., uma redução na necessidade de senhoriagem do governo aumenta a inflação. Como não parece ser esse o caso observado no mundo real, focaremos no equilíbrio de baixa-inflação e, portanto, a taxa de crescimento da moeda (e taxa de inflação) será dada por $g_1$.
+
+Essa análise fornece uma explicação para taxas de inflação elevadas: a necessidade do governo por senhoriagem. Suponha, por exemplo, $b = 1/3$ e $S^{MAX} = 10\%$ do PIB - compatíveis com estimativas empíricas. Vimos que a senhoriagem é máxima quando $g_M = 1/b$ e, portanto, $S^{MAX} = Ce^{-1}/b$. Então, $C$ deve ser aproximadamente 9\% do PIB.
+
+Neste caso, então, um aumento de 2\% do PIB de senhoriagem requer $g_M \approx 0,24$, um aumento de 5\% requer $g_M \approx 0,70$ e aumentar 8\% requer $g_m \approx 1,42$. Portanto, necessidades moderadas de senhoriagem podem levar a inflações substanciais, e necessidades de senhoriagem elevadas produzem inflações altas.
+
+\subsection{Bibliografia}
+\begin{itemize}
+    \item CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas. Rio de Janeiro: Elsevier, 2006.
+    \item HOY, M.; LIVERNOIS, J.; McKENNA, C.; REES, R.; STENGOS, T. Mathematics for Economics. 2.ed., Massachussetts: MIT Press, 2001.
+    \item ROMER, D. Advanced Macroeconomics. 5th.ed. New York: McGraw-Hill Companies, 2018.
+    \item SIMON, C.P.; BLUME, L. Matemática para economistas. Porto Alegre: Bookman, 2004.
+    \item SYDSÆTER, K.; HAMMOND, P.J.; STRØM, A.; CARVAJAL, A. Essential mathematics for economic analysis. 5th.ed. Harlow, UK: Pearson Education Limited, 2016.
+\end{itemize}
+\end{document}
