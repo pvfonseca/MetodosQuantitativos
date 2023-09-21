@@ -1,0 +1,130 @@
+\documentclass[preprintnumbers,nofootinbib,amsmath,amssymb,12pt]{article}
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{amsthm}
+\usepackage[english,brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{makeidx}
+\usepackage{framed}
+\usepackage{cmap}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[caption = false]{subfig}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+%\usepackage{booktabs}
+\usepackage{setspace}
+\usepackage{lscape}
+\usepackage{anysize}
+\usepackage{hyperref}
+\usepackage{booktabs,caption}
+\usepackage{longtable}
+\usepackage{chngcntr}
+\usepackage[portuguese,linesnumbered,ruled]{algorithm2e}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, filecolor=blue, pagecolor=blue, urlcolor=blue,
+            pdfauthor={Nome do Autor},
+            pdftitle={Título do Projeto},
+            pdfsubject={Assunto do Projeto},
+            pdfkeywords={palavra-chave, palavra-chave, palavra-chave},
+            pdfproducer={Latex},
+            pdfcreator={pdflatex}}
+\marginsize{2cm}{2cm}{2cm}{2cm}
+\renewenvironment{quote}{\list{}{\small \singlespacing \leftmargin=4cm\rightmargin=0cm}\item[]}{\endlist} 
+\usepackage{natbib}
+\newtheorem{alg}{Algoritmo}
+\newtheorem{prop}{Proposição}
+\newtheorem{teo}{Teorema}
+\newtheorem{defi}{Definição}
+\newtheorem{lema}{Lema}
+\newtheorem{coro}{Corolário}
+\newtheorem{hip}{Hipótese}
+\newcommand{\algorithmfootnote}[2][\footnotesize]{%
+  \let\old@algocf@finish\@algocf@finish% Store algorithm finish macro
+  \def\@algocf@finish{\old@algocf@finish% Update finish macro to insert "footnote"
+    \leavevmode\rlap{\begin{minipage}{\linewidth}
+    #1#2
+    \end{minipage}}%
+  }%
+}
+
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{center}
+\textbf{UNIVERSIDADE DO ESTADO DE SANTA CATARINA \\ Centro de Ciências da Administração e Socioeconômicas \\ Departamento de Ciências Econômicas}
+\end{center}
+
+\vskip 1em
+
+\noindent\textbf{Disciplina:} Métodos Quantitativos em Economia I
+
+\noindent\textbf{Docente:} \href{https://pvfonseca.github.io}{Paulo Victor da Fonseca} 
+
+\noindent\textbf{Contato:} \href{mailto:paulo.fonseca@udesc.br}{paulo.fonseca@udesc.br}
+
+\noindent\textbf{Página da disciplina:} \href{https://pvfonseca.github.io/teaching/metodosquant}{Métodos Quantitativos I}
+
+\noindent\textbf{Data de entrega:} 28/09/2023
+
+\vskip 1em
+
+\noindent\textbf{Discente:} \hrulefill
+
+\vskip 1em
+\begin{enumerate}
+    \item Encontre e classifique os pontos críticos (máximo local, mínimo local, ou nenhum desses casos) de cada uma das funções a seguir.
+    \begin{enumerate}
+        \item $f(x,y) = x^2 + xy + 2y^2 + 3$.
+        \item $f(x,y) = -x^2 - y^2 + 6x + 2y$.
+        \item $f(x,y) = 2x^3 + xy^2 + 5x^2 + y^2$.
+        \item $f(x,y) = e^{2x} - 2x + 2y^2 + 3$.
+        \item $f(x,y) = e^{2x}(x+y^2+2y)$.
+        \item $f(x,y,z) = xz + x^2 - y + yz + y^2 + 3z^2$.
+    \end{enumerate}
+    
+    \item Uma firma é um produtor em um mercado perfeitamente competitivo e vende dois bens $G_1$ e $G_2$ a \$1000 e \$800, respectivamente. O custo total de produção destes bens é dado por:
+    \[
+    CT = 2Q_1^2 + 2Q_1Q_2 + Q_2^2,
+    \]
+    onde $Q_1$ e $Q_2$ denotam o nível de produção de $G_1$ e $G_2$, respectivamente.
+    
+    Encontre o lucro máximo e os valores de $Q_1$ e $Q_2$ aos quais este lucro é atingido. Mostre que este ponto é, de fato, um ponto de máximo.
+    
+    \item Uma firma tem a possibilidade de cobrar preços distintos de seu produto no mercado doméstico e externo. As equações de demanda correspondentes são dadas por:
+    \begin{eqnarray*}
+    Q_1 &=& 300 - P_1 \\
+    Q_2 &=& 400 - 2P_2.
+    \end{eqnarray*}
+    A função custo total é dada por:
+    \[
+    CT = 5000 + 100Q,
+    \]
+    onde $Q = Q_1 + Q_2$.
+    
+    Determine os preços que esta firma deve cobrar para maximizar seus lucros com discriminação de preços e calcule o valor deste lucro. Mostre que este ponto é, de fato, um ponto de máximo.
+    
+    \item Considere as funções abaixo e classifique se são funções côncavas, convexas, estritamente côncavas, estritamente convexas ou nenhuma delas. Além disso, encontre seus pontos extremos e determine sua natureza.
+    \begin{enumerate}
+        \item $z = (x + y)^2$.
+        \item $z = (x-2)^2 + (y-5)^2 - 3$.
+        \item $z = x^2 + xy + y^2 + \frac{2}{x} + \frac{2}{y}$.
+        \item $z = xexp(-x^2 - y^2)$.
+    \end{enumerate}
+    
+    \item Considere os conjuntos a seguir e determine se o conjunto é convexo ou não (a resolução pode ser feita pela definição de conjunto convexo ou argumentando pelo gráfico dos conjuntos).
+    \begin{enumerate}
+        \item $\{(x,y)|y\geq 2x-x^2; x>0, y>0\}$.
+        \item $\{(x,y)|y\leq \ln(x)\}$.
+        \item $\{(x,y)| y = -e^x$\}.
+        \item $\{(x,y)| y \geq -e^x$\}.
+    \end{enumerate}
+    \end{enumerate}
+\end{document}
