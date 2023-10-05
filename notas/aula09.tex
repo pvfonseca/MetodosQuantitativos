@@ -1,0 +1,347 @@
+\documentclass[12pt]{article}
+\usepackage{bm}% bold math
+\usepackage[english,brazilian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{setspace}
+\newtheorem{teo}{Teorema}
+\newtheorem{defi}{Definição}
+\usepackage{hyperref}
+\usepackage{alertmessage}
+\usepackage[margin=1.0in]{geometry}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, filecolor=blue, urlcolor=blue,
+            pdfauthor={Nome do Autor},
+            pdftitle={Título do Projeto},
+            pdfsubject={Assunto do Projeto},
+            pdfkeywords={palavra-chave, palavra-chave, palavra-chave},
+            pdfproducer={Latex},
+            pdfcreator={pdflatex}}
+
+\title{Estática comparativa e teorema do envelope}
+\author{}
+\date{}
+
+\begin{document}
+
+\begin{center}
+    \textbf{UNIVERSIDADE DO ESTADO DE SANTA CATARINA \\ Centro de Ciências da Administração e Socioeconômicas \\ Departamento de Ciências Econômicas}
+\end{center}
+    
+\vskip 1em
+    
+\noindent\textbf{Disciplina:} Métodos Quantitativos em Economia I
+    
+\noindent\textbf{Docente:} \href{https://pvfonseca.github.io}{Paulo Victor da Fonseca} 
+    
+\noindent\textbf{Contato:} \href{mailto:paulo.fonseca@udesc.br}{paulo.fonseca@udesc.br}
+    
+\noindent\textbf{Página da disciplina:} \href{https://pvfonseca.github.io/teaching/metodosquant}{Métodos Quantitativos I}
+    
+
+\alertwarning{O texto que segue não tem a menor pretensão de originalidade. Ele serve apenas como registro dos principais princípios, conceitos e técnicas analíticas que são trabalhados em sala de aula.}
+
+\onehalfspacing
+\section{Estática comparativa}
+
+Modelos econômicos possuem dois tipos de variávies: \textcolor{purple}{variávies endógenas}, cujos valores são explicados pelo próprio modelo, e \textcolor{purple}{variáveis exógenas}, cujos valores são tomados como dados (de fora do modelo).
+
+Os valores de solução que obtemos para as variáveis endógenas irão, tipicamente, depender dos valores das variáveis exógenas e uma parte central da análise econômica é, frequentemente, mostrar como os valores da solução das variáveis endógenas variam quando as variáveis exógenas são alteradas - \textcolor{blue}{estática comparativa}.
+
+\noindent\textbf{Exemplos:} Modelo Keynesiano simples de determinação da renda agregada; modelo de mercado linear; impostos sobre produto em um monopólio.
+
+\noindent\underline{Na lousa}.
+
+A análise de estática comparativa que acabamos de ver é típica em economia. Usamos as relações básicas do modelo para derivar uma \textcolor{purple}{equação fundamental} contendo apenas a variável endógena que buscamos a solução, a variável exógena e os parâmetros do modelo. O próximo passo é encontrar uma equação para a variável endógena em função da variável exógena.
+
+A questão que buscamos responder em um exercício de estática comparativa é: qual o efeito que uma variação em uma variável exógena tem sobre a variável endógena do modelo? Estamos interessados nos sinais algébricos destas expressões pois eles nos dão uma informação \textcolor{purple}{qualitativa} sobre a direção da variação no valor de equilíbrio seguindo uma mudança na variável exógena. Esse efeito pode ser analisado graficamente, no entanto, a abordagem algébrica nos permite determinar a força e direção dos efeitos de estática comparativa dados os parâmetros do modelo.
+
+\subsection{Análise de estática comparativa generalizada}
+
+\subsubsection{Uma variável endógena e uma variável exógena}
+
+Vamos supor que temos um modelo econômico para o qual a solução de equilíbrio é dada por uma equação da forma:
+\begin{equation}
+    f(x^*, \alpha) = 0,
+    \label{eq1}
+\end{equation}
+onde $x^*$ é o valor de equilíbrio da variável endógena. E assume-se que $f$ é uma função diferenciável.
+
+O procedimento para análise de estática comparativa é como segue: assuma que é possível resolver a equação (\ref{eq1}) para $x^*$ como uma função diferenciável de $\alpha$ (veremos brevemente as condições sob as quais é possível fazer isso), e escreva a solução como $x^*(\alpha)$. Portanto, temos:
+\begin{equation}
+    f(x^*(\alpha), \alpha) = 0.
+    \label{eq2}
+\end{equation}
+
+Então, diferencie esta função com relação a $\alpha$ para obter:
+\begin{equation}
+    f_x \frac{dx^*}{d\alpha} + f_\alpha = 0.
+\end{equation}
+
+Então, resolvendo esta equação sob a hipótese de que $f_x \neq 0$, obtemos:
+\begin{equation}
+    \frac{dx^*}{d\alpha} = -\frac{f_\alpha(x^*,\alpha)}{f_x(x^*,\alpha)}.
+\end{equation}
+
+\noindent\textbf{Exercício:} Considere a função implícita $f(x^*(\alpha),\alpha) = \ln x^* - 2\alpha^2 = 0$. Encontre o valor de $dx^*/d\alpha$.
+
+\vskip 1em
+\noindent\textbf{Aplicação econômica: efeito de uma variação da renda no mercado de um bem}
+
+Suponha que a função de demanda de mercado  para um bem é $D(p,y)$, onde $p$ é o preço e $y$ a renda agregada do consumidor. A função de oferta de mercado é $S(p)$. Então, o valor de equilíbrio do preço $p^*$ é dada pela condição:
+\[
+D(p^*,y) - S(p^*) = 0,
+\]
+onde $D - S$ é o excesso de demanda.
+
+Portanto, temos a solução:
+\[
+\frac{dp^*}{dy} = -\frac{D_y}{D_p-S_p}.
+\]
+Suponha que $D_p<0$ (o bem não é de Giffen) e $S_p > 0$. Então, o efeito de um aumento da renda sobre o preço de equilíbrio depende se o bem é normal ($D_y>0$) ou inferior ($D_y \leq 0$). Se $D_p>0$ (bem de Giffen), o bem é, necessariamente, inferior ($D_y\leq 0$) e, portanto, o efeito de um aumento da renda sobre o preço vai depender do sinal de $D_p-S_p$.
+
+\subsubsection{Estática comparativa com várias variáveis endógenas e exógenas}
+
+Considere, inicialmente, o caso de duas variáveis de cada tipo. Como veremos, isso requer um equilíbrio ou condição de primeira ordem - uma função $f$ - para cada variável endógena. Portanto, a solução será dada pelas condições:
+\begin{eqnarray*}
+f^1(x_1^*, x_2^*, \alpha_1, \alpha_2) &=& 0, \\
+f^2(x_1^*, x_2^*, \alpha_1, \alpha_2) &=& 0.
+\end{eqnarray*}
+Agora, as soluções de equilíbrio das variáveis endógenas dependem de ambas variáveis exógenas. Queremos derivar e determinar os sinais, se possível, das quatro derivadas existentes.
+
+Assuma que seja possível resolver essas equações para $x_1^*$ e $x_2^*$ como funções diferenciáveis de $\alpha_1$ e $\alpha_2$. Então:
+\begin{eqnarray*}
+    f^1(x_1^*(\alpha_1, \alpha_2), x_2^*(\alpha_1, \alpha_2), \alpha_1, \alpha_2) &=& 0, \\
+f^2(x_1^*(\alpha_1, \alpha_2), x_2^*(\alpha_1, \alpha_2), \alpha_1, \alpha_2) &=& 0.
+\end{eqnarray*}
+
+Diferenciando com relação a $\alpha_1$, obtemos:
+\begin{eqnarray*}
+    f_1^1 \frac{\partial x_1^*}{\partial \alpha_1} + f_2^1 \frac{\partial x_2^*}{\partial \alpha_1} + f^1_{\alpha_1} &=& 0, \\
+    f_1^2 \frac{\partial x_1^*}{\partial \alpha_1} + f_2^2 \frac{\partial x_2^*}{\partial \alpha_1} + f^2_{\alpha_1} &=& 0.
+\end{eqnarray*}
+
+Em notação matricial:
+\begin{equation*}
+    \begin{bmatrix}
+        f_1^1 & f_2^1 \\ f_1^2 & f_2^2
+    \end{bmatrix} \begin{bmatrix}
+        \partial x_1^*/\partial \alpha_1 \\ 
+        \partial x_2^*/\partial \alpha_1
+    \end{bmatrix} = \begin{bmatrix}
+        -f_{\alpha_1}^1 \\ -f_{\alpha_1}^2
+    \end{bmatrix}
+\end{equation*}
+
+Para resolver esse sistema linear, é necessário que a seguinte condição para o  determinante seja satisfeita:
+\[
+|D| = f_1^1 f_2^2 - f_2^1 f_1^2 \neq 0.
+\]
+
+Assumindo esta condição e usando a regra de Cramer, temos:
+\begin{eqnarray*}
+    \frac{\partial x_1^*}{\partial \alpha_1} &=& \frac{\begin{vmatrix}
+        -f_{\alpha_1}^1 & f_2^1 \\ -f_{\alpha_1}^2 & f_2^2
+    \end{vmatrix}}{|D|} = \frac{-(f_{\alpha_1}^1f_2^2 - f_{\alpha_1}^2f_2^1)}{|D|}, \\
+    \frac{\partial x_2^*}{\partial \alpha_1} &=& \frac{\begin{vmatrix}
+        f_1^1 & -f_{\alpha_1}^1  \\ f_1^2 & -f_{\alpha_1}^2 
+    \end{vmatrix}}{|D|} = \frac{-(f_{\alpha_1}^2f_1^1 - f_{\alpha_1}^1f_1^2)}{|D|}.
+\end{eqnarray*}
+Para determinar os sinais algébricos destas derivadas, precisamos saber o sinal de todas as derivadas parciais envolvidas. Além disso, os numeradores e denominadores envolvem diferenças entre dois termos e, portanto, precisamos saber ou assumir algo a respeito das magnitudes destes termos para definir os sinais das soluções.
+
+\noindent\textbf{Aplicação econômica:} Modelo IS-LM (Na lousa).
+
+\subsubsection{Método geral de estática comparativa}
+
+\begin{defi}{Método generalizado de estática comparativa}
+
+Dado que o sistema de $n$ equações:
+\begin{eqnarray*}
+    f^1(x_1^*, x_2^*, \dots, x_n^*; \alpha_1, \dots, \alpha_m) &=& 0 \\
+    f^2(x_1^*, x_2^*, \dots, x_n^*; \alpha_1, \dots, \alpha_m) &=& 0 \\
+    \vdots &\ddots & \vdots \\
+    f^n(x_1^*, x_2^*, \dots, x_n^*; \alpha_1, \dots, \alpha_m) &=& 0
+\end{eqnarray*}
+possa ser resolvido para os valores de equilíbrio das $n$ variáveis endógenas $x_1^*, \dots, x_n^*$ como funções diferenciáveis das $m$ variáveis exógenas $\alpha_1, \dots, \alpha_m$, temos que:
+\[
+\frac{\partial x_i^*}{\partial \alpha_j} = \frac{|F_{ij}|}{|F|}, \qquad i=1,\dots,n; \quad j=1,\dots,m,
+\]
+onde $|F|\neq 0$ é o determinante:
+\[
+|F| = \begin{vmatrix}
+    f_1^1 & f_2^1 & \dots & f_n^1 \\
+    f_1^2 & f_2^2 & \dots & f_n^2 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    f_1^n & f_2^n & \dots & f_n^n
+\end{vmatrix},
+\]
+e $|F_{ij}|$ é obtido ao substituírmos a $i$-ésima coluna de $|F|$ pela $j$-ésima coluna da matriz $n\times m$:
+\[
+\begin{bmatrix}
+    -f_{\alpha_1}^1 & -f_{\alpha_2}^1 & \dots & -f_{\alpha_m}^1 \\
+    -f_{\alpha_1}^2 & -f_{\alpha_2}^2 & \dots & -f_{\alpha_m}^2 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    -f_{\alpha_1}^n & -f_{\alpha_2}^n & \dots & -f_{\alpha_m}^n
+\end{bmatrix}.
+\]
+\label{def1}
+\end{defi}
+
+Note que:
+\begin{itemize}
+    \item Devemos assumir que $|F| \neq 0$.
+    \item As derivadas parciais são avaliadas no ponto de equilíbrio inicial e, portanto, são valores reais dados.
+    \item Quando o sistema de equações representa as CPOs de um problema de maximização ou minimização, as CSOs para este problema determinarão o sinal de $|F|$, dado que são o determinante da Hessiana orlada na análise de condições de segunda ordem (veremos mais adiante na disciplina).
+\end{itemize}
+
+Até agora assumimos que o sistema de equações da Definição \ref{def1} resultam em soluções para as $n$ variáveis endógenas como funções diferenciáveis das $m$ variáveis exógenas. O teorema que determina as condições sob as quais isso pode ser assumido é, então, enunciado.
+
+\begin{teo}[Teorema da Função Implícita]
+
+    Dado um sistema de equações:
+    \begin{eqnarray*}
+        f^1(x_1^*, x_2^*, \dots, x_n^*; \alpha_1, \dots, \alpha_m) &=& 0 \\
+    f^2(x_1^*, x_2^*, \dots, x_n^*; \alpha_1, \dots, \alpha_m) &=& 0 \\
+    \vdots &\ddots & \vdots \\
+    f^n(x_1^*, x_2^*, \dots, x_n^*; \alpha_1, \dots, \alpha_m) &=& 0,
+    \end{eqnarray*}
+    seja $(x_1^*, \dots, x_n^*; \alpha_1^0, \dots, \alpha_m^0)$ um ponto que satisfaça essas equações, e que as funções possuam derivadas parciais contínuas até uma ordem $r$, sobre algum conjunto aberto de pontos no $\mathbb{R}^{n+m}$ ao redor de $(x_1^*, \dots, x_n^*; \alpha_1^0, \dots, \alpha_m^0)$. Se o determinante do Jacobiano:
+    \[
+|F| = \begin{vmatrix}
+    f_1^1 & f_2^1 & \dots & f_n^1 \\
+    f_1^2 & f_2^2 & \dots & f_n^2 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    f_1^n & f_2^n & \dots & f_n^n
+\end{vmatrix} \neq 0,
+    \]
+    onde $f_i^k \equiv \partial f^k/\partial x_i$, e essas derivadas são avaliadas em $(x_1^*, \dots, x_n^*; \alpha_1^0, \dots, \alpha_m^0)$, então, o sistema de equações define $x_1, \dots, x_n$ como funções dos $\alpha_j$'s em alguma vizinhança do ponto  $(x_1^*, \dots, x_n^*; \alpha_1^0, \dots, \alpha_m^0)$. Nesta vizinhança, temos:
+    \[
+\begin{bmatrix}
+    f_1^1 & f_2^1 & \dots & f_n^1 \\
+    f_1^2 & f_2^2 & \dots & f_n^2 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    f_1^n & f_2^n & \dots & f_n^n
+\end{bmatrix}\begin{bmatrix}
+    \partial{x_1^*}/\partial \alpha_j \\
+    \partial{x_2^*}/\partial \alpha_j \\
+    \vdots \\
+    \partial{x_n^*}/\partial \alpha_j \\
+\end{bmatrix} = \begin{bmatrix}
+    -f_{\alpha_j}^1 \\
+    -f_{\alpha_j}^2 \\
+    \vdots \\
+    -f_{\alpha_j}^n \\
+\end{bmatrix},
+    \]
+    para cada $j = 1, \dots, m$.
+\end{teo}
+
+\section{Teorema do envelope}
+
+Em análises de estática comparativa em contextos de problemas de otimização com restrição, é comum usarmos uma abordagem baseada no \textcolor{purple}{teorema do envelope} - em adição ou substituição ao teorema da função implícita.
+
+Considere o seguinte problema de otimização com restrição:
+\begin{eqnarray}
+    & \max_{\substack{x_1, x_2}} & f(x_1, x_2; \alpha) \nonumber \\
+    & \text{s.r.} & g(x_1, x_2; \alpha) = 0, \nonumber
+\end{eqnarray}
+onde $\alpha$ é uma variável exógena. A função Lagrangeana para este problema é:
+\[
+\mathcal{L}(x_1, x_2, \lambda; \alpha) = f(x_1, x_2; \alpha) + \lambda g(x_1, x_2; \alpha),    
+\]
+e as CPOs associadas:
+\begin{eqnarray*}
+    f_1(x_1^*, x_2^*; \alpha) + \lambda^* g_1(x_1^*, x_2^*; \alpha) &=& 0, \\
+    f_2(x_1^*, x_2^*; \alpha) + \lambda^* g_2(x_1^*, x_2^*; \alpha) &=& 0, \\
+    g(x_1^*, x_2^*; \alpha) &=& 0.
+\end{eqnarray*}
+
+Se as funções $f$ e $g$ possuem primeira e segunda derivadas contínuas e, além disso:
+\[
+|D| = \begin{vmatrix}
+    0 & g_1 & g_2 \\
+    g_1 & f_{11} + \lambda^*g_{11} & f_{12} + \lambda^*g_{12} \\
+    g_2 & f_{21} + \lambda^*g_{21} & f_{22} + \lambda^*g_{22}
+\end{vmatrix}  \neq 0,
+\]
+então, podemos aplicar o teorema da função implícita. Isto quer dizer que podemos obter as soluções para as variáveis endógenas como funções da variável exógena em uma vizinhança do ponto ótimo, de forma que o valor da função $f$ nessa mesma vizinhança é:
+\[
+f(x_1(\alpha), x_2(\alpha); \alpha) \equiv V(\alpha),
+\]
+e $V$ é uma \textcolor{purple}{função valor} para o problema de maximização.
+
+Da mesma forma, podemos escrever a função Lagrangeana como função do parâmetro:
+\[
+\mathcal{L} = f(x_1(\alpha), x_2(\alpha); \alpha) + \lambda(\alpha) g(x_1(\alpha),x_2(\alpha);\alpha).
+\]
+
+Temos, então, que:
+\[
+\frac{d\mathcal{L}}{d\alpha} = (f_1 + \lambda g_1)\frac{d x_1}{d\alpha} + (f_2 + \lambda g_2)\frac{d x_2}{d\alpha} + g\frac{d\lambda }{d\alpha} + (f_\alpha + \lambda g_\alpha),
+\]
+que quando avaliada no ponto ótimo nos dá o seguinte resultado:
+\[
+\frac{d\mathcal{L}}{d\alpha} = f_\alpha + \lambda^* g_\alpha = \frac{\partial\mathcal{L}}{\partial\alpha},
+\]
+ou seja, mesmo que mudanças no valor de $\alpha$ induzam variações nos valores das variáveis endógenas, para pequenas mudanças no \textbf{ponto ótimo}, os efeitos dessas alterações na função Lagrangeana podem ser ignoradas pois as derivadas parciais da função Lagrangeana com relação às variáveis endógenas são nulas neste ponto.
+
+O \textcolor{purple}{teorema do envelope} estabelece uma conexão entre as derivadas da função valor e as derivadas da função Lagrangeana, com relação a $\alpha$, no ponto ótimo. Portanto, para a função valor, temos:
+\[
+\frac{d V}{d\alpha} = f_1\frac{d x_1}{d\alpha} + f_2\frac{d x_2}{d\alpha} + f_\alpha,
+\]
+pelas CPOs, temos:
+\[
+\frac{d V}{d\alpha} = -\lambda^*\left(g_1 \frac{d x_1}{d\alpha} + g_2 \frac{d x_2}{d\alpha} \right) + f_\alpha
+\]
+no ponto ótimo.
+
+A restrição do problema pode ser escrita como:
+\[
+g(x_1(\alpha), x_2(\alpha); \alpha) = 0,
+\]
+onde, como $x_i$ são as soluções ótimas e, portanto, satisfazem a restrição, esta expressão é satisfeita com igualdade. Portanto:
+\[
+g_1\frac{d x_1}{d\alpha} + g_2\frac{d x_2}{d\alpha} = -g_\alpha.
+\]
+
+Portanto, para este exemplo, o \textcolor{purple}{teorema do envelope} nos diz que:
+\begin{equation}
+    \frac{d V}{d\alpha} = f_\alpha + \lambda^* g_\alpha = \frac{\partial \mathcal{L}}{\partial\alpha}.
+\end{equation}
+
+\textbf{O teorema do envelope diz que podemos encontrar o efeito de uma variação na variável exógena sobre o valor ótimo da função objetivo simplesmente tomando a derivada parcial da função Lagrangeana com relação à variável exógena avaliada na solução ótima do problema}.
+
+\begin{teo}[Teorema do Envelope]
+    Dado o problema:
+    \begin{eqnarray}
+        \max && f(x_1, \dots, x_n; \alpha_1,\dots, \alpha_m), \\
+        \text{s.r.} && g^1(x_1, \dots, x_n; \alpha_1, \dots, \alpha_m) \nonumber \\
+        && \ddots \nonumber \\
+        && g^K(x_1, \dots, x_n; \alpha_1, \dots, \alpha_m) \nonumber
+    \end{eqnarray}
+    e a função valor correspondente $V(\alpha_1, \dots, \alpha_m)$, e a função Lagrangeana $\mathcal{L} = f + \sum\lambda_kg^k$, temos que:
+    \begin{equation}
+        \frac{\partial V}{\partial\alpha_j} = \frac{\partial\mathcal{L}}{\partial\alpha_j} = f_{\alpha_j} + \sum_{k=1}^K \lambda_j g^k_{\alpha_j}, \qquad j=1,\dots,m.
+    \end{equation}
+\end{teo}
+
+%\newpage
+\begin{thebibliography}{}
+\bibitem{chiang}
+CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas. Rio de Janeiro: Elsevier, 2006.
+
+\bibitem{hoy}
+HOY, M.; LIVERNOIS, J.; McKENNA, C.; REES, R.; STENGOS, T. Mathematics for Economics. 3rd.ed. Cambridge, Massachusetts: The MIT Press, 2011.
+
+\bibitem{silberberg}
+SILBERBERG, E.; SUEN, W. The structure of economics: a mathematical analysis. 3rd.ed. Singapore: McGraw-Hill Higher Education, 2001.
+
+\bibitem{sydsaeter}
+SYDSÆTER, K.; HAMMOND, P.J.; STRØM, A.; CARVAJAL, A. Essential mathematics for economic analysis. 5th.ed. Harlow, UK: Pearson Education Limited, 2016.
+\end{thebibliography}
+
+\end{document}
