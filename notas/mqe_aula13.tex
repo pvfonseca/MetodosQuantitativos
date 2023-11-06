@@ -1,0 +1,358 @@
+\documentclass[10pt]{beamer}
+\usetheme{jambro}
+
+\title[]{Teoria da escolha: Problema primal do consumidor e demanda}
+\author[]{Paulo Victor da Fonseca}
+\date{}
+
+\hypersetup{
+    colorlinks = true,
+    urlcolor = teal,
+    linkcolor = teal    
+}
+\usepackage[portuguese]{babel}
+\usepackage{subfig}
+\usepackage{emoji}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{frame}[plain]
+    \titlepage{
+        \begin{center}
+            \begin{minipage}{0.8\textwidth}
+                \centering
+            \end{minipage}
+        \end{center}}
+\end{frame}
+
+\begin{frame}{Sumário}
+    \tableofcontents
+\end{frame}
+
+\section{Problema primal do consumidor e demanda}
+\subsection{Formulação do problema}
+\begin{frame}{Maximização de utilidade}
+    \begin{itemize}
+        \item O problema primal de maximização de utilidade do consumidor é um exemplo de otimização restrita.
+        \bigskip
+        \item Por simplicidade, vamos supor que um indivíduo derive utilidade do consumo de apenas dois tipos de bens. Além disso, as funções utilidades marginais são contínuas e positivas.
+        \bigskip
+        \item Os preços dos dois bens são determinados pelo mercado e, portanto, são exógenos ao consumidor.
+        \bigskip
+        \item Se o poder de compra deste indivíduo, dado pela sua renda nominal, for denotado por $I$, o problema primal de maximização de utilidade pode ser formulado da seguinte forma:
+        \begin{eqnarray}
+        \max_{x,y} & U = U(x,y) \label{eq1}\\
+        \text{s.r.} & p_xx + p_yy = I,\nonumber
+        \end{eqnarray}
+        onde $p_x$ e $p_y$ denotam os preços unitários dos bens $x$ e $y$.
+        \end{itemize}
+        \end{frame}
+        
+        \subsection{Condições de primeira ordem}
+        \begin{frame}{Condições de primeira ordem}
+            \begin{itemize}
+                \item A função Lagrangeana associada ao problema de otimização restrito (\ref{eq1}) é dada por:
+                \[
+                \mathcal{L} = U(x,y) + \lambda(I - p_xx - p_yy).
+                \]
+                \bigskip
+                \item Portanto, as condições necessárias de primeira ordem são dadas pelo seguinte sistema de equações simultâneas:
+                \begin{eqnarray}
+                            \mathcal{L}_\lambda &\therefore& I - p_xx - p_yy = 0 \nonumber \\
+                            \mathcal{L}_x &\therefore& U_x - \lambda p_x = 0 \nonumber \\
+                            \mathcal{L}_y &\therefore& U_y - \lambda p_y = 0 \nonumber
+                \end{eqnarray}
+            \end{itemize}
+        \end{frame}
+        
+        \begin{frame}{Condições de primeira ordem}
+            \begin{itemize}
+                \item Temos, então, pelas duas últimas equações, que:
+                \[
+                \frac{U_x}{p_x} = \frac{U_y}{p_y} = \lambda.
+                \]
+                \bigskip
+                \item Ou seja, no ponto de otimalidade da utilidade, cada bem adquirido deve prover a mesma utilidade marginal por unidade monetária gasta neste bem.
+                \bigskip
+                \item Portanto, \textbf{cada bem deve ter uma razão custo (marginal)-benefício (marginal) idêntica}.
+                \bigskip
+                \item Especificamente, no ponto de ótimo, essas razões devem ter um valor comum igual a $\lambda^*$.
+                \bigskip
+                \item Como vimos nas aulas anteriores, $\lambda^*$ mede o efeito estático comparativo da constante de restrição sobre o valor ótimo da função objetivo.
+                \bigskip
+                \item Portanto, no presente contexto, $\lambda^* = \partial U^*/\partial I$ pode ser interpretado como a \textcolor{blue}{utilidade marginal da renda}.
+            \end{itemize}
+        \end{frame}
+        
+\begin{frame}{Condições de primeira ordem}
+\begin{itemize}
+    \item Podemos reescrever essa condição, ainda, da seguinte forma:
+    \[
+    \frac{U_x}{U_y} = \frac{p_x}{p_y}.
+    \]
+    \bigskip
+    \item Sob essa perspectiva, a nova versão da condição de primeira ordem mais a restrição orçamentária revela que, para maximizar sua utilidade, um consumidor deve alocar o orçamento de tal modo que a inclinação da reta orçamentária seja igual à inclinação da curva de indiferença.
+\end{itemize}
+\end{frame}
+
+\subsection{Condições de segunda ordem}
+\begin{frame}{Condições de segunda ordem}
+    \begin{itemize}
+        \item O Hessiano aumentado associado ao presente problema de maximização de utilidade é dado por:
+        \begin{equation}
+            |\bar{H}| = \begin{vmatrix}
+            0 & p_x & p_y \\
+            p_x & U_{xx} & U_{xy} \\
+            p_y & U_{yx} & U_{yy}
+            \end{vmatrix}.
+            \label{eq2}
+        \end{equation}
+        \bigskip
+        \item Como vimos nas aulas anteriores, se o Hessiano aumentado em (\ref{eq2}) avaliado nos valores críticos $x^*$ e $y^*$ for positivo (negativo definido), então, o valor ótimo de $U$ será um ponto de máximo.
+        \bigskip
+        \item Portanto, nossa condição suficiente de segunda ordem para um ponto de máximo é dada por:
+        \[
+        2p_xp_yU_{xy} - p_y^2U_{xx} - p_x^2U_{yy} > 0.
+        \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Condições de segunda ordem}
+\begin{itemize}
+    \item A presença das derivadas $U_{xy}$, $U_{xx}$ e $U_{yy}$ sugere que satisfazer essa condição implica em certas restrições sobre a função utilidade e, portanto, sobre a forma das curvas de indiferença.
+    \bigskip
+    \item Como vimos, quanto à forma das  curvas de indiferença, um $|\bar{H}|$ positiva significa \textcolor{blue}{convexidade estrita} da curva de indiferença (de inclinação negativa) no ponto de tangência entre a curva de indiferença e a restrição orçamentária.
+    \bigskip
+    \item A inclinação negativa da curva de indiferença é garantida pela seguinte condição: $dy/dx < 0$.
+    \bigskip
+    \item A convexidade estrita da curva de indiferença, por sua vez, é garantida se $d^2y/dx^2 > 0$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Condições de segunda ordem}
+\begin{itemize}
+    \item Podemos obter a seguinte diferencial total:
+    \begin{equation}
+        \frac{d^2y}{dx^2} = \frac{d}{dx}\left( -\frac{U_x}{U_y}\right) = -\frac{1}{U_y^2}\left(U_y\frac{dU_x}{dx} - U_x\frac{dU_y}{dx} \right). \nonumber
+    \end{equation}
+    \bigskip
+    \item Sabemos que tanto $U_x$ quanto $U_y$ são funções de $x$ e $y$, portanto:
+    \begin{eqnarray*}
+        \frac{dU_x}{dx} &=& U_{xx} + U_{yx}\frac{dy}{dx} = U_{xx} - U_{yx}\frac{p_x}{p_y}, \\ \frac{dU_y}{dx} &=& U_{xy} + U_{yy}\frac{dy}{dx} = U_{xy} - U_{yy}\frac{p_x}{p_y}.
+    \end{eqnarray*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Condições de segunda ordem}
+\begin{itemize}
+    \item Temos, portanto, que:
+    \begin{equation}
+        \frac{d^2y}{dx^2} = \frac{2p_xp_yU_{xy}-p_y^2U_{xx} - p_x^2U_{yy}}{U_yp_y^2} = \frac{|\bar{H}|}{U_yp_y^2}.
+        \label{eq3}
+    \end{equation}
+    \bigskip
+    \item Fica claro que, quando a condição suficiente de segunda ordem $|\bar{H}|>0$ é satisfeita, a derivada segunda em (\ref{eq3}) é positiva.
+    \bigskip
+    \item Isso significa que a curva de indiferença relevante é estritamente convexa no ponto de tangência.
+\end{itemize}
+\end{frame}
+
+\subsection{Análise de estática comparativa}
+\begin{frame}{Estática comparativa}
+    \begin{itemize}
+        \item No nosso modelo de maximização de utilidade, tanto os preços unitários dos bens, quanto a renda nominal do consumidor são variáveis exógenas.
+        \bigskip
+        \item Supondo que a condição suficiente de segunda ordem é satisfeita, podemos analisar as propriedades de estática comparativa do modelo, com base na condição necessária de primeira ordem, vista como um conjunto de funções implícitas, onde cada função tem derivadas parciais contínuas.
+        \bigskip
+        \item Como vimos rapidamente nas aulas anteriores, o jacobiano de variáveis endógenas desse conjunto de equações deve ter o mesmo valor do Hessiano aumentado: $|J| = |\bar{H}|$.
+        \bigskip
+        \item Portanto, quando a condição suficiente de segunda ordem é satisfeita, $|J|$ deve ser positivo e não se anula no ponto ótimo.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Estática comparativa}
+\begin{itemize}
+    \item Portanto, podemos aplicar o teorema da função implícita e expressar os valore ótimos das variáveis endógenas como funções implícitas das variáveis exógenas:
+    \begin{eqnarray}
+    \lambda^* &=& \lambda^*(p_x,p_y,I), \nonumber \\
+    x^* &=& x^*(p_x,p_y,I), \nonumber \\
+    y^*&=& y^*(p_x,p_y,I). \nonumber
+    \end{eqnarray}
+    \bigskip
+    \item Essas funções possuem derivadas contínuas que fornecem informações de estática comparativa.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estática comparativa}
+\begin{itemize}
+    \item Vamos reescrever as condições de primeira ordem como um conjunto de identidades de equilíbrio:
+    \begin{eqnarray*}
+    I - p_xx^* - p_yy^* &=& 0, \\
+    U_x(x^*,y^*) - \lambda^*p_x &=& 0, \nonumber \\
+    U_y(x^*,y^*) - \lambda^*p_y &=& 0. \nonumber
+    \end{eqnarray*}
+    \bigskip
+    \item O diferencial total de primeira ordem é dado pelo seguinte sistema linear:
+    \begin{eqnarray*}
+    -p_xdx^* - p_ydy^* &=& x^*dp_x + y^*dp_y - dI \\
+    -p_xd\lambda^* + U_{xx}dx^* + U_{xy}dy^* &=& \lambda^*dp_x \\
+    -p_yd\lambda^* + U_{yx}dx^* + U_{yy}dy^* &=& \lambda^*dp_y
+    \end{eqnarray*}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estática comparativa}
+\begin{itemize}
+    \item \textbf{Efeito de variações na renda sobre a quantidade demandada.} Temos, então:
+    \begin{equation}
+        \begin{bmatrix}
+            0 & -p_x & -p_y \\ -p_x & U_{xx} & U_{xy} \\ -p_y & U_{yx} & U_{yy}
+        \end{bmatrix} \begin{bmatrix}
+            \partial \lambda^*/\partial I \\ \partial x^*/\partial I \\ \partial y^*/\partial I
+        \end{bmatrix} = \begin{bmatrix}
+            -1 \\ 0 \\ 0
+        \end{bmatrix}.
+    \end{equation}
+    \bigskip
+    \item Pela regra de Cramer e expansão de Laplace, podemos obter:
+    \begin{eqnarray}
+    \frac{\partial x^*}{\partial I} &=& \frac{1}{|J|}\begin{bmatrix}
+    0 & -1 & -p_y \\
+    -p_x & 0 & U_{xy} \\
+    -p_y & 0 & U_{yy}
+    \end{bmatrix} = \frac{1}{|J|}\begin{vmatrix}
+    -p_x & U_{xy} \\ -p_y & U_{yy}
+    \end{vmatrix}, \\
+    \frac{\partial y^*}{\partial I} &=& \frac{1}{|J|}\begin{bmatrix}
+    0 & -p_x & -1 \\
+    -p_x & U_{xx} & 0 \\
+    -p_y & U_{yx} & 0
+    \end{bmatrix} = \frac{-1}{|J|}\begin{vmatrix}
+    -p_x & U_{xx} \\ -p_y & U_{yx}
+    \end{vmatrix}.
+    \end{eqnarray}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estática comparativa}
+\begin{itemize}
+    \item Pela condição de segunda ordem, $|J| = |\bar{H}| > 0$, assim como $p_x$ e $p_y$.
+    \bigskip
+    \item No entanto, na ausência das magnitudes de $p_x$, $p_y$ e $U_{ij}$, o sinal dessas derivadas parciais permanece indefinido.
+    \bigskip
+    \item Caso as derivadas sejam positivas, os bens são considerados normais. Caso sejam negativas, os bens são considerados inferiores.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estática comparativa}
+\begin{itemize}
+    \item \textbf{Efeitos de variações nos preços sobre a demanda.} A expressão matricial é dada por:
+    \begin{equation}
+        \begin{bmatrix}
+            0 & -p_x & -p_y \\ -p_x & U_{xx} & U_{xy} \\ -p_y & U_{yx} & U_{yy}
+        \end{bmatrix} \begin{bmatrix}
+            \partial \lambda^*/\partial p_x \\ \partial x^*/\partial p_x \\ \partial y^*/\partial p_x
+        \end{bmatrix} = \begin{bmatrix}
+            x^* \\ \lambda^* \\ 0
+        \end{bmatrix}.
+    \end{equation}
+    \bigskip
+    \item Portanto, o efeito da variação de $p_x$ sobre a quantidade demandada do bem $x$ é dada por:
+    \begin{eqnarray}
+    \frac{\partial x^*}{\partial p_x} &=& \frac{1}{|J|}\begin{bmatrix}
+    0 & x^* & -p_y \\
+    -p_x & \lambda^* & U_{xy} \\
+    -p_y & 0 & U_{yy}
+    \end{bmatrix} \nonumber \\ &=& \frac{-x^*}{|J|}\begin{vmatrix}
+    -p_x & U_{xy} \\ -p_y & U_{yy}
+    \end{vmatrix} + \frac{\lambda^*}{|J|}\begin{vmatrix}
+    0 & -p_y \\ -p_y & U_{yy}
+    \end{vmatrix}.
+    \label{eq8}
+    \end{eqnarray}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estática comparativa}
+\begin{itemize}
+        \item \textbf{Efeito renda.} Note que o primeiro termo da soma em (\ref{eq8}) pode ser reescrito como:
+        \[
+        -x^* \frac{\partial x^*}{\partial I}.
+        \]
+        \bigskip
+        \item Este termo parece ser uma medida do efeito de uma variação na renda sobre a demanda ótima $x^*$, ponderado pelo fator $x^*$.
+        \bigskip
+        \item No entanto, pode ser interpretado como o efeito sobre a renda causado por uma variação no preço. À medida que $p_x$ aumenta, o declínio na renda real do consumidor produzirá sobre $x^*$ um efeito semelhante a uma redução propriamente dita na renda.
+        \bigskip
+        \item Portanto, quanto maior a participação do bem $x$ no orçamento total, maior será seu efeito sobre a renda e, portanto, a presença do fator de ponderação $x^*$ neste termo.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estática comparativa}
+\begin{itemize}
+    \item Neste caso, a perda efetiva de renda do consumidor é dada por $dI = -x^*dp_x$.
+    \bigskip
+    \item Se compensarmos o consumidor pela perda efetiva de renda com um pagamento de magnitude igual a $dI$, então, estaremos neutralizando o efeito renda e, portanto, o componente remanescente medirá a variação de $x^*$ devida inteiramente à substituição de um bem pelo outro, induzida pelo preço, isto é, o \textcolor{blue}{efeito substituição} de variação em $p_x$.
+    \bigskip
+    \item Neste caso, temos:
+    \begin{equation}
+        \frac{\partial x_c^*}{\partial p_x} = \frac{1}{|J|}\begin{bmatrix}
+            0 & 0 & -p_y \\ -p_x & \lambda^* & U_{xy} \\ -p_y & 0 & U_{yy}
+        \end{bmatrix} = \frac{\lambda^*}{|J|}\begin{vmatrix}
+            0 & -p_y \\ -p_y & U_{yy}
+        \end{vmatrix}.
+        \nonumber
+    \end{equation}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Estática comparativa}
+    \begin{itemize}
+        \item Portanto, podemos reescrever a equação (\ref{eq8}) da seguinte forma:
+        \begin{equation}
+            \frac{\partial x^*}{\partial p_x} = -x^*\frac{\partial x^*}{\partial I} + \frac{\partial x_c^*}{\partial p_x}.
+            \label{slutsky}
+        \end{equation}
+        \bigskip
+        \item Este resultado, que decompõe a derivada de estática comparativa em dois componentes, um efeito renda e um efeito substituição, é denominado \textcolor{blue}{equação de Slutsky}.
+        \bigskip
+        \item Note que o efeito substituição é sempre negativo.
+        \bigskip
+        \item O efeito renda, por sua vez, tem sinal algébrico indeterminado.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Estática comparativa}
+    \begin{itemize}
+        \item O efeito preço-cruzado de variações em $p_x$ sobre a demanda de $y$, por sua vez, é dada por:
+    \begin{eqnarray}
+    \frac{\partial y^*}{\partial p_x} &=& \frac{1}{|J|}\begin{vmatrix}
+    0 & -p_x & x^* \\
+    -p_x & U_{xx} & \lambda^* \\
+    -p_y & U_{yx} & 0
+    \end{vmatrix} \nonumber \\
+    &=& \frac{x^*}{|J|}\begin{vmatrix}
+    -p_x & U_{xx} \\ -p_y & U_{yx}
+    \end{vmatrix} - \frac{\lambda^*}{|J|}\begin{vmatrix}
+    0 & -p_x \\ -p_y & U_{yx}
+    \end{vmatrix}.
+    \end{eqnarray}
+    \bigskip
+    \item Novamente, podemos decompor a derivada parcial de estática comparativa em um efeito renda e um efeito substituição:
+    \begin{equation}
+        \frac{\partial y^*}{\partial p_x} = -x^*\frac{\partial y^*}{\partial I} + \frac{\partial y_c^*}{\partial p_x}.
+    \end{equation}
+    \bigskip
+    \item Neste contexto, o efeito substituição é sempre positivo. Ou seja, os bens $x$ e $y$ são substitutos entre si.
+    \end{itemize}
+\end{frame}
+
+\section{Bibliografia}
+\begin{frame}{\emoji{books} Bibliografia}
+    \begin{itemize}                
+        \item CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas. Rio de Janeiro: Elsevier, 2006\medskip
+        \item SYDSÆTER, K.; HAMMOND, P.J.; STRØM, A.; CARVAJAL, A. Essential mathematics for economic analysis. 5th.ed. Harlow, UK: Pearson Education Limited, 2016
+    \end{itemize}
+\end{frame}
+\end{document}
