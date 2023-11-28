@@ -1,0 +1,698 @@
+\documentclass[10pt]{beamer}
+\usetheme{jambro}
+
+\title[]{Funções homogêneas e funções homotéticas}
+\author[]{\href{https://pvfonseca.github.io/}{Paulo Victor da Fonseca}}
+\date{}
+
+\hypersetup{
+    colorlinks = true,
+    urlcolor = teal,
+    linkcolor = teal    
+}
+\usepackage[portuguese]{babel}
+\usepackage{subfig}
+\usepackage{emoji}
+\usepackage{hyperref}
+\newtheorem{obj}{Objetivo}
+\newtheorem{teo}{Teorema}
+\newtheorem{defi}{Definição}
+
+\begin{document}
+
+\begin{frame}[plain]
+    \titlepage{
+        \begin{center}
+            \begin{minipage}{0.8\textwidth}
+                \centering
+            \end{minipage}
+        \end{center}}
+\end{frame}
+
+\begin{frame}{Sumário}
+    \tableofcontents
+\end{frame}
+
+\section{Introdução}
+\subsection{Introdução}
+\begin{frame}{Introdução}
+    \begin{itemize}
+        \item Para estudarmos de maneira eficiente a estrutura de muitos dos modelos econômicos é necessário compreendermos uma importante classe de funções conhecida como \textcolor{purple}{funções homogêneas}.
+         \bigskip
+        \item O interesse nessas funções emergiu de um problema na teoria econômica da distribuição.
+        \bigskip
+        \item O desenvolvimento da teoria da produtividade marginal por Alfred Marshall (revolução marginalista e escola neoclássica), entre outros, levou à conclusão de que os fatores de produção seriam remunerados de acordo com seus produtos marginais.
+        \bigskip
+        \item Dito de outra forma, os fatores seriam empregados até o ponto em que sua contribuição para à produção da firma seja exatamente igual ao custo de aquisição de unidades adicionais deste fator.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Introdução}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.3\textwidth]{./figures/aula14_fig1.jpg}
+        \caption{Alfred Marshall (1842-1924). Fonte: \href{https://en.wikipedia.org/wiki/Alfred_Marshall}{Wikipedia}.}
+        \label{a.marshall}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Introdução}
+    \begin{itemize}
+        \item Seja $y = f(x_1, x_2)$ a função de produção de uma firma.
+        \bigskip
+        \item Além disso, $w_i$ denota a remuneração do fator $x_i$ e $p$ o preço do produto desta firma, a regra desenvolvida é, portanto:
+        \[
+            p \text{PMg}_i = pf_i = w_i, \qquad f_i \equiv \frac{\partial f}{\partial x_i}.    
+        \]
+         
+        \item No entanto, esta análise foi desenvolvida em um arcabouço de \textcolor{purple}{equilíbrio parcial}. I.e., cada fator era analisado de forma independente.
+        \bigskip
+        \item Uma questão naturalmente emerge: como é possível assegurar que a firma é capaz de fazer estes pagamentos para ambos fatores?
+        \bigskip
+        \item Todas as remunerações dos fatores devem derivar da produção da firma.
+        \bigskip
+        \item Seria produzido uma quantidade suficiente (ou haveria uma superprodução?) para remunerar cada fator pelo seu produto marginal?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Introdução}
+    \begin{itemize}
+        \item Um teorema desenvolvido pelo matemático suíço Euler ajudou a resolver este problema.
+        \bigskip
+        \item Veremos que se a função de produção exibe retornos constantes de escala, a soma da remuneração total de fatores será idêntica à produção total da firma.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Introdução}
+    \begin{itemize}
+        \item Economistas normalmente trabalham com funções que possuem algumas propriedades fortes tais como homogeneidade ou convexidade.
+        \bigskip
+        \item Em algumas vezes, essas propriedades emergem naturalmente para funções específicas.
+        \bigskip
+        \item Por exemplo, funções de demanda são naturalmente homogêneas nos preços e na renda.
+        \bigskip
+        \item Outras, no entanto, os economistas impõe estas propriedades como hipóteses para demonstrar teoremas sobre modelos econômicos.
+        \bigskip
+        \item Por exemplo, conseguimos derivar bem mais resultados para modelos econômicos quando as utilidades são funções homotéticas ou quando as funções lucro são côncavas do que conseguiríamos sem estas hipóteses.
+    \end{itemize}
+\end{frame}
+
+\section{Funções homogêneas}
+\subsection{Definição}
+\begin{frame}{Funções homogêneas}
+    \begin{itemize}
+        \item Considere as seguintes funções:
+        \begin{eqnarray*}
+            f(x,y) &=& x^2 + y^2, \\
+            g(x,y) &=& \frac{xy}{x + y}, \\
+            h(x,y) &=& x^2y\ln \frac{y}{x}.
+        \end{eqnarray*}
+         
+        \item Cada uma dessas funções apresenta uma propriedade interessante de que, se as variáveis $x, y$ forem multiplicadas por um parâmetro $t$ qualquer, então, nós obtemos a função original multiplicada por uma potência de $t$.
+        \bigskip
+        \item Funções que apresentam essa propriedade são chamadas \textcolor{blue}{funções homogêneas}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Funções homogêneas}
+    \begin{itemize}
+        \item Funções homogêneas emergem naturalmente em várias áreas da economia.
+        \bigskip
+        \item Funções lucro e funções custo, que são derivadas das funções de produção, e funções de demanda, que são derivadas de funções utilidade, são automaticamente homogêneas nos modelos econômicos convencionais.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Funções homogêneas}
+    \begin{defi}[Funções homogêneas]
+        Para qualquer escalar $k$, uma função de valores reais $f(x_1, \dots, x_n)$ é \textcolor{blue}{homogênea de grau $k$} se:
+        \begin{equation}
+            f(tx_1, \dots, tx_n) = t^k f(x_1, \dots, x_n),
+            \label{eq1}
+        \end{equation}
+        para todos os valores de $x_1, \dots, x_n$ e $t$ para os quais as funções $f(x_1, \dots, x_n)$ e  $f(tx_1, \dots, tx_n)$ estão definidas.
+    \end{defi}
+\end{frame}
+
+\begin{frame}{Funções homogêneas}
+    \begin{itemize}
+        \item O grau $k$ em nossa definição é uma constante. Não precisa, necessariamente, ser um número inteiro. Além disso, pode ser um número negativo ou igual a zero.
+        \bigskip
+        \item Se nossa relação fundamental (\ref{eq1}) é válida apenas para valores de $t$ restritos ao ortante positivo, $\mathbb{R}_{++}^n$ (ou não-negativo), dizemos que $f$ é \textbf{positivamente homogênea de grau $k$}.
+        \bigskip
+        \item Como em economia normalmente trabalharemos com funções homogêneas definidas no ortante positivo ($t > 0$), por conveniência utilizaremos apenas o termo ``função homogênea de grau $k$''.
+    \end{itemize}
+\end{frame}
+
+\subsection{Exemplos}
+\begin{frame}{Exemplos}
+    \begin{enumerate}
+        \item $\frac{x}{x^2 + y^2}$ é homogênea de grau -1.
+        \bigskip
+        \item $x^{1/3} + xy^{-2/3}$ é homogênea de grau $1/3$.
+        \bigskip
+        \item $\frac{x^2 - y^2}{x^2 + y^2}$ é homogênea de grau 0.
+    \end{enumerate}
+\end{frame}
+
+\subsection{Funções homogêneas em economia}
+\begin{frame}{Funções de produção}
+    \begin{itemize}
+        \item Em economia, normalmente é conveniente trabalhar com funções de produção que sejam funções homogêneas.
+        \bigskip
+        \item Seja $f(x_1, \dots, x_n)$ uma função de produção homogênea de grau $k$, temos que:
+        \[
+        f(tx_1, \dots, tx_n) = t^kf(x_1, \dots, x_n).
+        \]
+         
+        \item Se $k = 1$, dizemos que a firma apresenta \textbf{retornos constantes de escala}.
+        \bigskip
+        \item Se $k > 1$, dizemos que a firma apresenta \textbf{retornos crescentes de escala}.
+        \bigskip
+        \item Se $k < 1$, dizemos que a firma apresenta \textbf{retornos decrescentes de escala}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Funções de produção}
+    \begin{itemize}
+        \item Uma forma funcional específica de função homogênea que frequentemente é utilizada em economia é a função de produção do tipo Cobb-Douglas:
+        \[
+        q = Ax_1^{a_1} \dots x_n^{a_n}, \qquad A, a_1, \dots, a_n > 0.
+        \]
+         
+        \item A função de produção do tipo Cobb-Douglas é homogênea de grau $k = a_1 + \dots + a_n$.
+        \bigskip
+        \item Portanto, a função de produção Cobb-Douglas exibirá retornos decrescentes, constantes ou crescentes de escala a depender da soma de seus expoentes.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Funções de produção}
+    \begin{itemize}
+       \item Desde a publicação do trabalho do matemático Charles Cobb e do economista Paul Douglas nos anos 1920, economistas interessados em estimar funções de produção para uma firma ou indústria específica, normalmente, tentam encontrar a função de produção Cobb-Douglas que melhor se ajusta aos dados de insumo-produto da firma.
+       \bigskip
+       \item Para tanto, podemos estimar uma regressão linear por MQO tomando o logaritmo natural da função de produção:
+       \[
+       \ln q = \ln A + a_1 \ln x_1 + \dots + a_n \ln x_n.
+       \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Funções de produção}
+    \begin{itemize}
+        \item Mostre que a função de produção de elasticidade de substituição constante (CES):
+        \[
+            g(\mathbf{x}) = A\left(\sum_{i=1}^n \delta_i x_i^{-\rho}\right)^{-\nu/\rho},
+        \]
+        é homogênea de grau $\nu$.
+        \bigskip
+        \item Restrições sobre os parâmetros: $A>0, \nu>0, \rho>-1, \rho \neq 0, \delta_i>0$, $\forall i$, $\sum_{i=1}^n \delta_i = 1$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Funções de demanda}
+    \begin{itemize}
+        \item Enquanto as funções de produção são funções homogêneas por \textcolor{blue}{hipótese}, as funções de demanda são homogêneas por \textcolor{blue}{natureza} (pelo menos se ignorarmos o fenômeno de ilusão monetária).
+        \bigskip
+        \item Lembre-se que uma função de demanda é a solução do problema primal de maximização de utilidade de um consumidor, ou seja:
+        \[
+        x = x^d(p_1, \dots, p_n, I) = \max U(x_1, \dots, x_n) \quad \text{s.r.} \quad p_1 x_1 + \dots p_n x_n \leq I.
+        \]
+         
+        \item Note que se multiplicarmos todos os preços e a renda deste consumidor por uma variável positiva $t$ qualquer, sua restrição orçamentária não será alterada.
+        \bigskip
+        \item Em particular, a cesta de consumo ótima $x$ não seria afetada. Em termos de função demanda:
+        \[
+        x^d(tp_1, \dots, tp_n, tI) = x^d(p_1, \dots, p_n, I).
+        \]
+    \end{itemize}
+\end{frame}
+
+\subsection{Propriedades de funções homogêneas}
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{teo}
+        Seja $f(x_1, \dots, x_n)$ uma função homogênea de grau $k$, então, suas derivadas parciais de primeira ordem serão homogêneas de grau $k - 1$.
+    \end{teo}
+\end{frame}
+
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{teo}[Teorema de Euler]
+    Seja $f(x_1, \dots, x_n)$ uma função $C^1$ homogênea de grau $k$ no $\mathbb{R}_+^n$. Então, para quaisquer $x_1, \dots, x_n$:
+    \begin{equation}
+        x_1 \frac{\partial f(x_1, \dots, x_n)}{\partial x_1} + \dots + x_n \frac{\partial f(x_1, \dots, x_n)}{\partial x_n} = kf(x_1, \dots, x_n),
+        \label{eq2}
+    \end{equation}
+    ou, em notação de gradiente:
+    \begin{equation*}
+        \mathbf{x} \nabla f(\mathbf{x}) = f(\mathbf{x}).
+    \end{equation*}
+    \end{teo}
+\end{frame}
+
+\begin{frame}[t]{Exercícios}
+    \begin{itemize}
+        \item Dizemos que uma função é linearmente homogênea se for de grau um.
+        \bigskip
+        \begin{enumerate}
+            \item Dada a função de produção linearmente homogênea $Q = f(K,L)$, o produto médio do trabalho e do capital podem ser expressos como funções da razão capital trabalho apenas.
+            \bigskip
+            \item Dada a função de produção linearmente homogênea $Q = f(K,L)$, os produtos físicos marginais do capital e do trabalho podem ser expressos como funções apenas de $k = \frac{K}{L}$. Mais precisamente, $PMg_K = f'(k)$ e $PMg_L = f(k) - kf'(k)$.
+        \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Aplicação econômica do teorema de Euler}
+    \begin{itemize}
+        \item Uma aplicação convencional do teorema de Euler em economia é o de exaustão do produto total de firmas com funções de produção homogêneas.
+        \bigskip
+        \item Se a função de produção de uma firma é homogênea de grau um, então, pelo teorema de Euler:
+        \[
+        x_1 \frac{\partial f(\mathbf{x})}{\partial x_1} + \dots + x_n \frac{\partial f(\mathbf{x})}{\partial x_n} = f(\mathbf{x}) = q.
+        \]
+         
+        \item Suponha o critério usual de maximização de lucros de que a firma paga a cada fator de produção $x_i$ a receita de seu produto marginal $p (\partial f/\partial x_i)$, de modo que ela contrata cada fator até o ponto em que sua contribuição para o produto da firma seja igual ao custo de obter uma unidade adicional deste fator.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Aplicação econômica do teorema de Euler}
+    \begin{itemize}
+        \item Então, o pagamento total da firma será:
+        \[
+        x_1 p \frac{\partial f(\mathbf{x})}{\partial x_1} + \dots + x_n p \frac{\partial f(\mathbf{x})}{\partial x_n}.
+        \]
+         
+        \item Mas, pelo teorema de Euler, essa expressão é igual a $pq$, ou seja, o produto total da firma.
+        \bigskip
+        \item Portanto, a receita de uma firma com retornos constantes de escala é exatamente exaurida com os pagamentos de todos os fatores de produção.
+        \bigskip
+        \item Dito de outra maneira, o lucro econômico deste tipo de firma é igual a zero.
+        \bigskip
+        \item Se o grau de homogeneidade fosse maior (menor) que um, então, os pagamentos totais excederiam (seriam menores que) o valor do produto.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Princípio das produtividades marginais decrescentes}
+    \begin{itemize}
+        \item \textcolor{blue}{Princípio dos rendimentos físicos (produtividades marginais) decrescentes.} Quanto mais se utiliza um fator de produção $i$, \emph{ceteris paribus}, a contribuição deste fator para o aumento da produção tende a ser cada vez menor, ou seja, o produto físico marginal do fator de produção $i$ é estritamente decrescente com relação à quantidade utilizada deste fator.
+        \bigskip
+        \item Formalmente:
+        \begin{equation}
+            \frac{\partial PM_i(\mathbf{x})}{\partial x_i} = \frac{\partial^2 f(\mathbf{x})}{\partial x_i^2} = f_{ii} < 0, \qquad \forall i = 1, \dots, n.
+        \end{equation}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Princípio das produtividades marginais decrescentes}
+    \begin{itemize}
+        \item Considerando uma função de produção com apenas dois fatores - capital e trabalho - temos:
+        \begin{eqnarray*}
+            \frac{\partial PM_k}{\partial k} &=& \frac{\partial^2 f(k,l)}{\partial k^2} = f_{kk} < 0, \\
+            \frac{\partial PM_l}{\partial l} &=& \frac{\partial^2 f(k,l)}{\partial l^2} = f_{ll} < 0.
+        \end{eqnarray*}
+         
+        \item A hipótese de produtividade marginal decrescente foi originalmente proposta pelo economista do século XIX Thomas Malthus, que temia que o aumento rápido da população resultasse em uma menor produtividade do trabalho.
+        \bigskip
+        \item Suas predições pessimistas para o futuro da humanidade fizeram com que a economia ficasse conhecida como ``ciência sombria''.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Princípio das produtividades marginais decrescentes}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.3\textwidth]{./figures/aula14_fig2.jpg}
+        \caption{Thomas Robert Malthus (1766 - 1834). Fonte: \href{https://en.wikipedia.org/wiki/Thomas_Robert_Malthus}{Wikipedia}.}
+        \label{fig3}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Princípio das produtividades marginais decrescentes}
+    \begin{itemize}
+        \item Uma análise mais cuidadosa da função de produção sugere que tais predições pessimistas podem não ser corretas.
+        \bigskip
+        \item Variações na produtividade marginal do trabalho ao longo do tempo dependem não só de como o fator de produção trabalho está crescendo mas, também, de mudanças nos outros insumos (e.g., capital).
+        \bigskip
+        \item Ou seja, precisamos nos preocupar também com $\partial PM_l/\partial k = f_{lk}$.
+        \bigskip
+        \item Na maioria dos casos, $f_{lk} > 0$, portanto, a diminuição da produtividade do trabalho à medida que \emph{ambos $l$ e $k$ aumentam} pode ser uma conclusão precipitada.
+        \bigskip
+        \item De fato, a produtividade do trabalho parece ter aumentado significativamente desde a época de Malthus, principalmente porque os aumentos nos insumos de capital (combinado a melhorias tecnológicas) compensou o impacto do declínio da produtividade marginal.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Princípio das produtividades marginais decrescentes}
+    \begin{itemize}
+        \item Suponha que nossa função de produção $f(k,l)$, além de satisfazer o princípio das produtividades marginais decrescentes, apresente retornos constantes de escala.
+        \bigskip
+        \item Portanto, temos que (sem perda de generalidade):
+        \begin{eqnarray*}
+            f(tk, tl) &=& tf(k,l), \\
+            \partial^2 f/\partial k^2 &<& 0.
+        \end{eqnarray*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Princípio das produtividades marginais decrescentes}
+    \begin{itemize}
+        \item Como a função produção é homogênea de grau um, pelo primeiro Teorema que vimos hoje, sua derivada é homogênea de grau zero, ou seja:
+        \[
+        \frac{\partial f(tk, tl)}{\partial k} = \frac{\partial f(k,l)}{\partial k}.
+        \]
+         
+        \item Aplicando o teorema de Euler a $\partial f/\partial k$, temos:
+        \[
+        0 \frac{\partial f(k,l)}{\partial k} = k \frac{\partial^2 f(k,l)}{\partial k^2} + l \frac{\partial^2 f(k,l)}{\partial k \partial l}.
+        \]
+         
+        \item Portanto:
+        \[
+        f_{kl} = \frac{\partial^2 f(k,l)}{\partial k \partial l} = -\frac{k}{l}\frac{\partial^2 f(k,l)}{\partial k^2} > 0
+        \]
+         
+        \item Essa derivada parcial cruzada positiva significa que o produto marginal de um fator aumenta quando o outro fator aumenta - \textcolor{blue}{lei de Wicksell}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Exercícios}
+    \begin{itemize}
+        \item Mostre que as seguintes funções são homogêneas e verifique o teorema de Euler:     \bigskip
+        \begin{enumerate}
+            \item $f(x_1, x_2) = x_1x_2^2$.     \bigskip
+            \item $f(x_1,x_2) = x_1x_2 + x_2^2$.     \bigskip
+            \item $f(x_1,x_2) = x_1$.
+        \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{itemize}
+        \item Homogeneidade é uma hipótese forte para uma função de produção e, especialmente, para uma função de utilidade.
+        \bigskip
+        \item Agora iremos considerar as consequências de adotarmos uma função homogênea ao responder as seguintes questões:     \bigskip
+        \begin{enumerate}
+            \item O que podemos afirmar acerca dos conjuntos de nível de uma função homogênea?\medskip
+             
+            \item Quais propriedades analíticas desejáveis uma função homogênea possui?     \bigskip
+        \end{enumerate}
+         
+        \item A propriedade geométrica básica de uma função homogênea é uma consequência direta da definição de homogeneidade.
+        \bigskip
+        \item Seja $f: X \rightarrow \mathbb{R}$ uma função homogênea de grau $k$.
+        \bigskip
+        \item O conjunto de nível-$\alpha$ da função $f$ é definido por:
+        \begin{equation}
+            L(\alpha) \equiv \{x \in X| f(x) = \alpha\}.
+            \label{eq4}
+        \end{equation}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{itemize}
+        \item Seja $x_\alpha$ um ponto em $L(\alpha)$, e considere o ponto $t x_\alpha$ (com $t>0$) obtido ao nos movermos ao longo do raio que passa pela origem e por $x_\alpha$.
+        \bigskip
+        \item Então, $f(x_\alpha) = \alpha$ e, pela homogeneidade de $f$, temos que:
+        \[
+          f(t x_\alpha) = t^k f(x_\alpha) = t^k \alpha.  
+        \]
+         
+        \item Portanto, podemos concluir que $t x_\alpha \in L(t^k \alpha)$ se $x_\alpha \in L(\alpha)$.
+        \bigskip
+        \item De forma análoga, se $y \in L(t^k \alpha)$, então, $(1/t)y$ está sobre o conjunto de nível $L(\alpha)$ pelo mesmo argumento.
+        \bigskip
+        \item Portanto, \textcolor{purple}{os conjuntos de níveis de funções homogêneas são expansões ou contrações radiais uns dos outros} - Figura \ref{fig4}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{./figures/aula14_fig3.PNG}
+        \caption{Conjuntos de nível de uma função homogênea. Fonte: De la Fuente (2000).}
+        \label{fig4}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{itemize}
+        \item Uma consequência da observação anterior pode ser enunciada no seguinte teorema:     \bigskip
+        \begin{teo}
+            Seja $q = f(\mathbf{x})$ uma função homogênea de classe $\mathcal{C}^1$ no ortante positivo. Os planos tangentes aos conjuntos de nível de $f$ possuirão inclinações constantes ao longo de cada raio a partir da origem.
+        \end{teo}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.45\textwidth]{./figures/aula14_fig4.PNG}
+        \caption{TTS de uma função homogênea é constante ao longo dos raios a partir da origem. Fonte: Simon e Blume (2004).}
+        \label{fig5}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{itemize}
+        \item O Teorema apenas enunciado tem consequências importantes para funções utilidade e de produção.
+        \bigskip
+        \item Por exemplo, suponha que $U(\mathbf{x})$ seja uma função utilidade homogênea.
+        \bigskip
+        \item A solução geométrica usual para o problema primal de maximização de utilidade do consumidor prediz que no ponto máximo, a curva de nível de $U$ é tangente à reta orçamentária - Figura \ref{fig6}.
+        \bigskip
+        \item Analiticamente, no ponto de máximo, a inclinação da curva de nível (ou TMS) é igual à inclinação da reta orçamentária.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{./figures/aula14_fig5.PNG}
+        \caption{Problema primal de maximização de utilidade. Fonte: Simon e Blume (2004).}
+        \label{fig6}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{itemize}
+        \item Se aumentarmos a renda deste consumidor por um fator $r$ mantendo os preços unitários dos bens constantes, a reta orçamentária será deslocada paralelamente como na Figura \ref{fig6}.
+        \bigskip
+        \item A inclinação da reta orçamentária permanecerá a mesma.
+        \bigskip
+        \item A solução para o novo problema de otimização ocorre no ponto em que a TMS é igual à razão entre os preços dos bens.
+        \bigskip
+        \item Como a função utilidade é homogênea, este ponto será dado pela interseção entre a nova restrição orçamentária e o raio a partir da origem que passa pelo ponto ótimo original $x(I_0)$, pelo teorema que acabamos de ver.
+        \bigskip
+        \item Portanto, a curva parametrizada $I \rightarrow x(I)$ como na Figura \ref{fig6} indica que a cesta de consumo demandada para diferentes níveis de renda é chamada de \textcolor{purple}{trajetória (caminho) de expansão da renda}.
+        
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Propriedades de funções homogêneas}
+    \begin{itemize}
+        \item Acabamos de mostrar que a trajetória de expansão da renda de uma função utilidade homogênea é um \textbf{raio a partir da origem}.
+        \bigskip
+        \item Esta propriedade de funções homogêneas, implicada pelo teorema enunciado, é conhecida como \textcolor{purple}{homoteticidade}, que estudaremos posteriormente.
+    \end{itemize}
+\end{frame}
+
+\subsection{Utilidade ordinal $\times$ utilidade cardinal}
+\begin{frame}{Utilidade ordinal $\times$ utilidade cardinal}
+    \begin{itemize}
+        \item Funções homogêneas possuem propriedades que as tornam formas funcionais úteis para funções utilidade e de produção.
+        \bigskip
+        \item No entanto, o conceito moderno de utilidade é uma teoria \textcolor{purple}{ordinal}, e não \textcolor{blue}{cardinal}.
+        \bigskip
+        \item Homogeneidade, por sua vez, é uma propriedade cardinal, e não ordinal.
+        \bigskip
+        \item Posteriormente analisaremos uma classe mais ampla de funções que possuem as mesmas propriedades ordinais - \textcolor{purple}{funções homotéticas}.
+    \end{itemize}    
+\end{frame}
+
+\begin{frame}{Utilidade ordinal $\times$ utilidade cardinal}
+    \begin{itemize}
+        \item Uma função utilidade provê uma mensuração do nível de satisfação associado a cada cesta de consumo.
+        \bigskip
+        \item No entanto, economistas não acreditam que um número real pode ser atribuído a cada cesta de consumo de maneira a expressar (em utils) o nível de satisfação de um consumidor com aquela cesta de consumo.
+        \bigskip
+        \item Economistas acreditam que consumidores possuem preferências bem comportadas sobre cestas de consumo e que, dadas duas cestas quaisquer, um consumidor pode estabelecer uma relação de preferência binária entre as duas.
+        \bigskip
+        \item Apesar de trabalharmos com funções utilidade, estamos interessados nos conjuntos de nível de tais funções, e não com o número real que a função utilidade associa a um conjunto de nível qualquer.
+    \end{itemize}    
+\end{frame}
+
+\begin{frame}{Utilidade ordinal $\times$ utilidade cardinal}
+    \begin{itemize}
+        \item Na teoria da utilidade, estes conjuntos de nível são denominados \textcolor{purple}{conjuntos de indiferença}, ou curvas de indiferença quando os conjuntos de nível são curvas.
+        \bigskip
+        \item Uma propriedade de funções utilidades é chamada \textcolor{purple}{ordinal} se depende apenas do formato e posição dos conjuntos de indiferença de um consumidor.
+        \bigskip
+        \item Por outro lado, uma propriedade é denominada \textcolor{blue}{cardinal} se também depende da quantidade absoluta de utilidade que a função utilidade associa a cada um dos conjuntos de indiferença.
+        \bigskip
+        \item Neste contexto, duas funções são \textcolor{purple}{equivalentes} se possuem exatamente os mesmos conjuntos de indiferença, apesar de poderem associar diferentes números reais para um conjunto de indiferença qualquer.        
+    \end{itemize}    
+\end{frame}
+
+\begin{frame}{Utilidade ordinal $\times$ utilidade cardinal}
+    \begin{itemize}
+        \item Exemplo, seja $u(x,y)$ uma função utilidade em $\mathbb{R}_+^2$. Defina $v(x,y)$ como a função utilidade dada por $u(x,y) + 1$.
+        \bigskip
+        \item Essas duas funções possuem exatamente as mesmas curvas de indiferença.
+        \bigskip
+        \item A função $v$ associa um número real que é maior em uma unidade que o número que a função $u$ associa a cada curva de indiferença.
+        \bigskip
+        \item Por exemplo, a curva de indiferença $\{u = 13\}$ coincide com a curva de indiferença $\{v = 14\}$.
+        \bigskip
+        \item As funções $u$ e $v$ representam as mesmas preferências e, portanto, são equivalentes.
+    \end{itemize}    
+\end{frame}
+
+\begin{frame}{Utilidade ordinal $\times$ utilidade cardinal}
+    \begin{itemize}
+        \item A função utilidade $w(x,y) = [u(x,y)]^2$ também é equivalente a $u$.
+        \bigskip
+        \item Se $w(x_1, y_1) = w(x_2, y_2) = a$, então, $u(x_1, y_1) = u(x_2, y_2) = \sqrt{a}$.
+        \bigskip
+        \item As funções utilidade $u$ e $w$ possuem as mesmas curvas de indiferença, apenas atribuem diferentes números reais a elas.
+        \bigskip
+        \item Se $g_1(z) = z + 1$ e $g_2(z) = z^2$, então, podemos escrever $v = g_1 \circ u$ e $w = g_2 \circ u$.
+        \bigskip
+        \item Dizemos que $v$ e $w$ são \textcolor{purple}{transformações monotônicas} de $u$.
+    \end{itemize}    
+\end{frame}
+
+\begin{frame}{Utilidade ordinal $\times$ utilidade cardinal}
+    \begin{defi}[Transformação monotônica]
+        Seja $I$ um intervalo sobre a reta real. Então, $g: I \to \mathbb{R}$ é uma \textcolor{purple}{transformação monotônica} de $I$ se $g$ é uma função estritamente crescente em $I$. Além disso, se $g$ é uma transformação monotônica e $u$ é uma função real de $n$ variáveis, então, dizemos que:
+        \[
+          g \circ u: x \mapsto g(u(x))  
+        \]
+        é uma \textcolor{purple}{transformação monotônica} de $u$.
+    \end{defi}
+    \begin{itemize}
+        \item Obviamente, se $g$ é uma função diferenciável, então $g$ será uma transformação monotônica se $g'(x) > 0$ para qualquer $x \in I$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Utilidade ordinal $\times$ utilidade cardinal}
+    \begin{itemize}
+        \item Uma característica de funções é dita \textcolor{purple}{ordinal} se qualquer transformação monotônica de uma função com esta característica, ainda possui esta característica.
+        \bigskip
+        \item Propriedades \textcolor{blue}{cardinais} não são preservadas por transformações monotônicas.
+        \bigskip
+        \item Observação: em análises de funções de produção, nos preocupamos com o número que a função de produção associa a uma isoquanta qualquer. O nível de produto para cada combinação de insumos possui uma interpretação significativa economicamente.
+        \bigskip
+        \item Dito de outra forma, a distinção entre cardinal e ordinal não é uma preocupação quando estamos tratando de funções de produção.
+    \end{itemize}    
+\end{frame}
+
+\section{Funções homotéticas}
+\begin{frame}{Funções homotéticas}
+    \begin{itemize}
+        \item Como acabamos de ver, homogeneidade é uma propriedade cardinal, e não ordinal.
+        \bigskip
+        \item Exemplos: as funções $g_1(z) = z^3 + z$ e $g_2(z) = z + 1$ são transformações monotônicas, mas a aplicação destas transformações à função homogênea $u(x,y) = xy$ leva a funções que não são homogêneas.
+        \bigskip
+        \item No entanto, muitas das propriedades que tornam funções homogêneas úteis em teoria da utilidade são propriedades ordinais:
+        \bigskip
+        \begin{enumerate}
+            \item Conjuntos de nível são expansões ou contrações radiais uns dos outros.
+            \bigskip
+            \item A inclinação dos conjuntos de nível é constante ao longo de raios a partir da origem.
+        \end{enumerate}
+        \bigskip
+        \item Estas são duas propriedades claramente ordinais: dizem respeito apenas à forma e inclinação das curvas de nível, sem preocupar-se com os números atribuídos a estes conjuntos de nível.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Funções homotéticas}
+    \begin{itemize}
+        \item Definiremos, então, uma classe de funções ordinais - uma classe que possui todas as propriedades ordinais que funções homogêneas possuem.
+    \end{itemize}
+    \begin{defi}[Funções homotéticas]
+        Uma função $v: \mathbb{R}_+^n \to \mathbb{R}$ é dita \textcolor{purple}{homotética} se é uma transformação monotônica de uma função homogênea.
+
+        Isto é, se existe uma transformação monotônica $z \mapsto g(z)$ do $\mathbb{R}_+$ e uma função homogênea $u: \mathbb{R}_+^n \to \mathbb{R}_+$ tal que:
+        \[
+          v(\mathbf{x}) = g(u(\mathbf{x})),  
+        \]
+        para todo $\mathbf{x}$ no domínio da função.
+    \end{defi}
+    \begin{itemize}
+        \item Pela definição, percebe-se que homoteticidade é uma propriedade ordinal: uma transformação monotônica de uma função homotética é, também, uma função homotética.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Caracterizando funções homotéticas}
+    \begin{itemize}
+        \item Discutiremos, agora, duas das principais propriedades ordinais de funções homogêneas.
+        \bigskip
+        \item Veremos que estas propriedades caracterizam funções de utilidade homotéticas.
+        \bigskip
+        \item A primeira propriedade é que conjuntos de nível são expansões ou contrações radiais uns dos outros.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Funções homotéticas}
+    \begin{defi}[Funções monotônicas]
+        $u: \mathbb{R}_+^n \to \mathbb{R}$ é uma \textcolor{purple}{função monotônica} se $\forall x, y \in \mathbb{R}_+^n$:
+        \[
+          x \geq y \Rightarrow u(x) \geq u(y).  
+        \]
+
+        A função $u$ é \textcolor{purple}{estritamente monotônica} se $\forall x, y \in \mathbb{R}_+^n$:
+        \[
+          x > y \Rightarrow u(x) > u(y).  
+        \]
+    \end{defi}
+\end{frame}
+
+\begin{frame}{Funções homotéticas}
+    \begin{itemize}
+        \item Monotonicidade e monotonicidade estrita são propriedades naturais de funções utilidade.        
+    \end{itemize}
+    \begin{teo}
+        Seja $u: \mathbb{R}_+^n \to \mathbb{R}$ uma função estritamente monotônica. Então, $u$ é homotética se, e somente se, para todo $x$ e $y$ em $\mathbb{R}_+^n$:
+        \begin{equation}
+            u(x) \geq u(y) \iff u(\alpha x) \geq u(\alpha y), \qquad \forall \alpha>0.
+        \end{equation}
+    \end{teo}
+\end{frame}
+
+\begin{frame}{Funções homotéticas}
+    \begin{itemize}
+        \item A segunda propriedade ordinal de homogeneidade é que a inclinação de conjuntos de nível é constante ao longo de raios a partir da origem.
+        \bigskip         
+        \item Esta propriedade fornece uma condição necessária baseada no cálculo para homoteticidade (da mesma forma que o teorema de Euler o faz para homogeneidade).
+    \end{itemize}
+    \begin{teo}
+        Seja $u$ uma função $\mathcal{C}^1$ sobre $\mathbb{R}_+^n$. Se $u$ é homotética, então, as inclinações dos planos tangentes aos conjuntos de nível de $u$ são constantes ao longo dos raios a partir da origem.
+
+        Em outras palavras, para quaisquer $i,j$ e para todo $x \in \mathbb{R}_+^n$:
+        \begin{equation}
+            \frac{\frac{\partial u}{\partial x_i}(t\mathbf{x})}{\frac{\partial u}{\partial x_j}(t\mathbf{x})} = \frac{\frac{\partial u}{\partial x_i}(\mathbf{x})}{\frac{\partial u}{\partial x_i}(\mathbf{x})}, \qquad \forall t>0.
+            \label{cond15}
+        \end{equation}
+    \end{teo}            
+\end{frame}
+
+\begin{frame}{Funções homotéticas}
+    \begin{itemize}
+        \item O teorema anterior enuncia que se $u$ é uma função homotética, então, sua taxa marginal de substituição é uma função homogênea de grau zero.
+        \bigskip
+        \item De fato, a condição enunciada é, também, uma condição suficiente para mostrar que uma dada função é homotética.
+        \bigskip
+        \item Alguns textos definem uma função homotética caso sua taxa marginal de substituição seja homogênea de grau zero.        
+    \end{itemize}    
+    \begin{teo}
+        Seja $u$ uma função $\mathcal{C}^1$ sobre $\mathbb{R}_+^n$. Se a condição \ref{cond15} é válida para qualquer $x \in \mathbb{R}_+^n$, para todo $t > 0$ e quaisquer $i,j$, então, $u$ é homotética.
+    \end{teo}
+\end{frame}
+
+\section{Bibliografia}
+\begin{frame}{\emoji{books} Bibliografia}
+    \begin{itemize}                
+        \item CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas. Rio de Janeiro: Elsevier, 2006\medskip
+        \item DE LA FUENTE, Á. Mathematical methods and models for economists. Cambridge University Press, Cambridge, UK, 2000\medskip
+        \item NICHOLSON, W.; SNYDER C. Teoria microeconômica: Princípios básicos e aplicações. Cengage Learning Brasil, 2019. Disponível em: \href{https://app.minhabiblioteca.com.br/books/9788522127030/}{app.minhabiblioteca.com.br/books/9788522127030/}\medskip
+        \item SIMON, C.P.; BLUME, L. Matemática para economistas. Porto Alegre: Bookman, 2004\medskip
+        \item SYDSÆTER, K.; HAMMOND, P.J.; STRØM, A.; CARVAJAL, A. Essential mathematics for economic analysis. 5th.ed. Harlow, UK: Pearson Education Limited, 2016
+    \end{itemize}
+\end{frame}
+\end{document}
