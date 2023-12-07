@@ -1,0 +1,348 @@
+\documentclass[10pt]{beamer}
+\usetheme{jambro}
+
+\title[]{Programação Linear}
+\author[]{\href{https://pvfonseca.github.io/}{Paulo Victor da Fonseca}}
+\date{}
+
+\hypersetup{
+    colorlinks = true,
+    urlcolor = teal,
+    linkcolor = teal    
+}
+\usepackage[portuguese]{babel}
+\usepackage{subfig}
+\usepackage{emoji}
+\usepackage{hyperref}
+\newtheorem{obj}{Objetivo}
+\newtheorem{teo}{Teorema}
+\newtheorem{defi}{Definição}
+
+\begin{document}
+
+\begin{frame}[plain]
+    \titlepage{
+        \begin{center}
+            \begin{minipage}{0.8\textwidth}
+                \centering
+            \end{minipage}
+        \end{center}}
+\end{frame}
+
+\begin{frame}{Sumário}
+    \tableofcontents
+\end{frame}
+
+\section{Introdução}
+\begin{frame}{Introdução}
+    \begin{itemize}
+        \item \hlight{Programação Linear (LP)}: problemas de otimização condicionados nos quais o objetivo é maximizar ou minimizar uma função linear sujeito a um conjunto de restrições de igualdade e/ou desigualdade lineares\bigskip
+        \item Em princípio qualquer problema LP pode ser resolvido numericamente, desde que uma solução exista: método simplex fornece um algoritmo numérico eficiente que encontra o conjunto solução em um número finito de passos\bigskip
+        \item Não discutiremos método simplex, discutiremos a teoria básica de problemas LP ao invés de detalhes do método simplex\bigskip
+        \item A partir de desenvolvimentos nos anos 80, o método simplex deixou de ser o estado da arte para solucionar grandes problemas LP numericamente
+    \end{itemize}
+\end{frame}
+
+\section{Abordagem gráfica}
+\begin{frame}{Abordagem gráfica}
+    \begin{itemize}
+        \item Um problema LP geral em apenas duas variáveis envolve maximizar ou minimizar uma função objetivo linear:
+        \begin{equation*}
+            z = c_1x_1 + c_2x_2
+        \end{equation*}
+        sujeito a $m$ restrições de desigualdade lineares:
+        \begin{align*}
+            a_{11}x_1 + a_{12}x_2 &\leq b_1\\
+            a_{21}x_1 + a_{22}x_2 &\leq b_2\\
+             &\ddots \\
+            a_{m1}x_1 + a_{m2}x_2 &\leq b_m
+        \end{align*}
+        \item Normalmente impomos, também, restrições de não-negatividade:
+        \[
+          x_1\geq 0, \qquad x_2\geq 0  
+        \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Abordagem gráfica}
+    \begin{itemize}
+        \item \hlight{Problema de produção (Bertsimas \& Tsitsiklis, 1997):} uma fábrica produz dois produtos - Produto 1 e Produto 2\bigskip
+        \item A produção de cada bem requer tanto matéria-prima quanto mão-de-obra\bigskip
+        \item A venda de cada produto gera uma receita\bigskip        
+    \end{itemize}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{l|r|r}
+        \hline
+         & \textbf{Produto 1} & \textbf{Produto 2} \\
+        \hline
+        \hline
+        \textbf{Material} & 2 & 5 \\
+        \textbf{Trabalho} & 4 & 2 \\
+        \textbf{Receita} & 3 & 4 \\
+        \hline
+        \end{tabular}
+    \end{table}
+    \begin{itemize}
+        \item 30 unidades de material e 20 unidades de trabalho estão disponíveis\bigskip
+        \item Objetivo é construir um plano de produção que maximize receita
+    \end{itemize}    
+\end{frame}
+
+\begin{frame}{Aborgadem gráfica}
+    \begin{itemize}
+        \item Formulação do problema:
+        \begin{align*}
+            \max_{x_1,x_2} \quad & z = 3x_1 + 4x_2\\
+            \text{s.a.} \quad & 2x_1 + 5x_2 \leq 30\\
+            & 4x_1 + 2x_2 \leq 20\\
+            & x_1, x_2 \geq 0
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Aborgadem gráfica}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{./figures/aula15_fig1.png}
+        \caption{Solução gráfica do problema de produção}        
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Abordagem gráfica}
+    \begin{itemize}
+        \item \hlight{Nomenclatura}\bigskip
+        \item \hlight{Solução viável:} um vetor $x$ que satisfaz todas as restrições\bigskip
+        \item \hlight{Conjunto factível:} o conjunto de todas as soluções viáveis\bigskip
+        \item \hlight{Solução ótima:} uma solução viável $x$ que maximiza ou minimiza a função objetivo\bigskip
+        \item \hlight{Valor ótimo:} o valor da função objetivo na solução ótima\bigskip
+        \item Se o conjunto factível é vazio, dizemos que o problema LP é não-factível
+    \end{itemize}    
+\end{frame}
+
+\begin{frame}{Abordagem gráfica}
+    \begin{itemize}
+        \item Na Figura, a região azul é o conjunto factível no qual todas as restrições são satisfeitas\bigskip
+        \item As linhas paralelas laranjas são as curvas de nível da função objetivo (iso-receitas)\bigskip
+        \item O objetivo da firma é encontrar as linhas laranjas paralelas ao limite superior do conjunto factível\bigskip
+        \item A intersecção do conjunto factível e a linha laranja mais alta delimita o conjunto factível\bigskip
+        \item Neste caso, o conjunto factível é o ponto $\left(\frac{5}{2}, 5\right)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 2}    
+    \begin{itemize}
+            \item Um padeiro tem 150 kg de farinha, 22kg de açúcar e 27,5kg de manteiga com os quais prepara 2 tipos de bolo\bigskip
+            \item Suponha que a produção de 1 dúzia de bolos do tipo A requer 3kg de farinha, 1kg de açúcar e 1kg de manteiga\bigskip
+            \item Suponha que a produção de 1 dúzia de bolos do tipo B requer 6kg de farinha, 1/2 kg de açúcar e 1kg de manteiga\bigskip
+            \item A receita de venda de 1 dúzia de bolos do tipo A é de 20 e a receita de venda de 1 dúzia de bolos do tipo B é de 30\bigskip
+            \item Quantas dúzias de bolos do tipo A ($x_1$) e quantas dúzias de bolos do tipo B ($x_2$) o padeiro deve produzir para maximizar sua receita?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 2}
+    \begin{itemize}
+        \item Formulação do problema:
+        \begin{align*}
+            \max_{x_1,x_2} \quad & z = 20x_1 + 30x_2\\
+            \text{s.a.} \quad & 3x_1 + 6x_2 \leq 150\\
+            & x_1 + 0,5x_2 \leq 22\\
+            & x_1 + x_2 \leq 27,5 \\
+            & x_1, x_2 \geq 0
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 2}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{./figures/aula15_fig2.png}        
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Exemplo 3}
+    \begin{itemize}
+        \item Uma firma produz dois bens, A e B\bigskip
+        \item A firma possui 2 fábricas que, conjuntamente, produzem os 2 bens nas seguintes quantidades (por hora):
+    \end{itemize}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{l|r|r}
+        \hline
+         & \textbf{Fábrica 1} & \textbf{Fábrica 2} \\
+        \hline
+        \hline
+        \textbf{Bem A} & 10 & 20 \\
+        \textbf{Bem B} & 25 & 25 \\
+        \hline
+        \end{tabular}
+    \end{table}
+    \begin{itemize}
+        \item A firma recebe uma encomenda de 300 unidades do Bem A e 500 unidades do Bem B\bigskip
+        \item Os custos de operação das fábricas são de 10000 e 8000 por hora, respectivamente
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 3}
+    \begin{itemize}
+        \item Formulação do problema:
+        \begin{align*}
+            \min_{u_1,u_2} \quad & z = 10000u_1 + 8000u_2\\
+            \text{s.a.} \quad & 10u_1 + 20u_2 \geq 300\\
+            & 25u_1 + 25u_2 \geq 500\\            
+            & u_1, u_2 \geq 0
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Exemplo 3}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{./figures/aula15_fig3.png}        
+    \end{figure}
+\end{frame}
+
+\section{Problema LP generalizado}
+\begin{frame}
+    \begin{itemize}
+        \item Abordagem gráfica funciona bem quando temos apenas duas variáveis de decisão\bigskip
+        \item O método pode ser estendido para 3 variáveis de decisão: o conjunto factível, neste caso, é um poliedro convexo no espaço tridimensional e as superfícies de nível da função objetivo são planos no espaço tridimensional\bigskip
+        \item Não é fácil visualizar a solução nestes casos\bigskip
+        \item Para mais que três variáveis de decisão, não temos abordagens gráficas disponíveis\bigskip
+        \item No entanto, podemos usar \hlight{teoria da dualidade} para resolver problemas LP graficamente quando ou o número de incógnitas ou o número de restrições é menor ou igual a 3
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Problema LP generalizado}
+    \begin{itemize}
+        \item Objetivo é maximizar ou minimizar a função objetivo:
+        \begin{equation}
+            z = c_1x_1 + c_2x_2 + \cdots + c_nx_n = c'x
+        \end{equation}
+        sujeito a $m$ restrições lineares de desigualdade:
+        \begin{eqnarray}
+            a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &\leq& b_1\nonumber\\
+            a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n &\leq& b_2\nonumber\\
+            \vdots &\ddots& \vdots\\
+            a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &\leq& b_m\nonumber
+        \end{eqnarray}
+        usualmente impomos restrições de não-negatividade:
+        \begin{equation}
+            x_1\geq 0, \quad x_2\geq 0, \quad \cdots, \quad x_n\geq 0
+        \end{equation}        
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Problema LP generalizado}
+    \begin{itemize}
+        \item O conjunto de soluções viáveis, neste caso, é um poliedro convexo no ortante não-negativo do espaço $n$-dimensional\bigskip
+        \item Para o caso tridimensional temos o seguinte exemplo:
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.3\textwidth]{./figures/aula15_fig4.png}        
+        \caption{Um poliedro convexo no ortante não-negativo do espaço tridimensional}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Problema LP generalizado}
+    \begin{itemize}
+        \item Os pontos O, P, Q, R, S, T, U, V são pontos extremos\bigskip
+        \item Os segmentos de reta OP, OT, OV, etc. são arestas\bigskip
+        \item As porções planas da fronteira que são triângulos ou quadriláteros são faces\bigskip
+        \item Estes objetos também estão presentes em qualquer poliedro convexo do espaço $n$-dimensional\bigskip
+        \item Se $n$ e $m$ são grandes, o número de pontos extremos pode ser gigantesco, mas o método simplex pode resolver este tipo de problemas
+    \end{itemize}    
+\end{frame}
+
+\section{Teoria da dualidade: introdução}
+\begin{frame}{Problema dual}
+    \begin{itemize}
+        \item O que acontece com a solução ótima se a disponibilidaed de recursos é alterada?\bigskip
+        \item Para problemas de programação linear, as respostas a questões deste tipo estão relacionadas à teoria da dualidade de LP\bigskip
+        \item Considere, novamente, o problema do padeiro [NA LOUSA]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Problema dual}
+    \begin{itemize}
+        \item Considere o problema LP geral:
+        \begin{align}
+            \max \quad & c_1 x_1 + \dots + c_n x_n \\
+            \text{s.a.} \quad & a_{11}x_1 + \dots + a_{1n}x_n \leq b_1\nonumber\\
+            & \qquad \vdots \nonumber\\
+            & a_{m1}x_1 + \dots + a_{mn}x_n \leq b_m\nonumber\\
+            & x_1 \geq 0, \dots, x_n \geq 0\nonumber
+        \end{align}
+        \item O problema dual associado é dado por:
+        \begin{align}
+            \min \quad & b_1 u_1 + \dots + b_m u_m \\
+            \text{s.a.} \quad & a_{11}u_1 + \dots + a_{m1}u_m \geq c_1\nonumber\\
+            & \qquad \vdots \nonumber\\
+            & a_{1n}u_1 + \dots + a_{mn}u_m \geq c_n\nonumber\\
+            & u_1 \geq 0, \dots, u_m \geq 0\nonumber
+        \end{align}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Problema dual}
+    \begin{itemize}
+        \item Em formulação matricial, o problema primal é dado por:
+        \begin{equation}
+            \max \mathbf{c'x} \quad \text{s.a.} \quad \mathbf{Ax \leq b}, \quad \mathbf{x\geq 0}
+        \end{equation}
+        \item Em formulação matricial, o problema dual é dado por:
+        \begin{equation}
+            \min \mathbf{b'u} \quad \text{s.a.} \quad \mathbf{A'u \geq c}, \quad \mathbf{u\geq 0}
+        \end{equation}
+        \item Ou, de forma mais conveniente:
+        \begin{equation}
+            \min \mathbf{u'b} \quad \text{s.a.} \quad \mathbf{u'A \geq c'}, \quad \mathbf{u'\geq 0}
+        \end{equation}
+    \end{itemize}
+\end{frame}
+
+\section{Teorema da dualidade}
+\begin{frame}{Teorema da dualidade}
+    \begin{teo}[1]
+        Se $(x_1, \dots, x_n)$ é uma solução viável para o problema primal e $(u_1, \dots, u_m)$ é uma solução viável para o problema dual, então:
+        \begin{equation}
+            b_1 u_1 + \dots + b_m u_m \geq c_1 x_1 + \dots + c_n x_n
+        \end{equation}
+        De forma que a função objetivo no problema dual sempre tem um valor pelo menos tão grande quanto do problema primal.
+    \end{teo}
+\end{frame}
+
+\begin{frame}{Teorema da dualidade}
+    \begin{teo}[2]
+        Suponha que $(x_1^*, \dots, x_n^*)$ e $(u_1^*, \dots, u_m^*)$ são soluções viáveis para o problema primal e dual, respectivamente, e que:
+        \begin{equation}
+            b_1 u_1^* + \dots + b_m u_m^* = c_1 x_1^* + \dots + c_n x_n^*
+        \end{equation}
+        Então $(x_1^*, \dots, x_n^*)$ é uma solução do problema primal e $(u_1^*, \dots, u_m^*)$ uma solução para o problema dual.
+    \end{teo}
+\end{frame}
+
+\begin{frame}{Teorema da dualidade}
+    \begin{teo}[Teorema da Dualidade]
+        Suponha que o problema primal possui uma solução ótima finita. Então, o problema dual também possui uma solução ótima finita e os valores correspondentes das funções objetivo são iguais.
+        
+        \bigskip
+        Se o problema primal não possui um ótimo limitado, então, o problema dual não possui solução viável.
+        
+        \bigskip
+        De forma simétrica, se o problema primal não possui solução viável, então, o problema dual não possui um ótimo limitado.
+    \end{teo}
+\end{frame}
+
+\section{Bibliografia}
+\begin{frame}{\emoji{books} Bibliografia}
+    \begin{itemize}                
+        \item CHIANG, A.C.; WAINWRIGHT, K. Matemática para economistas. Rio de Janeiro: Elsevier, 2006\medskip
+        \item DE LA FUENTE, Á. Mathematical methods and models for economists. Cambridge University Press, Cambridge, UK, 2000\medskip
+        \item NICHOLSON, W.; SNYDER C. Teoria microeconômica: Princípios básicos e aplicações. Cengage Learning Brasil, 2019. Disponível em: \href{https://app.minhabiblioteca.com.br/books/9788522127030/}{app.minhabiblioteca.com.br/books/9788522127030/}\medskip
+        \item SIMON, C.P.; BLUME, L. Matemática para economistas. Porto Alegre: Bookman, 2004\medskip
+        \item SYDSÆTER, K.; HAMMOND, P.J.; STRØM, A.; CARVAJAL, A. Essential mathematics for economic analysis. 5th.ed. Harlow, UK: Pearson Education Limited, 2016
+    \end{itemize}
+\end{frame}
+\end{document}
