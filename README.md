@@ -11,8 +11,8 @@
 >
 > Horários:
 >
-> * Quartas-feiras das 08:20 às 10:00
-> * Sextas-feiras das 10:15 às 11:55
+> * Segundas-feiras das 08:20 às 10:00
+> * Quintas-feiras das 10:15 às 11:55
 > 
 
 ## Descrição do curso
