@@ -49,8 +49,8 @@ Ao final do curso espera-se que o aluno seja capaz de utilizar o ferramental des
 
 > * Atividade Avaliativa I (PI): 30%
 > * Atividade Avaliativa II (PII): 30%
-> * Atividade Avaliativa III (PIII): 20%
-> * Trabalhos Adicionais: 20%
+> * Atividade Avaliativa III (PIII): 30%
+> * Trabalhos Adicionais: 10%
 
 ## Bibliografia :books:
 
